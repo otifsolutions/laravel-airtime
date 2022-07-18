@@ -1,0 +1,28 @@
+{
+  "name": "otifsolutions/laravel-airtime",
+  "description": "Package will sync the operators data with specified transactions",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "OTIF Solutions",
+      "email": "contact@otif-solutions.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "OTIFSolutions\\LaravelAirtime\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "OTIFSolutions\\LaravelAirtime\\AirtimeServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "otifsolutions/curl-handler": "^1",
+    "otifsolutions/laravel-settings": "^1"
+  }
+}
