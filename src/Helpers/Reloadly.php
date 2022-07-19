@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Helpers;
+namespace OTIFSolutions\LaravelAirtime\Helpers;
 
-use App\Models\ReloadlyOperator;
-use App\Models\ReloadlyTransaction;
 use OTIFSolutions\CurlHandler\Curl;
+use OTIFSolutions\LaravelAirtime\Models\ReloadlyOperator;
+use OTIFSolutions\LaravelAirtime\Models\ReloadlyTransaction;
 
 /**
  * Class Reloadly
@@ -67,7 +67,6 @@ class Reloadly {
                 $this->mode = $enable ? 'TEST' : 'LIVE';
                 return $this;
             }
-
 
             public function setToken(string $token): object {
                 $this->token = $token;
