@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ReloadlyCountry extends Model {
     use SoftDeletes;
-    
+
     protected $guarded = [];
+
+    public function operators() {
+        return $this->hasMany(ReloadlyOperator::class);
+    }
+
 }
