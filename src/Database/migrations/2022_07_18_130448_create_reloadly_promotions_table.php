@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->string('denominations')->nullable();
-            $table->string('localDenominations')->nullable();
+            $table->string('local_denominations')->nullable();
             $table->timestamps();
         });
     }
