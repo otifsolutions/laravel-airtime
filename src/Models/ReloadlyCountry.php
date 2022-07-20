@@ -10,6 +10,8 @@ class ReloadlyCountry extends Model {
 
     protected $guarded = [];
 
+    protected $casts = ['calling_codes' => 'json'];
+
     public function operators() {
         return $this->hasMany(ReloadlyOperator::class);
     }
