@@ -5,26 +5,36 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up() {
         Schema::create('reloadly_operators', function (Blueprint $table) {
             $table->engine = 'myIsam';
             $table->id();
             $table->string('rid');
-            $table->bigInteger('country_id');
+
+            // $table->bigInteger('country_id');
+
+            $table->foreignId('country_id')
+                ->references('id')
+                ->on('reloadly_countries');
+
             $table->string('name');
             $table->string('bundle');
             $table->tinyInteger('data')->nullable();
             $table->tinyInteger('pin')->nullable();
             $table->tinyInteger('supports_local_amounts')->nullable();
             $table->string('denomination_type');
-            $table->bigInteger('sender_currency_id');
+
+            $table->foreignId('sender_currency_id')
+                ->references('id')
+                ->on('currencies');
+
             $table->string('sender_currency_symbol');
-            $table->bigInteger('destination_currency_id');
+
+            $table->foreignId('destination_currency_id')
+                ->references('id')
+                ->on('currencies');
+
             $table->string('destination_currency_symbol');
             $table->double('commission');
             $table->double('international_discount');
@@ -47,11 +57,6 @@ return new class extends Migration {
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down() {
         Schema::dropIfExists('reloadly_operators');
     }
