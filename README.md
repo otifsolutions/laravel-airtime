@@ -18,6 +18,11 @@ mySQL database tables got from the response by using the artisan commands.
     composer require otifsolutions/laravel-airtime
 ```
 
+then run the migrations
+
+```
+    php artisan migrate
+```
 
 ## Table of Contents
 1. [Reloadly](#reloadly)
