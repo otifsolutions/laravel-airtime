@@ -1,6 +1,6 @@
 {
   "name": "otifsolutions/laravel-airtime",
-  "description": "Package will sync the operators data with specified transactions",
+  "description": "The package will use these four listed serivce, hit their API's and get all the data synced in mySQL database tables got from the response by using the artisan commands.",
   "type": "library",
   "license": "MIT",
   "authors": [
