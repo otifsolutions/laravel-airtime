@@ -34,7 +34,7 @@ maintains detailed record of all the successfull/unsuccessful transactions happe
 
 ### Usage
 _________
-Sign-up at [Reloadly](https://www.reloadly.com/) and get the keys from [Reloadly/keys](https://www.reloadly.com/),
+Sign-up at [Reloadly](https://www.reloadly.com/) and get the keys from [Reloadly/keys](https://www.reloadly.com/developers/api-settings),
 the keys will be used with the package, you have to grab these keys and give them to the package by `tinker`.
 The third one is mode, wheter it'll be `LIVE` or `TEST`. We are using [Setting](https://github.com/otifsolutions/laravel-settings)
 package to set the keys
