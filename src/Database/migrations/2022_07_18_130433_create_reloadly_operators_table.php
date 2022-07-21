@@ -12,8 +12,6 @@ return new class extends Migration {
             $table->id();
             $table->string('rid');
 
-            // $table->bigInteger('country_id');
-
             $table->foreignId('country_id')
                 ->references('id')
                 ->on('reloadly_countries');
@@ -45,7 +43,7 @@ return new class extends Migration {
             $table->double('max_amount')->nullable();
             $table->double('local_max_amount')->nullable();
             $table->double('fx_rate')->nullable();
-            $table->longText('logo_urls')->nullable()->comment('(DC2Type:json)');
+            $table->json('logo_urls')->nullable()->comment('(DC2Type:json)');
             $table->json('fixed_amounts');
             $table->json('fixed_amounts_descriptions');
             $table->json('local_fixed_amounts');

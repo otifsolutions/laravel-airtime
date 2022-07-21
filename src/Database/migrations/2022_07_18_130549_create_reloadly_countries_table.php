@@ -12,7 +12,11 @@ return new class extends Migration {
             $table->id();
             $table->string('iso');
             $table->string('name');
-            $table->bigInteger('currency_id');
+
+            $table->foreignId('currency_id')
+                ->references('id')
+                ->on('currencies');
+
             $table->string('currency_name');
             $table->string('currency_symbol');
             $table->string('flag');
