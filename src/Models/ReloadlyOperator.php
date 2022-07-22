@@ -9,7 +9,7 @@ class ReloadlyOperator extends Model {
 
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'logo_urls' => 'json',

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ReloadlyCountry extends Model {
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     protected $casts = ['calling_codes' => 'json'];
 

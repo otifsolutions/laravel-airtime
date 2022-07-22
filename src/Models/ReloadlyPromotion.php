@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReloadlyPromotion extends Model {
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function operator() {
         return $this->belongsTo(ReloadlyOperator::class);

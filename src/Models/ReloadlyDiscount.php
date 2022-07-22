@@ -9,7 +9,7 @@ class ReloadlyDiscount extends Model {
 
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function operator() {
         return $this->belongsTo(ReloadlyOperator::class);
