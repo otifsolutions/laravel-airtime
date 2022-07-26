@@ -147,13 +147,15 @@ php artisan sync:valuetopupstatus
 
 **Model relationships for Value Topup Service**
 
-| Model                | Relation   |Model                  |
-| :------------------: |:----------:|:---------------------:|
-| ValueTopupCategory   | 1-m        | ValueTopupCountry     |
-| ValueTopupCategory   | 1-m        | ValueTopupOperator    |
-| ValueTopupOperator   | 1-m        | ValueTopupProducts    |
-| ValueTopupCategory   | 1-m        | ValueTopupTransaction |
-| ValueTopupCategory   | 1-m        | ReloadlyTransaction   |
+| Model                | Relation   |Model                     |
+| :------------------: |:----------:|:------------------------:|
+| ValueTopupCategory   | 1-m        | ValueTopupCountry        |
+| ValueTopupCategory   | 1-m        | ValueTopupOperator       |
+| ValueTopupOperator   | 1-m        | ValueTopupProducts       |
+| ValueTopupCategory   | 1-m        | ValueTopupTransaction    |
+| ValueTopupCategory   | 1-m        | ValueTopupTransaction    |
+| ValueTopupCountry    | 1-m        | ValueTopupTransaction    |
+| ValueTopupOperator   | 1-m        | ValueTopupTransaction    |
 
 
 ## Ding Connect
