@@ -134,6 +134,15 @@ to run the commands
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_api_mode', 'MODE');
 ```
 
+**Artisan command to sync the data**
+```php
+php artisan sync:valuetopup
+```
+
+**Artisan command to check the status**
+```php
+php artisan sync:valuetopupstatus
+```
 
 ### Model Relationships
 ________________________
