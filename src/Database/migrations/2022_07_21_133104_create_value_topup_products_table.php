@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->double('min_amount');
             $table->double('max_amount');
             $table->integer('discount');
-            $table->integer('pricing');
+            $table->string('pricing');
             $table->integer('category');
             $table->tinyInteger('is_sales_tax_charged');
             $table->double('sales_tax');
@@ -44,6 +44,5 @@ return new class extends Migration {
     public function down() {
         Schema::dropIfExists('value_topup_products');
     }
-
 
 };
