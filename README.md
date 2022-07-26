@@ -21,13 +21,13 @@ mySQL database tables got from the response by using the artisan commands.
 then run the migrations
 
 ```
-    php artisan migrate
+ php artisan migrate
 ```
 
 ## Table of Contents
 1. [Reloadly](#reloadly)
-2. [Ding Connect](#ding-connect)
-3. [Value Topup](#value-topup)
+2. [Value Topup](#value-topup)
+3. [Ding Connect](#ding-connect)
 4. [D Tone](#d-tone)
 
 
@@ -106,29 +106,6 @@ _______________________
 | ReloadlyOperator| 1-m        | ReloadlyTransaction|
 
 
-_____________________________________________________________________________________________
-
-## Ding Connect
-
-
-### Usage
-_________
-
-
-
-#### Commands
-_____________
-
-
-
-
-
-### Model Relationships
-________________________
-
-
-
-
 __________________________________________________________________________________
 
 ## Value Topup
@@ -149,6 +126,37 @@ _____________
 
 ### Model Relationships
 ________________________
+
+**Model relationships for Value Topup Service**
+
+| Model                | Relation   |Model               |
+| :------------------: |:----------:|:------------------:|
+| ValueTopupCategory   | 1-m        | ValueTopupCountry  |
+| ValueTopupCategory   | 1-m        | ValueTopupOperator |
+| ValueTopupOperator   | 1-m        | ValueTopupProducts |
+| ReloadlyOperator     | 1-m        | ReloadlyPromotion  |
+| ReloadlyOperator     | 1-m        | ReloadlyTransaction|
+
+
+## Ding Connect
+
+
+### Usage
+_________
+
+
+
+#### Commands
+_____________
+
+
+
+
+
+### Model Relationships
+________________________
+
+
 
 
 __________________________________________________________________________________
