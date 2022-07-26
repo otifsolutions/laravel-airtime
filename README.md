@@ -32,13 +32,13 @@ then run the migrations
 
 
 ### Reloadly:
-_____________
+
 It is the service that deals with topups transactions among users from 800+ of operators around the globe,
 maintains detailed record of all the successfull/unsuccessful transactions happened between operators and users
 
 
 ### Usage
-_________
+
 Sign-up at [Reloadly](https://www.reloadly.com/) and get the keys from [Reloadly/keys](https://www.reloadly.com/developers/api-settings),
 the keys will be used with the package, you have to grab these keys and give them to the package by `tinker`.
 The third one is mode, wheter it'll be `LIVE` or `TEST`. We are using [Setting](https://github.com/otifsolutions/laravel-settings)
@@ -69,7 +69,7 @@ $obj->sendTopup($reloadlyTransactionObj);
 
 
 #### Command
-____________
+
 After installing package, you'll have artisan command
 
 ```
@@ -93,7 +93,7 @@ You can even schedule it to run on a specific date and time. More more info, vis
 
 
 ### Model Relationships
-_______________________
+
 
 **Model relationships for Reloadly Service**
 
@@ -106,16 +106,15 @@ _______________________
 | ReloadlyOperator| 1-m        | ReloadlyTransaction|
 
 
-__________________________________________________________________________________
 
 ## Value Topup
+______________
 The service is same as above, just go to the site, register, grab the `username` and `password`,
 give to the package via command given. Hit the command to populate the data coming from the `API`
 response.
 
 
 #### Commands
-_____________
 After the migrations run successfully, you have to give the `username` & `password` via command. Use *tinker*
 to run the commands
 
@@ -145,7 +144,6 @@ php artisan sync:valuetopupstatus
 ```
 
 ### Model Relationships
-________________________
 
 **Model relationships for Value Topup Service**
 
@@ -159,50 +157,40 @@ ________________________
 
 
 ## Ding Connect
-
+_______________
 
 ### Usage
 _________
 
 
-
 #### Commands
-_____________
-
-
 
 
 
 ### Model Relationships
-________________________
 
 
 
-
-__________________________________________________________________________________
 
 ## D Tone
-
+---------
 
 ### Usage
-_________
 
 
 
 #### Commands
-_____________
+
 
 
 
 
 
 ### Model Relationships
-________________________
 
 
 
 
-_______________________________________________________________________________________________
 
 
 #### Licence
