@@ -8,9 +8,25 @@ class ValueTopupTransaction extends Model {
 
     protected $guarded = ['id'];
 
-    protected $caste = [
+    protected $casts = [
         'response' => 'json',
         'details' => 'json'
     ];
+
+    public function category() {
+        return $this->belongsTo(ValueTopupCategory::class);
+    }
+
+    public function country() {
+        return $this->belongsTo(ValueTopupCountry::class);
+    }
+
+    public function operator() {
+        return $this->belongsTo(ValueTopupOperator::class);
+    }
+
+    public function product() {
+        return $this->belongsTo(ValueTopupProduct::class);
+    }
 
 }
