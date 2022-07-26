@@ -15,7 +15,7 @@ mySQL database tables got from the response by using the artisan commands.
 [Composer](https://getcomposer.org/download/) required to install the package
 
 ```
-    composer require otifsolutions/laravel-airtime
+ composer require otifsolutions/laravel-airtime
 ```
 
 then run the migrations
@@ -134,8 +134,8 @@ ________________________
 | ValueTopupCategory   | 1-m        | ValueTopupCountry  |
 | ValueTopupCategory   | 1-m        | ValueTopupOperator |
 | ValueTopupOperator   | 1-m        | ValueTopupProducts |
-| ReloadlyOperator     | 1-m        | ReloadlyPromotion  |
-| ReloadlyOperator     | 1-m        | ReloadlyTransaction|
+| ValueTopupCategory     | 1-m        | ValueTopupTransaction  |
+| ValueTopupCategory     | 1-m        | ReloadlyTransaction|
 
 
 ## Ding Connect
