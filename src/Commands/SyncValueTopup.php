@@ -2,14 +2,14 @@
 
 namespace OTIFSolutions\LaravelAirtime\Commands;
 
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupOperator;
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupCountry;
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupProduct;
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupCategory;
-use OTIFSolutions\LaravelAirtime\Helpers\ValueTopup;
-
 use Illuminate\Console\Command;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
+use OTIFSolutions\LaravelAirtime\Helpers\ValueTopup;
+use OTIFSolutions\LaravelAirtime\Models\ValueTopupCategory;
+use OTIFSolutions\LaravelAirtime\Models\ValueTopupCountry;
+use OTIFSolutions\LaravelAirtime\Models\ValueTopupOperator;
+use OTIFSolutions\LaravelAirtime\Models\ValueTopupProduct;
+use OTIFSolutions\LaravelAirtime\Models\ValueTopupPromotion;
 
 class SyncValueTopup extends Command {
     /**
@@ -26,29 +26,32 @@ class SyncValueTopup extends Command {
      */
     protected $description = 'Sync countries,operators,products with the ValueTopup Platform';
 
-    protected function syncPromotions($promotions){
-            foreach ($promotions['payLoad'] as $promotion){
-                ValueTopupOperator::updateOrCreate(
-                    ['name' => $promotion['promotionName']],
-                    [
-                        'product_id' => $promotion['product']['product_id'],
-                        'start_date' => $promotion['startDate'],
-                        'end_date' => $promotion['endDate'],
-                        'description' => $promotion['description'],
-                        'restriction' => $promotion['restriction'],
-                        'promotion_min_max' => $promotion['promotionMinMax'],
-                        'product' => $promotion['product'],
-                    ]
-                );
-            }
+    protected function syncPromotions($promotions) {
+        foreach ($promotions['payLoad'] as $promotion) {
+            $valueTopupOperator = ValueTopupOperator::where('product_id', $promotion['product']['productId'])->first();
+            ValueTopupPromotion::updateOrCreate(
+                ['name' => $promotion['promotionName']],
+                [
+                    'operator_id' => $valueTopupOperator['id'],
+                    'start_date' => $promotion['startDate'],
+                    'end_date' => $promotion['endDate'],
+                    'description' => $promotion['description'],
+                    'restriction' => $promotion['restriction'],
+                    'promotion_min_max' => $promotion['promotionMinMax'],
+                    'product' => $promotion['product'],
+                ]
+            );
         }
+    }
 
     /**
      * Execute the console command.
      *
      * @return int
+     * @throws \JsonException
      */
     public function handle() {
+
         $this->line("");
         $this->line("****************************************************************");
         $this->info("Getting token to authenticate from ValueTopup Platform");
@@ -57,12 +60,12 @@ class SyncValueTopup extends Command {
         $this->line("Fetching Balance");
         $balance = ValueTopup::Make()->getBalance();
 
-        if(($balance['responseCode'] === "000") && isset($balance['payLoad']['balance'])){
-            Setting::set('value_topup_balance',$balance['payLoad']['balance'],'STRING');
+        if (($balance['responseCode'] === "000") && isset($balance['payLoad']['balance'])) {
+            Setting::set('value_topup_balance', $balance['payLoad']['balance'], 'STRING');
             $this->info("Balance Synced");
-        }else{
+        } else {
             $this->info("Balance API Failed");
-            return  0;
+            return 0;
         }
 
         $this->line("");
@@ -71,7 +74,6 @@ class SyncValueTopup extends Command {
         $this->line("****************************************************************");
         $this->line("Fetching Products list from ValueTopup");
 
-
         $categories = ValueTopupCategory::all();
         $countries = ValueTopupCountry::all();
         $carriers = ValueTopup::Make()->getValueTopupCarrier();
@@ -79,17 +81,17 @@ class SyncValueTopup extends Command {
         $this->info("Fetching Complete.");
         $this->line("Syncing with database.");
         foreach ($carriers['payLoad'] as $carrier) {
-            $valueTopupCategory = $categories->where('name',$carrier['category'])->first();
-            if(!$valueTopupCategory) {
-                ValueTopupCategory::create(
+            $valueTopupCategory = $categories->where('name', $carrier['category'])->first();
+            if (!$valueTopupCategory) {
+                $valueTopupCategory = ValueTopupCategory::updateOrCreate(
                     [
                         'name' => $carrier['category']
                     ]
                 );
             }
-            $valueTopupCountry = $countries->where('country_code',$carrier['countryCode'])->where('category_id',$valueTopupCategory['id'])->first();
-            if(!$valueTopupCountry) {
-                ValueTopupCountry::create(
+            $valueTopupCountry = $countries->where('country_code', $carrier['countryCode'])->where('category_id', $valueTopupCategory['id'])->first();
+            if (!$valueTopupCountry) {
+                $valueTopupCountry = ValueTopupCountry::updateOrCreate(
                     [
                         'country_code' => $carrier['countryCode'],
                         'category_id' => $valueTopupCategory['id']
@@ -98,14 +100,13 @@ class SyncValueTopup extends Command {
             }
 
             ValueTopupOperator::updateOrCreate(
-                ['product_id' => $carrier['productId'],'country_id' => $valueTopupCountry['id']],
+                ['product_id' => $carrier['productId'], 'country_id' => $valueTopupCountry['id']],
                 [
                     'carrier_name' => $carrier['carrierName'],
                     'denomination_type' => $carrier['denominationType']
                 ]
             );
         }
-
 
         $categories = ValueTopupCategory::all();
         $countries = ValueTopupCountry::all();
@@ -115,10 +116,10 @@ class SyncValueTopup extends Command {
         $this->info("Fetching Products details.");
         $this->line("Syncing with database.");
 
-        foreach ($products['payLoad'] as $product){
-            $valueTopupCategory = $categories->where('name',$product['category'])->first();
-            $valueTopupCountry = $countries->where('country_code',$product['countryCode'])->where('category_id',$valueTopupCategory['id'])->first();
-            $valueTopupOperator = $operators->where('product_id', $product['productId'])->where('country_id',$valueTopupCountry['id'])->first();
+        foreach ($products['payLoad'] as $product) {
+            $valueTopupCategory = $categories->where('name', $product['category'])->first();
+            $valueTopupCountry = $countries->where('country_code', $product['countryCode'])->where('category_id', $valueTopupCategory['id'])->first();
+            $valueTopupOperator = $operators->where('product_id', $product['productId'])->where('country_id', $valueTopupCountry['id'])->first();
             ValueTopupProduct::updateOrCreate(
                 ['sku_id' => $product['skuId']],
                 [
@@ -148,20 +149,20 @@ class SyncValueTopup extends Command {
             );
         }
 
-
         $productsDescription = ValueTopup::Make()->getValueTopupProductsDescription();
         $this->info("Fetching Description of Products.");
         $this->line("Syncing with database.");
 
         //dd($productsDescription['payLoad']);
-        foreach ($productsDescription['payLoad'] as $productDescription){
-                //dd($productDescription);
-            ValueTopupProduct::updateOrCreate(
-                ['sku_id' => $productDescription['skuId']],
-                [
-                    'description' => $productDescription['description']
-                ]
-            );
+        foreach ($productsDescription['payLoad'] as $productDescription) {
+            $valueTopupProduct = ValueTopupProduct::where('sku_id', $productDescription['skuId'])->first();
+            if ($valueTopupProduct)
+                ValueTopupProduct::updateOrCreate(
+                    ['sku_id' => $productDescription['skuId']],
+                    [
+                        'description' => $productDescription['description']
+                    ]
+                );
         }
 
         $operatorsLogo = ValueTopup::Make()->getValueTopupOperatorLogo();
@@ -169,7 +170,7 @@ class SyncValueTopup extends Command {
         $this->line("Syncing with database.");
 
         //dd($operatorsLogo['payLoad']);
-        foreach ($operatorsLogo['payLoad'] as $operatorsLogo){
+        foreach ($operatorsLogo['payLoad'] as $operatorsLogo) {
             //dd($operatorsLogo);
             ValueTopupOperator::updateOrCreate(
                 ['product_id' => $operatorsLogo['productId']],
@@ -193,10 +194,11 @@ class SyncValueTopup extends Command {
 
         $this->info("Syncing Country Names");
 
-        $jsonCountries = json_decode(file_get_contents(__DIR__ . '/Json/countries.json'));
-        foreach ($jsonCountries as $jsonCountry){
-            $countries = ValueTopupCountry::whereNull('name')->where('country_code',$jsonCountry->code)->get();
-            if($countries){
+        $jsonCountries = json_decode(file_get_contents(__DIR__ . '/../files/countries.json'), false, 512, JSON_THROW_ON_ERROR);   // consider this for package
+
+        foreach ($jsonCountries as $jsonCountry) {
+            $countries = ValueTopupCountry::whereNull('name')->where('country_code', $jsonCountry->code)->get();
+            if ($countries) {
                 foreach ($countries as $country) {
                     $country['name'] = $jsonCountry->name;
                     $country->save();
