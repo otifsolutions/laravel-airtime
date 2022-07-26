@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->double('max_amount');
             $table->integer('discount');
             $table->string('pricing');
-            $table->integer('category');
+            $table->string('category');
             $table->tinyInteger('is_sales_tax_charged');
             $table->double('sales_tax');
             $table->double('exchange_rate');
