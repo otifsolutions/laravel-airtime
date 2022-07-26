@@ -153,7 +153,6 @@ class SyncValueTopup extends Command {
         $this->info("Fetching Description of Products.");
         $this->line("Syncing with database.");
 
-        //dd($productsDescription['payLoad']);
         foreach ($productsDescription['payLoad'] as $productDescription) {
             $valueTopupProduct = ValueTopupProduct::where('sku_id', $productDescription['skuId'])->first();
             if ($valueTopupProduct)
@@ -169,9 +168,7 @@ class SyncValueTopup extends Command {
         $this->info("Fetching Logo of Operators.");
         $this->line("Syncing with database.");
 
-        //dd($operatorsLogo['payLoad']);
         foreach ($operatorsLogo['payLoad'] as $operatorsLogo) {
-            //dd($operatorsLogo);
             ValueTopupOperator::updateOrCreate(
                 ['product_id' => $operatorsLogo['productId']],
                 [
@@ -194,7 +191,7 @@ class SyncValueTopup extends Command {
 
         $this->info("Syncing Country Names");
 
-        $jsonCountries = json_decode(file_get_contents(__DIR__ . '/../files/countries.json'), false, 512, JSON_THROW_ON_ERROR);   // consider this for package
+        $jsonCountries = json_decode(file_get_contents(__DIR__ . '/../files/countries.json'), false, 512, JSON_THROW_ON_ERROR);
 
         foreach ($jsonCountries as $jsonCountry) {
             $countries = ValueTopupCountry::whereNull('name')->where('country_code', $jsonCountry->code)->get();
