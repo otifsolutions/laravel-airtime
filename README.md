@@ -109,19 +109,30 @@ _______________________
 __________________________________________________________________________________
 
 ## Value Topup
-
-
-
-### Usage
-_________
-
+The service is same as above, just go to the site, register, grab the `username` and `password`,
+give to the package via command given. Hit the command to populate the data coming from the `API`
+response.
 
 
 #### Commands
 _____________
+After the migrations run successfully, you have to give the `username` & `password` via command. Use *tinker*
+to run the commands
 
+**For username**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_user_id', 'userid');
+```
 
+**For password**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_password', 'password');
+```
 
+**For mode test/live**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_api_mode', 'MODE');
+```
 
 
 ### Model Relationships
@@ -129,13 +140,13 @@ ________________________
 
 **Model relationships for Value Topup Service**
 
-| Model                | Relation   |Model               |
-| :------------------: |:----------:|:------------------:|
-| ValueTopupCategory   | 1-m        | ValueTopupCountry  |
-| ValueTopupCategory   | 1-m        | ValueTopupOperator |
-| ValueTopupOperator   | 1-m        | ValueTopupProducts |
-| ValueTopupCategory     | 1-m        | ValueTopupTransaction  |
-| ValueTopupCategory     | 1-m        | ReloadlyTransaction|
+| Model                | Relation   |Model                  |
+| :------------------: |:----------:|:---------------------:|
+| ValueTopupCategory   | 1-m        | ValueTopupCountry     |
+| ValueTopupCategory   | 1-m        | ValueTopupOperator    |
+| ValueTopupOperator   | 1-m        | ValueTopupProducts    |
+| ValueTopupCategory   | 1-m        | ValueTopupTransaction |
+| ValueTopupCategory   | 1-m        | ReloadlyTransaction   |
 
 
 ## Ding Connect
