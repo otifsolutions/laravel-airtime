@@ -10,7 +10,8 @@ return new class extends Migration {
         Schema::create('reloadly_transactions', function (Blueprint $table) {
             $table->engine = 'myIsam';
             $table->id();
-            $table->bigInteger('order_id');
+
+            $table->bigInteger('order_id')->nullable();
 
             $table->foreignId('operator_id')
                 ->references('id')
