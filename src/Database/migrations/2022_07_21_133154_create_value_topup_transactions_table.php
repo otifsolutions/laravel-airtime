@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->engine = 'myIsam';
             $table->id();
 
+            $table->bigInteger('order_id')->nullable();
             $table->foreignId('category_id')->references('id')->on('value_topup_categories');
             $table->foreignId('country_id')->references('id')->on('value_topup_countries');
             $table->foreignId('operator_id')->references('id')->on('value_topup_operators');
