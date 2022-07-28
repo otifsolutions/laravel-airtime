@@ -9,7 +9,7 @@ class SyncDingConnectCountries extends Command {
 
     protected $signature = 'sync:dc-countries';
 
-    protected $description = 'sync countries name and dial from json on the behalf of iso2';
+    protected $description = 'sync countries names and dial code from jsons';
 
     public function handle() {
 

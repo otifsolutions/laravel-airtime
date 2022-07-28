@@ -90,8 +90,9 @@ class SyncDingConnect extends Command {
                 ]);
             } else if ($country['deleted_at'])
                 $country->restore();
-            DingConnectOperator::withTrashed()->updateOrCreate(['name' => $operatorResponse['Name']],
-                [
+
+            DingConnectOperator::withTrashed()->updateOrCreate(
+                ['name' => $operatorResponse['Name']], [
                     'country_id' => $country['id'],
                     'provider_code' => $operatorResponse['ProviderCode'],
                     'validation_regex' => $operatorResponse['ValidationRegex'],
@@ -122,10 +123,12 @@ class SyncDingConnect extends Command {
             elseif (($benefit == 'Electricity') || ($benefit == 'TV') || ($benefit == 'Internet') || ($benefit == 'Utility'))
                 $category = 'Bill Payment';
             $this->line("Syncing ...");
+
             $this->withProgressBar($productResponses, function ($productResponse) use ($category) {
                 $operator = DingConnectOperator::where('provider_code', $productResponse['ProviderCode'])->first();
                 $currency = Currency::where('code', $productResponse['Maximum']['SendCurrencyIso'])->first();
                 $destinationCurrency = Currency::where('code', $productResponse['Maximum']['ReceiveCurrencyIso'])->first();
+
                 try {
                     DingConnectProduct::withTrashed()->updateOrCreate([
                         'operator_id' => $operator['id'],
