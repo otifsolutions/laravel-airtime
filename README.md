@@ -18,6 +18,17 @@ mySQL database tables got from the response by using the artisan commands.
  composer require otifsolutions/laravel-airtime
 ```
 
+We have used [Setting](https://github.com/otifsolutions/laravel-settings) package by [OTIF Solutions](https://github.com/otifsolutions), to set any key we use
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('key', 'value', 'type');
+```
+
+to get that particular value
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::get('key');
+```
+
+
 then run the migrations
 
 ```
@@ -167,7 +178,7 @@ _______________
 
 #### Commands
 
-**For from ding connect**
+**To give token**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_token', 'token');
 ```
