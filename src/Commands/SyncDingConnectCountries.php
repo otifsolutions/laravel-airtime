@@ -14,7 +14,7 @@ class SyncDingConnectCountries extends Command {
     public function handle() {
 
         $countries = json_decode(
-            file_get_contents(__DIR__ . '../../Database/jsons/countriesValueTopup.json'),
+            file_get_contents(__DIR__ . '../../Database/jsons/countriesDingConnect.json'),
             true, 512, JSON_THROW_ON_ERROR
         );
 

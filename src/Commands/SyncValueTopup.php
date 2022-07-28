@@ -13,18 +13,8 @@ use OTIFSolutions\LaravelAirtime\Models\ValueTopupPromotion;
 
 class SyncValueTopup extends Command {
 
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'sync:valuetopup';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Sync countries,operators,products with the ValueTopup Platform';
 
     protected function syncPromotions($promotions) {
@@ -45,12 +35,6 @@ class SyncValueTopup extends Command {
         }
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     * @throws \JsonException
-     */
     public function handle() {
 
         $this->line("");
@@ -192,7 +176,7 @@ class SyncValueTopup extends Command {
 
         $this->info("Syncing Country Names");
 
-        $jsonCountries = json_decode(file_get_contents(__DIR__ . '/../files/countriesValueTopup.json'), false, 512, JSON_THROW_ON_ERROR);
+        $jsonCountries = json_decode(file_get_contents(__DIR__ . '../../Database/jsons/countriesValueTopup.json'), false, 512, JSON_THROW_ON_ERROR);
 
         foreach ($jsonCountries as $jsonCountry) {
             $countries = ValueTopupCountry::whereNull('name')->where('country_code', $jsonCountry->code)->get();
