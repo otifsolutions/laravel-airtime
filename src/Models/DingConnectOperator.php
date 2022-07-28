@@ -9,6 +9,11 @@ class DingConnectOperator extends Model {
 
     use SoftDeletes;
 
+    protected $casts = [
+        'region_code' => 'json',
+        'payment_type' => 'json'
+    ];
+
     protected $guarded = ['id'];
 
 }
