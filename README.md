@@ -167,6 +167,12 @@ _______________
 
 #### Commands
 
+**For from ding connect**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_token', 'token');
+```
+
+
 
 
 ### Model Relationships
