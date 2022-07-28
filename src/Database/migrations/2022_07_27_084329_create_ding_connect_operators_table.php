@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->engine = 'myIsam';
             $table->id();
 
-            $table->foreignId('operator_id')
+            $table->foreignId('country_id')
                 ->references('id')
                 ->on('ding_connect_countries');
 
