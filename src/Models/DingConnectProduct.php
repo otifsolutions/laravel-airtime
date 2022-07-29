@@ -18,4 +18,20 @@ class DingConnectProduct extends Model {
         'payment_types' => 'json'
     ];
 
+    public function operator() {
+        return $this->belongsTo(DingConnectOperator::class);
+    }
+
+    public function currency() {
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function destinationCurrency() {
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function country() {
+        return $this->belongsTo(DingConnectCountry::class);
+    }
+
 }

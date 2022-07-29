@@ -9,11 +9,19 @@ class DingConnectOperator extends Model {
 
     use SoftDeletes;
 
+    protected $guarded = ['id'];
+
     protected $casts = [
         'region_code' => 'json',
         'payment_type' => 'json'
     ];
 
-    protected $guarded = ['id'];
+    public function country() {
+        return $this->belongsTo(DingConnectCountry::class);
+    }
+
+    public function products() {
+        return $this->hasMany(DingConnectProduct::class);
+    }
 
 }
