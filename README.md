@@ -113,7 +113,6 @@ You can even schedule it to run on a specific date and time. More more info, vis
 | ReloadlyCountry | 1-m        | ReloadlyOperator   |
 | Currency        | 1-1        | ReloadlyOperator   |
 | ReloadlyOperator| 1-m        | ReloadlyPromotion  |
-| ReloadlyOperator| 1-m        | ReloadlyPromotion  |
 | ReloadlyOperator| 1-m        | ReloadlyTransaction|
 
 
