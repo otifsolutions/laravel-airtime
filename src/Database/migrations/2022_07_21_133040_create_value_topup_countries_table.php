@@ -4,11 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
 
-    public function up()
-    {
+    public function up() {
         Schema::create('value_topup_countries', function (Blueprint $table) {
             $table->engine = 'myIsam';
             $table->id();
@@ -24,8 +22,7 @@ return new class extends Migration
         });
     }
 
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('value_topup_countries');
     }
 };

@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->string('denomination_type');
             $table->integer('product_id');
 
-
             $table->timestamps();
         });
     }
