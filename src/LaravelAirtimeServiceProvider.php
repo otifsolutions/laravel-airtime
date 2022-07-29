@@ -3,13 +3,14 @@
 namespace OTIFSolutions\LaravelAirtime\AirtimeServiceProvider;
 
 use Illuminate\Support\ServiceProvider;
-use OTIFSolutions\LaravelAirtime\Commands\SyncDingConnect;
-use OTIFSolutions\LaravelAirtime\Commands\SyncDingConnectCountries;
-use OTIFSolutions\LaravelAirtime\Commands\SyncDTone;
-use OTIFSolutions\LaravelAirtime\Commands\SyncDToneCountries;
-use OTIFSolutions\LaravelAirtime\Commands\SyncReloadly;
-use OTIFSolutions\LaravelAirtime\Commands\SyncValueTopup;
-use OTIFSolutions\LaravelAirtime\Commands\SyncValueTopupStatus;
+use OTIFSolutions\LaravelAirtime\Commands\{SyncDingConnect,
+    SyncDingConnectCountries,
+    SyncDTone,
+    SyncDToneCountries,
+    SyncReloadly,
+    SyncValueTopup,
+    SyncValueTopupStatus
+};
 
 class LaravelAirtimeServiceProvider extends ServiceProvider {
 
