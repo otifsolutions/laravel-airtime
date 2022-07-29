@@ -2,12 +2,12 @@
 
 namespace OTIFSolutions\LaravelAirtime\Commands;
 
-use App\Models\DingConnectCountry;
+use OTIFSolutions\LaravelAirtime\Models\DingConnectCountry;
 use Illuminate\Console\Command;
 
 class SyncDingConnectCountries extends Command {
 
-    protected $signature = 'sync:dc-countries';
+    protected $signature = 'sync:ding-connect-countries';
 
     protected $description = 'sync countries names and dial code from jsons';
 
