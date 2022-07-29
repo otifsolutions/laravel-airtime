@@ -6,23 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
 
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up() {
         Schema::create('d_tone_transactions', function (Blueprint $table) {
+            $table->engine = 'myIsam';
             $table->id();
+
+            $table->foreignId('operator_id')->references('id')->on('d_tone_operators');
+            $table->foreignId('product_id')->references('id')->on('d_tone_products');
+
+            $table->string('sender_phone_no');
+            $table->string('number')->nullable();
+
+            $table->string('product');
+            $table->enum('status', ['PENDING', 'SUCCESS', 'FAIL', 'PENDING_ORDER', 'CANCELLED'])->default('PENDING_ORDER');
+
+            $table->json('response')->nullable();
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down() {
         Schema::dropIfExists('d_tone_transactions');
     }

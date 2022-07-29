@@ -6,23 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
 
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up() {
         Schema::create('d_tone_countries', function (Blueprint $table) {
+            $table->engine = 'myIsam';
             $table->id();
+            $table->string('name');
+            $table->string('iso2', 22);
+            $table->string('dial_code', 22);
+            $table->integer('t_shop_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down() {
         Schema::dropIfExists('d_tone_countries');
     }
