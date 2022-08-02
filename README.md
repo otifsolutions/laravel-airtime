@@ -18,7 +18,7 @@ mySQL database tables got from the response by using the artisan commands.
  composer require otifsolutions/laravel-airtime
 ```
 
-We have used :link: [Setting](https://github.com/otifsolutions/laravel-settings) package by [OTIF Solutions](https://github.com/otifsolutions), to set any key we use
+We have used :link: [Setting](https://github.com/otifsolutions/laravel-settings) package by :link: [OTIF Solutions](https://github.com/otifsolutions), to set any key we use
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('key', 'value', 'type');
 ```
