@@ -117,6 +117,7 @@ To send the transactions, create the object of heler class `Reloadly` and it's s
 `key`, `secret` and `mode`. Simply you can get the settings here with `Setting::get('key')`. `Reloadly::Make` will
 return an object, that object has `sendTopup` method that takes object of `\OTIFSolutions\LaravelAirtime\Models\ReloadlyTransaction`.
 
+
 ```php
 $obj = Reloadly::Make(key, secret, mode);
 $obj->sendTopup($reloadlyTransactionObj);
@@ -131,6 +132,8 @@ After installing package, you'll have artisan command
 ```
  php artisan sync:reloadly
 ```
+
+:heavy_check_mark: **To schedule command**
 
 It will synchronise all of the data came from the response, you can run it or shedule it. To shedule it,
 go to your project `App\Console\Kernel` class and in
@@ -171,29 +174,29 @@ response.
 After the migrations run successfully, you have to give the `username` & `password` via command. Use *tinker*
 to run the commands
 
-**For username**
+:heavy_check_mark: **For username**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_user_id', 'userid');
 ```
 
-**For password**
+:heavy_check_mark: **For password**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_password', 'password');
 ```
 
-**For mode test/live**
+:heavy_check_mark: **For mode test/live**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_api_mode', 'MODE');
 ```
 
-**Artisan command to sync the data**
+:heavy_check_mark: **Artisan command to sync the data**
 ```php
-php artisan sync:valuetopup
+php artisan sync:value-topup
 ```
 
-**Artisan command to check the status**
+:heavy_check_mark: **Artisan command to check the status**
 ```php
-php artisan sync:valuetopupstatus
+php artisan sync:value-topup-status
 ```
 
 ### Model Relationships
