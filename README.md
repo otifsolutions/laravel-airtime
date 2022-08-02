@@ -253,7 +253,7 @@ execute the command and leave the tab open.
 
 
 ## D Tone
-
+The service has the same concept behind, it is used to send `topup/balance` to devices.
 
 
 
@@ -263,6 +263,24 @@ execute the command and leave the tab open.
 
 
 #### Commands
+
+First set
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_tshop_username', 'value-username', 'string');
+```
+
+And
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_tshop_token', 'value-token', 'string');
+```
+
+
+
+To sync data with using D-Tone platform, hit this command
+```php
+php artisan sync:d-tone
+```
+
 
 
 
