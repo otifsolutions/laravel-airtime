@@ -17,24 +17,6 @@ class SyncValueTopup extends Command {
 
     protected $description = 'Sync countries,operators,products with the ValueTopup Platform';
 
-    protected function syncPromotions($promotions) {
-        foreach ($promotions['payLoad'] as $promotion) {
-            $valueTopupOperator = ValueTopupOperator::where('product_id', $promotion['product']['productId'])->first();
-            ValueTopupPromotion::updateOrCreate(
-                ['name' => $promotion['promotionName']],
-                [
-                    'operator_id' => $valueTopupOperator['id'],
-                    'start_date' => $promotion['startDate'],
-                    'end_date' => $promotion['endDate'],
-                    'description' => $promotion['description'],
-                    'restriction' => $promotion['restriction'],
-                    'promotion_min_max' => $promotion['promotionMinMax'],
-                    'product' => $promotion['product'],
-                ]
-            );
-        }
-    }
-
     public function handle() {
 
         $this->line("");
@@ -193,5 +175,23 @@ class SyncValueTopup extends Command {
         $this->line("****************************************************************");
         $this->line("");
 
+    }
+
+    private function syncPromotions($promotions) {
+        foreach ($promotions['payLoad'] as $promotion) {
+            $valueTopupOperator = ValueTopupOperator::where('product_id', $promotion['product']['productId'])->first();
+            ValueTopupPromotion::updateOrCreate(
+                ['name' => $promotion['promotionName']],
+                [
+                    'operator_id' => $valueTopupOperator['id'],
+                    'start_date' => $promotion['startDate'],
+                    'end_date' => $promotion['endDate'],
+                    'description' => $promotion['description'],
+                    'restriction' => $promotion['restriction'],
+                    'promotion_min_max' => $promotion['promotionMinMax'],
+                    'product' => $promotion['product'],
+                ]
+            );
+        }
     }
 }
