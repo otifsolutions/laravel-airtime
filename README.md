@@ -33,28 +33,34 @@ Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 
 
 **Note :books:**
-By default, all these services are `disabled`. You have to enable service of your choice via `Setting::set`
+By default, all these services are `disabled`. You have to enable service of your choice via `Setting::set`. Please,
+don't forget to add third argument as `bool`, it defines the type of the key.
 
 
-**For Reloadly service**
+**For enabling Reloadly service**
 ```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', 'bool');
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', true, 'bool');
 ```
 
-**For Value-topup service**
+**For enabling Value-topup service**
 ```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_service', 'bool');
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_service', true, 'bool');
 ```
 
-**For Ding-connect service**
+**For enabling Ding-connect service**
 ```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('dingconnect_service', 'bool');
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_service', true, 'bool');
 ```
 
-**For D-Tone service**
+**For enabling D-Tone service**
 ```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', 'bool');
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', true, 'bool');
 ```
+
+
+**AND**
+To check if service is enabled or disabled, do `Setting::get('service_name_service')`
+
 
 *After all, run the migrations using this command :point_down:*
 
