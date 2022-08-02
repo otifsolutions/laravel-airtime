@@ -27,7 +27,6 @@ class LaravelAirtimeServiceProvider extends ServiceProvider {
                 SyncValueTopupStatus::class,
                 SyncReloadly::class,
                 SyncDingConnect::class,
-                SyncDingConnectCountries::class,
                 SyncDTone::class,
                 SyncDToneCountries::class
             ]);
