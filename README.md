@@ -154,8 +154,6 @@ You can even schedule it to run on a specific date and time. More more info, vis
 ### Model Relationships
 
 
-**Model relationships for Reloadly Service**
-
 | Model           | Relation   |Model               |
 | --------------- |:----------:|:------------------:|
 | ReloadlyCountry | 1-m        | ReloadlyOperator   |
@@ -203,7 +201,6 @@ php artisan sync:valuetopupstatus
 
 ### Model Relationships
 
-**Model relationships for Value Topup Service**
 
 | Model                | Relation   |Model                     |
 | :------------------: |:----------:|:------------------------:|
@@ -242,7 +239,6 @@ execute the command and leave the tab open.
 
 ### Model Relationships
 
-**Model relationships for Ding-Connect Service**
 
 | Model                | Relation   |Model                   | Key Name                         |
 | :-------------------:|:----------:|:----------------------:|:--------------------------------:|
@@ -276,16 +272,15 @@ execute the command and leave the tab open.
 
 ### Model Relationships
 
-**Model relationships for D-Tone Service**
 
-| Model          | Relation   |Model             | Key Name                   |
-| :-------------:|:----------:|:----------------:|:--------------------------:|
-| DToneCountry   | 1-m        | DToneOperator    |                            |
-| DToneCountry   | 1-m        | DToneProduct     |                            |
-| DToneOperator  | 1-m        | DToneTransaction |                            |
-| DToneProduct   | 1-m        | DToneTransaction |                            |
-| Currency       | 1-m        | DToneProduct     | sender_currency_id         |
-| Currency       | 1-m        | DToneProduct     | destination_currency_id    |
+| Model          | Relation   |Model             | Key Name                     |
+| :-------------:|:----------:|:----------------:|:----------------------------:|
+| DToneCountry   | 1-m        | DToneOperator    |                              |
+| DToneCountry   | 1-m        | DToneProduct     |                              |
+| DToneOperator  | 1-m        | DToneTransaction |                              |
+| DToneProduct   | 1-m        | DToneTransaction |                              |
+| Currency       | 1-m        | DToneProduct     |:key: sender_currency_id      |
+| Currency       | 1-m        | DToneProduct     |:key: destination_currency_id |
 
 
 
