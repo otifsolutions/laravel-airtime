@@ -21,10 +21,6 @@ return new class extends Migration {
                 ->references('id')
                 ->on('ding_connect_operators');
 
-            $table->foreignId('category_id')
-                ->references('id')
-                ->on('ding_connect_categories');
-
             $table->string('category_name')->nullable();
 
             $table->foreignId('currency_id')
