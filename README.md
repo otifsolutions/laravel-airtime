@@ -28,6 +28,32 @@ to get that particular value
 \OTIFSolutions\Laravel\Settings\Models\Setting::get('key');
 ```
 
+The package uses these four listed services, consider if that particular service is `enabled` or `disabled`.
+Or, you can make it enable by setting `true`. Don't forget to add `bool`.
+
+**For Reloadly service**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', 'bool');
+```
+
+**For Value-topup service**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_service', 'bool');
+```
+
+**For Ding-connect service**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('dingconnect_service', 'bool');
+```
+
+**For D-Tone service**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', 'bool');
+```
+
+
+
+
 
 then run the migrations
 
@@ -172,26 +198,48 @@ php artisan sync:valuetopupstatus
 _______________
 
 ### Usage
-
+The procedure behind this service is also the same, sending *balance/topup* from *operator* to *user*
+and there is made a transaction is made database. You only have to give *token/key* to make it functional.
 
 
 #### Commands
 
 **To give token**
 ```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_token', 'token');
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_token', 'token', string);
+```
+
+after *setting/giving* the token, you can successfully execute the below given `artisan comamnd`,
+it will synchronize the *countries*, *operators* and *products*. The process will work in background, just
+execute the command and leave the tab open.
+
+```php
+ php artisan sync:ding-connect
 ```
 
 
-
-
 ### Model Relationships
+
+**Model relationships for Ding-Connect Service**
+
+| Model                | Relation   |Model                   | Key Name                   |
+| :-------------------:|:----------:|:----------------------:|:--------------------------:|
+| DingConnectCountry   | 1-m        | DingConenctOperator    |                            |
+| DingConnectCountry   | 1-m        | DingConnectProduct     |                            |
+| DingConnectOperator  | 1-m        | DingConnectProduct     |                            |
+| DingConenctProduct   | 1-m        | DingConnectTransaction |                            |
+| DingConnectOperator  | 1-m        | DingConnectTransaction |                            |
+| Currency             | 1-m        | DingConnectProduct     | currency_id                |
+| Currency             | 1-m        | DingConenctProduct     | destination_currency_id    |
 
 
 
 
 ## D Tone
 ---------
+
+
+
 
 ### Usage
 
@@ -205,6 +253,19 @@ _______________
 
 
 ### Model Relationships
+
+**Model relationships for Ding-Connect Service**
+
+| Model                | Relation   |Model                   | Key Name                   |
+| :-------------------:|:----------:|:----------------------:|:--------------------------:|
+| DingConnectCountry   | 1-m        | DingConenctOperator    |                            |
+| DingConnectCountry   | 1-m        | DingConnectProduct     |                            |
+| DingConnectOperator  | 1-m        | DingConnectProduct     |                            |
+| DingConenctProduct   | 1-m        | DingConnectTransaction |                            |
+| DingConnectOperator  | 1-m        | DingConnectTransaction |                            |
+| Currency             | 1-m        | DingConnectProduct     | currency_id                |
+| Currency             | 1-m        | DingConenctProduct     | destination_currency_id    |
+
 
 
 
