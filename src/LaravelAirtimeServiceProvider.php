@@ -4,9 +4,7 @@ namespace OTIFSolutions\LaravelAirtime\AirtimeServiceProvider;
 
 use Illuminate\Support\ServiceProvider;
 use OTIFSolutions\LaravelAirtime\Commands\{SyncDingConnect,
-    SyncDingConnectCountries,
     SyncDTone,
-    SyncDToneCountries,
     SyncReloadly,
     SyncValueTopup,
     SyncValueTopupStatus
@@ -27,8 +25,7 @@ class LaravelAirtimeServiceProvider extends ServiceProvider {
                 SyncValueTopupStatus::class,
                 SyncReloadly::class,
                 SyncDingConnect::class,
-                SyncDTone::class,
-                SyncDToneCountries::class
+                SyncDTone::class
             ]);
         }
 
