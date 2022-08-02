@@ -51,7 +51,7 @@ Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', 'bool');
 ```
 
-*After all, run the migrations using :arrow_down:*
+*After all, run the migrations using this command :point_down:*
 
 
 ```
@@ -59,10 +59,10 @@ Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 ```
 
 ## Table of Contents
-1. [Reloadly](#reloadly)
-2. [Value Topup](#value-topup)
-3. [Ding Connect](#ding-connect)
-4. [D Tone](#d-tone)
+:one: [Reloadly](#reloadly)
+:two: [Value Topup](#value-topup)
+:three: [Ding Connect](#ding-connect)
+:four: [D Tone](#d-tone)
 
 
 ### Reloadly:
