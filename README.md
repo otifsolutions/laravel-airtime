@@ -31,6 +31,9 @@ To get that specific value against that `key`
 The package uses these four listed services, consider if that particular service is `enabled` or `disabled`.
 Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 
+**By default, all these services are `disabled`. You have to enable service of your choice via `Setting::set`**
+
+
 **For Reloadly service**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', 'bool');
