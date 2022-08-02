@@ -59,10 +59,15 @@ Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 ```
 
 ## Table of Contents
-:one: [Reloadly](#reloadly)
-:two: [Value Topup](#value-topup)
-:three: [Ding Connect](#ding-connect)
-:four: [D Tone](#d-tone)
+
+1. [Reloadly](#reloadly)
+
+2.  [Value Topup](#value-topup)
+
+3.  [Ding Connect](#ding-connect)
+
+4.  [D Tone](#d-tone)
+
 
 
 ### Reloadly:
@@ -186,7 +191,6 @@ php artisan sync:valuetopupstatus
 | ValueTopupCategory   | 1-m        | ValueTopupOperator       |
 | ValueTopupOperator   | 1-m        | ValueTopupProducts       |
 | ValueTopupCategory   | 1-m        | ValueTopupTransaction    |
-| ValueTopupCategory   | 1-m        | ValueTopupTransaction    |
 | ValueTopupCountry    | 1-m        | ValueTopupTransaction    |
 | ValueTopupOperator   | 1-m        | ValueTopupTransaction    |
 
@@ -202,6 +206,7 @@ and there is made a transaction is made database. You only have to give *token/k
 #### Commands
 
 **To give token**
+
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_token', 'token', string);
 ```
@@ -233,7 +238,7 @@ execute the command and leave the tab open.
 
 
 ## D Tone
----------
+
 
 
 
@@ -251,21 +256,16 @@ execute the command and leave the tab open.
 
 ### Model Relationships
 
-**Model relationships for Ding-Connect Service**
+**Model relationships for D-Tone Service**
 
-| Model                | Relation   |Model                   | Key Name                   |
-| :-------------------:|:----------:|:----------------------:|:--------------------------:|
-| DingConnectCountry   | 1-m        | DingConenctOperator    |                            |
-| DingConnectCountry   | 1-m        | DingConnectProduct     |                            |
-| DingConnectOperator  | 1-m        | DingConnectProduct     |                            |
-| DingConenctProduct   | 1-m        | DingConnectTransaction |                            |
-| DingConnectOperator  | 1-m        | DingConnectTransaction |                            |
-| Currency             | 1-m        | DingConnectProduct     | currency_id                |
-| Currency             | 1-m        | DingConenctProduct     | destination_currency_id    |
-
-
-
-
+| Model          | Relation   |Model             | Key Name                   |
+| :-------------:|:----------:|:----------------:|:--------------------------:|
+| DToneCountry   | 1-m        | DToneOperator    |                            |
+| DToneCountry   | 1-m        | DToneProduct     |                            |
+| DToneOperator  | 1-m        | DToneTransaction |                            |
+| DToneProduct   | 1-m        | DToneTransaction |                            |
+| Currency       | 1-m        | DToneProduct     | currency_id                |
+| Currency       | 1-m        | DToneProduct     | destination_currency_id    |
 
 
 
