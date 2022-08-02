@@ -286,11 +286,7 @@ class SyncReloadly extends Command {
         return 0;
     }
 
-    /**
-     * @param string $error
-     * @return int
-     */
-    public function returnError(string $error): int {
+    private function returnError(string $error): int {
         $this->error($error);
         return 0;
     }
