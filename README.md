@@ -81,11 +81,8 @@ php artisan
 ## Table of Contents
 
 1. [Reloadly](#reloadly)
-
 2.  [Value Topup](#value-topup)
-
 3.  [Ding Connect](#ding-connect)
-
 4.  [D Tone](#d-tone)
 
 
@@ -164,7 +161,7 @@ You can even schedule it to run on a specific date and time. More more info, vis
 
 
 ## Value Topup
-______________
+
 The service is same as above, just go to the site, register, grab the `username` and `password`,
 give to the package via command given. Hit the command to populate the data coming from the `API`
 response.
@@ -213,7 +210,6 @@ php artisan sync:valuetopupstatus
 
 
 ## Ding Connect
-_______________
 
 ### Usage
 The procedure behind this service is also the same, sending *balance/topup* from *operator* to *user*
