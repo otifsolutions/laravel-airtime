@@ -264,7 +264,7 @@ execute the command and leave the tab open.
 | DToneCountry   | 1-m        | DToneProduct     |                            |
 | DToneOperator  | 1-m        | DToneTransaction |                            |
 | DToneProduct   | 1-m        | DToneTransaction |                            |
-| Currency       | 1-m        | DToneProduct     | currency_id                |
+| Currency       | 1-m        | DToneProduct     | sender_currency_id         |
 | Currency       | 1-m        | DToneProduct     | destination_currency_id    |
 
 
