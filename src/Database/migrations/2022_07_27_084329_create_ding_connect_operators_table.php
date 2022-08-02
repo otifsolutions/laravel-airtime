@@ -3,10 +3,16 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use OTIFSolutions\Laravel\Settings\Models\Setting;
 
 return new class extends Migration {
 
     public function up() {
+
+        if (!Setting::get('ding_connect_service')) {
+            return;
+        }
+
         Schema::create('ding_connect_operators', function (Blueprint $table) {
             $table->engine = 'myIsam';
             $table->id();
