@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignId('operator_id')->references('id')->on('value_topup_operators');
             $table->foreignId('product_id')->references('id')->on('value_topup_products');
 
-            $table->string('reference');
+            $table->string('reference')->unique();
             $table->double('topup');
             $table->double('amout');
             $table->double('number');
