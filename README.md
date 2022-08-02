@@ -1,7 +1,7 @@
 
 ### Laravel Airtime
 ___________________
-The package will use these four listed serivce, hit their API's and get all the data synced in
+The package will use these four listed serivces, hit those API's and get all the data synced in
 mySQL database tables got from the response by using the artisan commands.
 
 **Requirements**
@@ -11,7 +11,7 @@ mySQL database tables got from the response by using the artisan commands.
 `php => 7.4`
 
 
-### Installation
+### Via Composer installation:
 [Composer](https://getcomposer.org/download/) required to install the package
 
 ```
@@ -23,7 +23,7 @@ We have used [Setting](https://github.com/otifsolutions/laravel-settings) packag
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('key', 'value', 'type');
 ```
 
-to get that particular value
+To get that specific value against that `key`
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::get('key');
 ```
@@ -51,11 +51,8 @@ Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', 'bool');
 ```
 
+*After all, run the migrations using :arrow_down:*
 
-
-
-
-then run the migrations
 
 ```
  php artisan migrate
