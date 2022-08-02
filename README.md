@@ -23,7 +23,7 @@ We have used [Setting](https://github.com/otifsolutions/laravel-settings) packag
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('key', 'value', 'type');
 ```
 
-To get that specific value against that `key`
+To get that specific value against that `key` :key:
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::get('key');
 ```
@@ -37,22 +37,22 @@ By default, all these services are `disabled`. You have to enable service of you
 don't forget to add third argument as `bool`, it defines the type of the key.
 
 
-**For enabling Reloadly service**
+:heavy_check_mark: **For enabling Reloadly service**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', true, 'bool');
 ```
 
-**For enabling Value-topup service**
+:heavy_check_mark: **For enabling Value-topup service**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_service', true, 'bool');
 ```
 
-**For enabling Ding-connect service**
+:heavy_check_mark: **For enabling Ding-connect service**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_service', true, 'bool');
 ```
 
-**For enabling D-Tone service**
+:heavy_check_mark: **For enabling D-Tone service**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', true, 'bool');
 ```
@@ -244,15 +244,15 @@ execute the command and leave the tab open.
 
 **Model relationships for Ding-Connect Service**
 
-| Model                | Relation   |Model                   | Key Name                   |
-| :-------------------:|:----------:|:----------------------:|:--------------------------:|
-| DingConnectCountry   | 1-m        | DingConenctOperator    |                            |
-| DingConnectCountry   | 1-m        | DingConnectProduct     |                            |
-| DingConnectOperator  | 1-m        | DingConnectProduct     |                            |
-| DingConenctProduct   | 1-m        | DingConnectTransaction |                            |
-| DingConnectOperator  | 1-m        | DingConnectTransaction |                            |
-| Currency             | 1-m        | DingConnectProduct     | currency_id                |
-| Currency             | 1-m        | DingConenctProduct     | destination_currency_id    |
+| Model                | Relation   |Model                   | Key Name                         |
+| :-------------------:|:----------:|:----------------------:|:--------------------------------:|
+| DingConnectCountry   | 1-m        | DingConenctOperator    |                                  |
+| DingConnectCountry   | 1-m        | DingConnectProduct     |                                  |
+| DingConnectOperator  | 1-m        | DingConnectProduct     |                                  |
+| DingConenctProduct   | 1-m        | DingConnectTransaction |                                  |
+| DingConnectOperator  | 1-m        | DingConnectTransaction |                                  |
+| Currency             | 1-m        | DingConnectProduct     | :key: currency_id                |
+| Currency             | 1-m        | DingConenctProduct     | :key: destination_currency_id    |
 
 
 
@@ -291,5 +291,5 @@ execute the command and leave the tab open.
 
 #### Licence
 ____________
-The MIT License (MIT). Please see [**License file**](https://github.com/otifsolutions/laravel-airtime/blob/main/LICENSE) for more information
+The MIT License (MIT). Please see  :link: [**License file**](https://github.com/otifsolutions/laravel-airtime/blob/main/LICENSE) for more information
 
