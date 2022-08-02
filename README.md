@@ -12,13 +12,13 @@ mySQL database tables got from the response by using the artisan commands.
 
 
 ### Via Composer installation:
-[Composer](https://getcomposer.org/download/) required to install the package
+:link: [Composer](https://getcomposer.org/download/) required to install the package
 
 ```
  composer require otifsolutions/laravel-airtime
 ```
 
-We have used [Setting](https://github.com/otifsolutions/laravel-settings) package by [OTIF Solutions](https://github.com/otifsolutions), to set any key we use
+We have used :link: [Setting](https://github.com/otifsolutions/laravel-settings) package by [OTIF Solutions](https://github.com/otifsolutions), to set any key we use
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('key', 'value', 'type');
 ```
@@ -95,9 +95,9 @@ maintains detailed record of all the successfull/unsuccessful transactions happe
 
 ### Usage
 
-Sign-up at [Reloadly](https://www.reloadly.com/) and get the keys from [Reloadly/keys](https://www.reloadly.com/developers/api-settings),
+Sign-up at :link: [Reloadly](https://www.reloadly.com/) and get the keys from :link: [Reloadly/keys](https://www.reloadly.com/developers/api-settings),
 the keys will be used with the package, you have to grab these keys and give them to the package by `tinker`.
-The third one is mode, wheter it'll be `LIVE` or `TEST`. We are using [Setting](https://github.com/otifsolutions/laravel-settings)
+The third one is mode, wheter it'll be `LIVE` or `TEST`. We are using :link: [Setting](https://github.com/otifsolutions/laravel-settings)
 package to set the keys
 
 ```php
@@ -147,7 +147,7 @@ protected function schedule(Schedule $schedule) {
 ```
 
 You can even schedule it to run on a specific date and time. More more info, visit
-[Scheduling Artisan Commands](https://laravel.com/docs/master/scheduling#scheduling-artisan-commands)
+:link: [Scheduling Artisan Commands](https://laravel.com/docs/master/scheduling#scheduling-artisan-commands)
 
 
 
