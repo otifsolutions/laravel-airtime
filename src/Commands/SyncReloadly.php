@@ -19,6 +19,13 @@ class SyncReloadly extends Command {
 
     public function handle() {
 
+        if (!Setting::get('reloadly_service')) {
+            $this->line("****************************************************************");
+            $this->info("D-Tone service is Diabled or false. Enable it first");
+            $this->line("****************************************************************");
+            return 0;
+        }
+
         $this->line('');
         $this->line('****************************************************************');
         $this->info('Started Sync of Reloadly API');

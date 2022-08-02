@@ -19,6 +19,16 @@ class SyncValueTopup extends Command {
 
     public function handle() {
 
+
+
+        if (!Setting::get('value_topup_service')) {
+            $this->line("****************************************************************");
+            $this->info("Value-topup service is Diabled or false. Enable it first");
+            $this->line("****************************************************************");
+            return 0;
+        }
+
+
         $this->line("");
         $this->line("****************************************************************");
         $this->info("Getting token to authenticate from ValueTopup Platform");

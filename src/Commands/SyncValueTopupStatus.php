@@ -3,16 +3,25 @@
 namespace OTIFSolutions\LaravelAirtime\Commands;
 
 use Illuminate\Console\Command;
+use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\ValueTopup;
 use OTIFSolutions\LaravelAirtime\Models\ValueTopupTransaction;
 
 class SyncValueTopupStatus extends Command {
 
-    protected $signature = 'sync:valuetopupstatus';
+    protected $signature = 'sync:value-topup-status';
 
     protected $description = 'Sync status of transactions that are still in processing';
 
     public function handle() {
+
+        if (!Setting::get('dtone_service')) {
+            $this->line("****************************************************************");
+            $this->info("Value-topup service is Diabled or false. Enable it first");
+            $this->line("****************************************************************");
+            return 0;
+        }
+
         $this->line("");
         $this->line("****************************************************************");
         $this->info("Getting token to authenticate from ValueTopup Platform");

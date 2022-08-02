@@ -17,6 +17,15 @@ class SyncDTone extends Command {
     protected $description = 'Sync the data with d-tone platform';
 
     public function handle() {
+
+        if (!Setting::get('dtone_service')) {
+            $this->line("****************************************************************");
+            $this->info("D-Tone service is Diabled or false. Enable it first");
+            $this->line("****************************************************************");
+            return 0;
+        }
+
+
         $this->line("");
         $this->line("****************************************************************");
         $this->info("Started Sync of DTone");

@@ -18,6 +18,13 @@ class SyncDingConnect extends Command {
 
     public function handle() {
 
+        if (!Setting::get('ding_connect_service')) {
+            $this->line("****************************************************************");
+            $this->info("Ding-connect service is Diabled or false. Enable it first");
+            $this->line("****************************************************************");
+            return 0;
+        }
+
         $this->line("");
         $this->line("****************************************************************");
         $this->info("Started Sync of DingConnect Operators");
