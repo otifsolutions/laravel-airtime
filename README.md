@@ -31,7 +31,9 @@ To get that specific value against that `key`
 The package uses these four listed services, consider if that particular service is `enabled` or `disabled`.
 Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 
-**By default, all these services are `disabled`. You have to enable service of your choice via `Setting::set`**
+
+**Note :books:**
+By default, all these services are `disabled`. You have to enable service of your choice via `Setting::set`
 
 
 **For Reloadly service**
@@ -60,6 +62,15 @@ Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 ```
  php artisan migrate
 ```
+
+
+To check which commands are available for whole of this `airtime` package, simple hit
+this command. And look against the key `sync:xxxxx-xxx--xxxx`
+
+```
+php artisan
+```
+
 
 ## Table of Contents
 
