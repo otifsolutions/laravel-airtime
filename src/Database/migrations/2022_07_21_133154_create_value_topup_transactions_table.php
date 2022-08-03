@@ -3,17 +3,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use OTIFSolutions\Laravel\Settings\Models\Setting;
 
 return new class extends Migration {
 
     public function up() {
 
-        if (!Setting::get('value_topup_service')) {
+        if (Schema::hasTable('value_topup_transactions')) {
             return;
         }
-
-
 
         Schema::create('value_topup_transactions', function (Blueprint $table) {
             $table->engine = 'myIsam';

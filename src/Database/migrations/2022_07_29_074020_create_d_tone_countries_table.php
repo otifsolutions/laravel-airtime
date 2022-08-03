@@ -3,16 +3,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use OTIFSolutions\Laravel\Settings\Models\Setting;
 
 return new class extends Migration {
 
     public function up() {
 
-        if (!Setting::get('dtone_service')) {
-            return ;
+        if (Schema::hasTable('d_tone_countries')) {
+            return;
         }
-
 
         Schema::create('d_tone_countries', function (Blueprint $table) {
             $table->engine = 'myIsam';
