@@ -15,7 +15,7 @@ class SyncValueTopupStatus extends Command {
 
     public function handle() {
 
-        if (!Setting::get('dtone_service')) {
+        if (!Setting::get('value_topup_service')) {
             $this->line("****************************************************************");
             $this->info("Value-topup service is Diabled or false. Enable it first");
             $this->line("****************************************************************");

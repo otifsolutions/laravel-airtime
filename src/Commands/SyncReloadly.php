@@ -29,11 +29,11 @@ class SyncReloadly extends Command {
 
         $this->line('Running migrations for Reloadly Service');
         $this->line('++++++++++++++++++++++++++++++++++++++++++++++');
-        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_130256_create_reloadly_discounts_table.php');
-        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_130433_create_reloadly_operators_table.php');
-        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_130448_create_reloadly_promotions_table.php');
-        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_130549_create_reloadly_countries_table.php');
-        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_184456_create_reloadly_transactions_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_130256_create_reloadly_discounts_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_130433_create_reloadly_operators_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_130448_create_reloadly_promotions_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_130549_create_reloadly_countries_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_184456_create_reloadly_transactions_table.php');
         $this->line('++++++++++++++++++++++++++++++++++++++++++++++');
 
         $this->line('');
