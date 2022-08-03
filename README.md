@@ -41,27 +41,6 @@ Do not set the keys directly in your code but it is wise to use `php artisan tin
 the commands for service of your choice
 
 
-:heavy_check_mark: **For enabling Reloadly service**
-```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', true, 'bool');
-```
-
-:heavy_check_mark: **For enabling Value-topup service**
-```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_service', true, 'bool');
-```
-
-:heavy_check_mark: **For enabling Ding-connect service**
-```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_service', true, 'bool');
-```
-
-:heavy_check_mark: **For enabling D-Tone service**
-```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', true, 'bool');
-```
-
-
 **AND**
 To check if service is enabled or disabled, do `Setting::get('service_name_service')`
 
@@ -107,6 +86,13 @@ Sign-up at :link: [Reloadly](https://www.reloadly.com/) and get the keys from :l
 the keys will be used with the package, you have to grab these keys and give them to the package by `tinker`.
 The third one is mode, wheter it'll be `LIVE` or `TEST`. We are using :link: [Setting](https://github.com/otifsolutions/laravel-settings)
 package to set the keys
+
+
+:heavy_check_mark: **For enabling Reloadly service**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', true, 'bool');
+```
+
 
 ```php
  \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_key', 'API Client ID')
@@ -177,6 +163,13 @@ The service is same as above, just go to the site, register, grab the `username`
 give to the package via command given. Hit the command to populate the data coming from the `API`
 response.
 
+:heavy_check_mark: **For enabling Value-topup service**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_service', true, 'bool');
+```
+
+
+
 
 #### Commands
 After the migrations run successfully, you have to give the `username` & `password` via command. Use *tinker*
@@ -227,6 +220,14 @@ The procedure behind this service is also the same, sending *balance/topup* from
 and there is made a transaction is made database. You only have to give *token/key* to make it functional.
 
 
+
+:heavy_check_mark: **For enabling Ding-connect service**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_service', true, 'bool');
+```
+
+
+
 #### Commands
 
 **To give token**
@@ -267,6 +268,12 @@ The service has the same concept behind, it is used to send `topup/balance` to d
 
 
 ### Usage
+
+
+:heavy_check_mark: **For enabling D-Tone service**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', true, 'bool');
+```
 
 
 
