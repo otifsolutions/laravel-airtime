@@ -21,7 +21,7 @@ return new class extends Migration {
 
             $table->foreignId('currency_id')
                 ->references('id')
-                ->on('currencies');
+                ->on('airtime_currencies');
 
             $table->string('currency_name');
             $table->string('currency_symbol');

@@ -30,13 +30,13 @@ return new class extends Migration {
 
             $table->foreignId('sender_currency_id')
                 ->references('id')
-                ->on('currencies');
+                ->on('airtime_currencies');
 
             $table->string('sender_currency_symbol');
 
             $table->foreignId('destination_currency_id')
                 ->references('id')
-                ->on('currencies');
+                ->on('airtime_currencies');
 
             $table->string('destination_currency_symbol');
             $table->double('commission');

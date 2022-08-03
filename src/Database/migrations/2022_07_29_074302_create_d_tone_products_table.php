@@ -18,8 +18,8 @@ return new class extends Migration {
 
             $table->foreignId('country_id')->references('id')->on('d_tone_countries');
             $table->foreignId('operator_id')->references('id')->on('d_tone_operators');
-            $table->foreignId('sender_currency_id')->references('id')->on('currencies');
-            $table->foreignId('destination_currency_id')->references('id')->on('currencies');
+            $table->foreignId('sender_currency_id')->references('id')->on('airtime_currencies');
+            $table->foreignId('destination_currency_id')->references('id')->on('airtime_currencies');
 
             $table->string('product');
             $table->string('retail_price');

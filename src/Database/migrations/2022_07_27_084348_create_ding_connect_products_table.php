@@ -30,11 +30,11 @@ return new class extends Migration {
 
             $table->foreignId('currency_id')
                 ->references('id')
-                ->on('currencies');
+                ->on('airtime_currencies');
 
             $table->foreignId('destination_currency_id')
                 ->references('id')
-                ->on('currencies');
+                ->on('airtime_currencies');
 
             $table->double('fx_rate');
             $table->double('maximum_value');
