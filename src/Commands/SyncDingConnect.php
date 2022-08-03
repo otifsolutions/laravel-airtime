@@ -25,6 +25,14 @@ class SyncDingConnect extends Command {
             return 0;
         }
 
+        $this->line('Running migrations for Ding-Connect Service');
+        $this->line('+++++++++++++++++++++++++++++++++++++++++++');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_27_084249_create_ding_connect_countries_table.php');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_27_084329_create_ding_connect_operators_table.php');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_27_084348_create_ding_connect_products_table.php');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_27_084418_create_ding_connect_transactions_table.php');
+        $this->line('++++++++++++++++++++++++++++++++++++++++++++');
+
         $this->line("");
         $this->line("****************************************************************");
         $this->info("Started Sync of DingConnect Operators");
