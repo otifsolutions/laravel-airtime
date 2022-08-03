@@ -232,7 +232,7 @@ and there is made a transaction is made database. You only have to give *token/k
 **To give token**
 
 ```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_token', 'token', string);
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_token', 'token', 'string');
 ```
 
 after *setting/giving* the token, you can successfully execute the below given `artisan comamnd`,
