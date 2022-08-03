@@ -37,8 +37,15 @@ class SyncValueTopup extends Command {
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133231_create_value_topup_operators_table.php');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
 
+        $credentials = [
+            'user_id' => Setting::get('value_topup_user_id'),
+            'password' => Setting::get('value_topup_password'),
+        ];
 
-
+        if (!$credentials['user_id'] || !$credentials['password']) {
+            $this->error('Keys not found in settings.');
+            return 0;
+        }
 
         $this->line("");
         $this->line("****************************************************************");
