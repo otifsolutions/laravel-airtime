@@ -20,14 +20,7 @@ class SyncValueTopup extends Command {
 
     public function handle() {
 
-        if (!Setting::get('value_topup_service')) {
-            $this->line("****************************************************************");
-            $this->info("Value-topup service is Diabled or false. Enable it first");
-            $this->line("****************************************************************");
-            return 0;
-        }
-
-        $this->info('Running migrations for Value-topup service');
+        $this->line('Running migrations for Value-topup service');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133006_create_value_topup_categories_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133040_create_value_topup_countries_table.php');
@@ -36,6 +29,13 @@ class SyncValueTopup extends Command {
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133154_create_value_topup_transactions_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133231_create_value_topup_operators_table.php');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
+
+        if (!Setting::get('value_topup_service')) {
+            $this->line("****************************************************************");
+            $this->info("Value-topup service is Diabled or false. Enable it first");
+            $this->line("****************************************************************");
+            return 0;
+        }
 
         $credentials = [
             'user_id' => Setting::get('value_topup_user_id'),
@@ -46,6 +46,9 @@ class SyncValueTopup extends Command {
             $this->error('Keys not found in settings.');
             return 0;
         }
+
+        Setting::set('value_topup_token', base64_encode(Setting::get('value_topup_user_id') . ':' . Setting::get('value_topup_password')), 'string');
+        Setting::set('value_topup_api_mode', 'TEST', 'string');
 
         $this->line("");
         $this->line("****************************************************************");
@@ -75,6 +78,9 @@ class SyncValueTopup extends Command {
 
         $this->info("Fetching Complete.");
         $this->line("Syncing with database.");
+
+        $progressBar = $this->output->createProgressBar(count($carriers['payLoad']));
+
         foreach ($carriers['payLoad'] as $carrier) {
             $valueTopupCategory = $categories->where('name', $carrier['category'])->first();
             if (!$valueTopupCategory) {
@@ -101,7 +107,13 @@ class SyncValueTopup extends Command {
                     'denomination_type' => $carrier['denominationType']
                 ]
             );
+
+            $progressBar->advance();
+
         }
+
+        $progressBar->finish();
+        $this->newLine();
 
         $categories = ValueTopupCategory::all();
         $countries = ValueTopupCountry::all();
@@ -110,6 +122,8 @@ class SyncValueTopup extends Command {
         $products = ValueTopup::Make()->getValueTopupProducts();
         $this->info("Fetching Products details.");
         $this->line("Syncing with database.");
+
+        $progressBar = $this->output->createProgressBar(count($products['payLoad']));
 
         foreach ($products['payLoad'] as $product) {
             $valueTopupCategory = $categories->where('name', $product['category'])->first();
@@ -142,11 +156,19 @@ class SyncValueTopup extends Command {
                     'carrier_name' => $product['carrierName']
                 ]
             );
+
+            $progressBar->advance();
+
         }
+
+        $progressBar->finish();
+        $this->newLine();
 
         $productsDescription = ValueTopup::Make()->getValueTopupProductsDescription();
         $this->info("Fetching Description of Products.");
         $this->line("Syncing with database.");
+
+        $progressBar = $this->output->createProgressBar(count($productsDescription['payLoad']));
 
         foreach ($productsDescription['payLoad'] as $productDescription) {
             $valueTopupProduct = ValueTopupProduct::where('sku_id', $productDescription['skuId'])->first();
@@ -157,7 +179,11 @@ class SyncValueTopup extends Command {
                         'description' => $productDescription['description']
                     ]
                 );
+            $progressBar->advance();
         }
+
+        $progressBar->finish();
+        $this->newLine();
 
         $operatorsLogo = ValueTopup::Make()->getValueTopupOperatorLogo();
         $this->info("Fetching Logo of Operators.");
@@ -188,6 +214,8 @@ class SyncValueTopup extends Command {
 
         $jsonCountries = json_decode(file_get_contents(__DIR__ . '../../Database/jsons/countriesValueTopup.json'), false, 512, JSON_THROW_ON_ERROR);
 
+        $progressBar = $this->output->createProgressBar(250);
+
         foreach ($jsonCountries as $jsonCountry) {
             $countries = ValueTopupCountry::whereNull('name')->where('country_code', $jsonCountry->code)->get();
             if ($countries) {
@@ -196,7 +224,11 @@ class SyncValueTopup extends Command {
                     $country->save();
                 }
             }
+            $progressBar->advance();
         }
+
+        $progressBar->finish();
+        $this->newLine();
 
         $this->line("****************************************************************");
         $this->info("Sync Complete");
