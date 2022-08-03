@@ -17,7 +17,8 @@ class AirtimeServiceProvider extends ServiceProvider {
     }
 
     public function boot() {
-        // $this->loadMigrationsFrom(__DIR__ . '/Database/migrations/');
+        // $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/Database/migrations/2022_07_18_130511_create_airtime_currencies_table.php');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
