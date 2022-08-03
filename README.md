@@ -276,7 +276,7 @@ And
 
 
 
-To sync data with using D-Tone platform, hit this command
+To sync data with using `D-Tone` platform, hit this command
 ```php
 php artisan sync:d-tone
 ```
