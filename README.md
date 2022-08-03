@@ -79,6 +79,12 @@ the package will not allow you to do that. It'll ask you to enable it firlst.
 It is the service that deals with topups transactions among users from 800+ of operators around the globe,
 maintains detailed record of all the successfull/unsuccessful transactions happened between operators and users
 
+:heavy_check_mark: **For enabling Reloadly service**
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', true, 'bool');
+```
+
+
 
 ### Usage
 
@@ -88,10 +94,6 @@ The third one is mode, wheter it'll be `LIVE` or `TEST`. We are using :link: [Se
 package to set the keys
 
 
-:heavy_check_mark: **For enabling Reloadly service**
-```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', true, 'bool');
-```
 
 
 ```php
