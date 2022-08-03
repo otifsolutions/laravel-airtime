@@ -9,7 +9,7 @@ use OTIFSolutions\LaravelAirtime\Models\ValueTopupTransaction;
 
 class SyncValueTopupStatus extends Command {
 
-    protected $signature = 'sync:value-topup-status';
+    protected $signature = 'sync:value_topup_status';
 
     protected $description = 'Sync status of transactions that are still in processing';
 

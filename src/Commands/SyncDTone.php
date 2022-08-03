@@ -13,7 +13,7 @@ use OTIFSolutions\LaravelAirtime\Models\DToneProduct;
 
 class SyncDTone extends Command {
 
-    protected $signature = 'sync:d-tone';
+    protected $signature = 'sync:dtone';
 
     protected $description = 'Sync the data with d-tone platform';
 

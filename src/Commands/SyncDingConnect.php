@@ -12,7 +12,7 @@ use OTIFSolutions\LaravelAirtime\Models\DingConnectProduct;
 
 class SyncDingConnect extends Command {
 
-    protected $signature = 'sync:ding-connect';
+    protected $signature = 'sync:ding_connect';
 
     protected $description = 'Sync data with Ding-connect service';
 
