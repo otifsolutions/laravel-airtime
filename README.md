@@ -81,6 +81,10 @@ this command. And look against the key `sync:xxxxx-xxx--xxxx`
 php artisan
 ```
 
+If you hit the command for syncing data for a specific service without activating/enabling it,
+the package will not allow you to do that. It'll ask you to enable it firlst.
+
+
 
 ## Table of Contents
 
