@@ -14,7 +14,7 @@ class SyncDingConnect extends Command {
 
     protected $signature = 'sync:ding-connect';
 
-    protected $description = 'Sync with the DTone platform';
+    protected $description = 'Sync data with Ding-connect service';
 
     public function handle() {
 
