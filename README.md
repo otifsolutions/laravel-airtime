@@ -18,7 +18,8 @@ mySQL database tables got from the response by using the artisan commands.
  composer require otifsolutions/laravel-airtime
 ```
 
-We have used :link: [Setting](https://github.com/otifsolutions/laravel-settings) package by :link: [OTIF Solutions](https://github.com/otifsolutions), to set any key we use
+We have used the :link: [Setting](https://github.com/otifsolutions/laravel-settings) package by :link: [OTIF Solutions](https://github.com/otifsolutions) to set
+the keys we use
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('key', 'value', 'type');
 ```
@@ -35,6 +36,9 @@ Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 **Note :books:**
 By default, all these services are `disabled`. You have to enable service of your choice via `Setting::set`. Please,
 don't forget to add third argument as `bool`, it defines the type of the key.
+
+Do not set the keys directly in your code but it is wise to use `php artisan tinker` and then run
+the commands for service of your choice
 
 
 :heavy_check_mark: **For enabling Reloadly service**
