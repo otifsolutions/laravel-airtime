@@ -94,21 +94,6 @@ The third one is mode, wheter it'll be `LIVE` or `TEST`. We are using :link: [Se
 package to set the keys
 
 
-
-
-```php
- \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_key', 'API Client ID')
-```
-
-```php
- \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_secret', 'API Client Secret')
-```
-
-```php
- \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_mode', 'MODE')
-```
-
-
 To send the transactions, create the object of heler class `Reloadly` and it's static method takes three parameters,
 `key`, `secret` and `mode`. Simply you can get the settings here with `Setting::get('key')`. `Reloadly::Make` will
 return an object, that object has `sendTopup` method that takes object of `\OTIFSolutions\LaravelAirtime\Models\ReloadlyTransaction`.
@@ -122,6 +107,18 @@ $obj->sendTopup($reloadlyTransactionObj);
 
 
 #### Command
+
+```php
+ \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_key', 'API Client ID')
+```
+
+```php
+ \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_secret', 'API Client Secret')
+```
+
+```php
+ \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_mode', 'MODE')
+```
 
 After installing package, you'll have artisan command
 
