@@ -17,7 +17,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "OTIFSolutions\\LaravelAirtime\\LaravelAirtimeServiceProvider"
+        "OTIFSolutions\\LaravelAirtime\\AirtimeServiceProvider"
       ]
     }
   },
