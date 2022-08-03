@@ -1,6 +1,6 @@
 <?php
 
-namespace OTIFSolutions\LaravelAirtime\AirtimeServiceProvider;
+namespace OTIFSolutions\LaravelAirtime;
 
 use Illuminate\Support\ServiceProvider;
 use OTIFSolutions\LaravelAirtime\Commands\{SyncDingConnect,
@@ -10,7 +10,7 @@ use OTIFSolutions\LaravelAirtime\Commands\{SyncDingConnect,
     SyncValueTopupStatus
 };
 
-class LaravelAirtimeServiceProvider extends ServiceProvider {
+class AirtimeServiceProvider extends ServiceProvider {
 
     public function register() {
 
