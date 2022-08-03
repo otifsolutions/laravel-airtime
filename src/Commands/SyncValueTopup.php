@@ -3,6 +3,7 @@
 namespace OTIFSolutions\LaravelAirtime\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\ValueTopup;
 use OTIFSolutions\LaravelAirtime\Models\ValueTopupCategory;
@@ -19,14 +20,24 @@ class SyncValueTopup extends Command {
 
     public function handle() {
 
-
-
         if (!Setting::get('value_topup_service')) {
             $this->line("****************************************************************");
             $this->info("Value-topup service is Diabled or false. Enable it first");
             $this->line("****************************************************************");
             return 0;
         }
+
+        $this->info('Running migrations for Value-topup service');
+        $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133006_create_value_topup_categories_table.php');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133040_create_value_topup_countries_table.php');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133104_create_value_topup_products_table.php');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133130_create_value_topup_promotions_table.php');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133154_create_value_topup_transactions_table.php');
+        Artisan::call('php artisan migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133231_create_value_topup_operators_table.php');
+        $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
+
+
 
 
         $this->line("");
