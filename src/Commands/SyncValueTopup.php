@@ -13,7 +13,7 @@ use OTIFSolutions\LaravelAirtime\Models\ValueTopupPromotion;
 
 class SyncValueTopup extends Command {
 
-    protected $signature = 'sync:valuetopup';
+    protected $signature = 'sync:value-topoup';
 
     protected $description = 'Sync countries,operators,products with the ValueTopup Platform';
 
