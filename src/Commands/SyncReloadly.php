@@ -15,13 +15,13 @@ class SyncReloadly extends Command {
 
     protected $signature = 'sync:reloadly';
 
-    protected $description = 'Sync Countries with the Reloadly platform';
+    protected $description = 'Sync data with the Reloadly platform';
 
     public function handle() {
 
         if (!Setting::get('reloadly_service')) {
             $this->line("****************************************************************");
-            $this->info("D-Tone service is Diabled or false. Enable it first");
+            $this->info("Reloadly Service is NULL or false. Enable it first");
             $this->line("****************************************************************");
             return 0;
         }
