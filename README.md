@@ -120,7 +120,7 @@ $obj->sendTopup($reloadlyTransactionObj);
  \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_mode', 'MODE')
 ```
 
-After installing package, you'll have artisan command
+After installing package, you'll have artisan command, hit this
 
 ```
  php artisan sync:reloadly
@@ -191,12 +191,12 @@ to run the commands
 
 :heavy_check_mark: **Artisan command to sync the data**
 ```php
-php artisan sync:value-topup
+php artisan sync:value_topup
 ```
 
 :heavy_check_mark: **Artisan command to check the status**
 ```php
-php artisan sync:value-topup-status
+php artisan sync:value_topup_status
 ```
 
 ### Model Relationships
@@ -240,7 +240,7 @@ it will synchronize the *countries*, *operators* and *products*. The process wil
 execute the command and leave the tab open.
 
 ```php
- php artisan sync:ding-connect
+ php artisan sync:ding_connect
 ```
 
 
@@ -261,7 +261,7 @@ execute the command and leave the tab open.
 
 
 ## D Tone
-The service has the same concept behind, it is used to send `topup/balance` to devices.
+The service has the same concept behind, it is used to send `topup/balance` to users.
 
 
 
@@ -292,7 +292,7 @@ And
 
 To sync data with using `D-Tone` platform, hit this command
 ```php
-php artisan sync:d-tone
+php artisan sync:dtone
 ```
 
 
