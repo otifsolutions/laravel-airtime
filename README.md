@@ -56,7 +56,7 @@ while the other migrations are holded there waiting for running, they'll only be
 service will be enabled *made true through Setting package*.
 
 
-**To check which artisan this package offers:**
+**Artisan comamnds in this package:**
 
 To check which commands are available for whole of this `airtime` package, simple hit this command, and look against the key `sync:xxxxxxxx_xxxxxx_xxxxxxx`
 
