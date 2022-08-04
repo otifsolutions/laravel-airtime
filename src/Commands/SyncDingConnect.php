@@ -6,10 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\DingConnect;
-use OTIFSolutions\LaravelAirtime\Models\Currency;
-use OTIFSolutions\LaravelAirtime\Models\DingConnectCountry;
-use OTIFSolutions\LaravelAirtime\Models\DingConnectOperator;
-use OTIFSolutions\LaravelAirtime\Models\DingConnectProduct;
+use OTIFSolutions\LaravelAirtime\Models\{Currency, DingConnectCountry, DingConnectOperator, DingConnectProduct};
 
 class SyncDingConnect extends Command {
 

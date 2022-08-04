@@ -6,10 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\DTone;
-use OTIFSolutions\LaravelAirtime\Models\Currency;
-use OTIFSolutions\LaravelAirtime\Models\DToneCountry;
-use OTIFSolutions\LaravelAirtime\Models\DToneOperator;
-use OTIFSolutions\LaravelAirtime\Models\DToneProduct;
+use OTIFSolutions\LaravelAirtime\Models\{Currency, DToneCountry, DToneOperator, DToneProduct};
 
 class SyncDTone extends Command {
 

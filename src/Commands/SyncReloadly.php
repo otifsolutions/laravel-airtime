@@ -6,11 +6,12 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\Reloadly;
-use OTIFSolutions\LaravelAirtime\Models\Currency;
-use OTIFSolutions\LaravelAirtime\Models\ReloadlyCountry;
-use OTIFSolutions\LaravelAirtime\Models\ReloadlyDiscount;
-use OTIFSolutions\LaravelAirtime\Models\ReloadlyOperator;
-use OTIFSolutions\LaravelAirtime\Models\ReloadlyPromotion;
+use OTIFSolutions\LaravelAirtime\Models\{Currency,
+    ReloadlyCountry,
+    ReloadlyDiscount,
+    ReloadlyOperator,
+    ReloadlyPromotion
+};
 
 class SyncReloadly extends Command {
 

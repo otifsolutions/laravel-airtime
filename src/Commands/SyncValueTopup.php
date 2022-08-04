@@ -6,11 +6,12 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\ValueTopup;
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupCategory;
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupCountry;
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupOperator;
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupProduct;
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupPromotion;
+use OTIFSolutions\LaravelAirtime\Models\{ValueTopupCategory,
+    ValueTopupCountry,
+    ValueTopupOperator,
+    ValueTopupProduct,
+    ValueTopupPromotion
+};
 
 class SyncValueTopup extends Command {
 
@@ -27,7 +28,6 @@ class SyncValueTopup extends Command {
             return 0;
         }
 
-
         $this->line('Running migrations for Value-topup service');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133006_create_value_topup_categories_table.php');
@@ -37,8 +37,6 @@ class SyncValueTopup extends Command {
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133154_create_value_topup_transactions_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133231_create_value_topup_operators_table.php');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
-
-
 
         $credentials = [
             'user_id' => Setting::get('value_topup_user_id'),
