@@ -21,7 +21,7 @@ class SyncDTone extends Command {
 
         if (!Setting::get('dtone_service')) {
             $this->line("****************************************************************");
-            $this->info("D-Tone service is Diabled or false. Enable it first");
+            $this->info("D-Tone service is disabled or false. Enable it first");
             $this->line("****************************************************************");
             return 0;
         }

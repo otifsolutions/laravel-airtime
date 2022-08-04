@@ -20,7 +20,7 @@ class SyncDingConnect extends Command {
 
         if (!Setting::get('ding_connect_service')) {
             $this->line("****************************************************************");
-            $this->info("Ding-connect service is Diabled or false. Enable it first");
+            $this->info("Ding-connect service is disabled or false. Enable it first");
             $this->line("****************************************************************");
             return 0;
         }

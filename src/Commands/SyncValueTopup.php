@@ -20,6 +20,14 @@ class SyncValueTopup extends Command {
 
     public function handle() {
 
+        if (!Setting::get('value_topup_service')) {
+            $this->line("****************************************************************");
+            $this->info("Value-topup service is disabled or false. Enable it first");
+            $this->line("****************************************************************");
+            return 0;
+        }
+
+
         $this->line('Running migrations for Value-topup service');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133006_create_value_topup_categories_table.php');
@@ -30,12 +38,7 @@ class SyncValueTopup extends Command {
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133231_create_value_topup_operators_table.php');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
 
-        if (!Setting::get('value_topup_service')) {
-            $this->line("****************************************************************");
-            $this->info("Value-topup service is Diabled or false. Enable it first");
-            $this->line("****************************************************************");
-            return 0;
-        }
+
 
         $credentials = [
             'user_id' => Setting::get('value_topup_user_id'),
