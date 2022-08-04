@@ -19,6 +19,13 @@ class SyncDTone extends Command {
 
     public function handle() {
 
+        if (!Setting::get('dtone_currency')) {
+            $this->line('***********************************************');
+            $this->warn('Sorry! This service cannot be until you set -> dtone_currency <- in setting');
+            $this->line('***********************************************');
+            return 0;
+        }
+
         if (!Setting::get('dtone_service')) {
             $this->line("****************************************************************");
             $this->info("D-Tone service is disabled or false. Enable it first");
@@ -140,7 +147,9 @@ class SyncDTone extends Command {
         $operators = DToneOperator::all();
         $this->withProgressBar($operators, function ($operator) use ($credentials) {
             $productResponses = DTone::TShop($credentials['name'], $credentials['token'])->getProducts($operator['t_shop_id']);
-            $senderCurrencyId = Setting::get('dtone_currency_id');
+
+            $senderCurrencyId = Currency::where('code', Setting::get('dtone_currency'))->first()['id'];
+
             if (isset($productResponses['product_list'], $productResponses['retail_price_list'], $productResponses['wholesale_price_list'])) {
                 $productNames = explode(",", $productResponses['product_list']);
                 $retailPrices = explode(",", $productResponses['retail_price_list']);
