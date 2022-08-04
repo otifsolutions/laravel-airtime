@@ -133,7 +133,7 @@ After installing package, you'll have artisan command, hit this :point_down:
 
 :heavy_check_mark: **To schedule command**
 
-It will synchronise all of the data came from the response, you can run it or shedule it. To shedule it,
+It will synchronise all of the data came from the response. To shedule it,
 go to your project `App\Console\Kernel` class and in
 
 ```php
@@ -144,7 +144,7 @@ protected function schedule(Schedule $schedule) {
 }
 ```
 
-You can even schedule it to run on a specific date and time. More more info, visit
+You can even schedule this command to run on a specific date and time. For more info, visit
 :link: [Scheduling Artisan Commands](https://laravel.com/docs/master/scheduling#scheduling-artisan-commands)
 
 
