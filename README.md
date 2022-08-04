@@ -51,10 +51,13 @@ To check if service is enabled or disabled, do `Setting::get('service_name_servi
 ```
  php artisan migrate
 ```
+Which will run the package's migrations, the migration for table `airtime_currencies` will only be run
+while the other migrations are holded there waiting for running, they'll only be run when that parcular 
+service will be enabled *made true through Setting package*.
 
 
 To check which commands are available for whole of this `airtime` package, simple hit
-this command. And look against the key `sync:xxxxx-xxx--xxxx`
+this command. And look against the key `sync:xxxxxxxx_xxxxxx_xxxxxxx`
 
 ```
 php artisan
@@ -261,9 +264,8 @@ execute the command and leave the tab open.
 
 
 ## D Tone
+
 The service has the same concept behind, it is used to send `topup/balance` to users.
-
-
 
 
 ### Usage
@@ -316,6 +318,6 @@ php artisan sync:dtone
 
 
 #### Licence
-____________
+
 The MIT License (MIT). Please see  :link: [**License file**](https://github.com/otifsolutions/laravel-airtime/blob/main/LICENSE) for more information
 
