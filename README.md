@@ -8,7 +8,7 @@ mySQL database tables got from the response by using the artisan commands.
 
 `laravel >= 8.0`
 
-`php => 7.4`
+`php >= 7.4`
 
 
 ### Via Composer installation:
