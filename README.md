@@ -109,7 +109,7 @@ $obj->sendTopup($reloadlyTransactionObj);
 
 
 
-#### Command
+#### Commands for setting relaodly credentials
 
 ```php
  \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_key', 'API Client ID')
@@ -119,11 +119,13 @@ $obj->sendTopup($reloadlyTransactionObj);
  \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_secret', 'API Client Secret')
 ```
 
+If working with sandbox, mode will be `TEST`, otherwise it'll be `LIVE` 
+
 ```php
  \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_mode', 'MODE')
 ```
 
-After installing package, you'll have artisan command, hit this
+After installing package, you'll have artisan command, hit this :point_down:
 
 ```
  php artisan sync:reloadly
@@ -235,7 +237,7 @@ and there is made a transaction is made database. You only have to give *token/k
 
 #### Commands
 
-**To give token**
+**To give token** :point_down:
 
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('ding_connect_token', 'token', 'string');
@@ -283,19 +285,19 @@ The service has the same concept behind, it is used to send `topup/balance` to u
 
 #### Commands
 
-First set
+First set :point_down:
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_tshop_username', 'value-username', 'string');
 ```
 
-And
+And :point_down:
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_tshop_token', 'value-token', 'string');
 ```
 
 
 
-To sync data with using `D-Tone` platform, hit this command
+To sync data with using `D-Tone` platform, hit this command :point_down:
 ```php
 php artisan sync:dtone
 ```
