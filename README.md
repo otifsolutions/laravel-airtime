@@ -205,21 +205,24 @@ php artisan sync:value_topup_status
 ### Model Relationships
 
 
-| Model                | Relation   |Model                     |
-| :------------------: |:----------:|:------------------------:|
-| ValueTopupCategory   | 1-m        | ValueTopupCountry        |
-| ValueTopupCategory   | 1-m        | ValueTopupOperator       |
-| ValueTopupOperator   | 1-m        | ValueTopupProducts       |
-| ValueTopupCategory   | 1-m        | ValueTopupTransaction    |
-| ValueTopupCountry    | 1-m        | ValueTopupTransaction    |
-| ValueTopupOperator   | 1-m        | ValueTopupTransaction    |
+| Model                | Relation   |Model                     | Key Name          |
+| :------------------: |:----------:|:------------------------:|:-----------------:|
+| ValueTopupCategory   | 1-m        | ValueTopupCountry        |                   |
+| ValueTopupCategory   | 1-m        | ValueTopupOperator       |                   |
+| ValueTopupOperator   | 1-m        | ValueTopupProducts       |                   |
+| ValueTopupCategory   | 1-m        | ValueTopupTransaction    |:key: category_id  |
+| ValueTopupCountry    | 1-m        | ValueTopupTransaction    |:key: country_id   |
+| ValueTopupOperator   | 1-m        | ValueTopupTransaction    |:key: operator_id  |
+| ValueTopupProduct    | 1-m        | ValueTopupTransaction    |:key: product_id   |
 
 
 ## Ding Connect
 
-### Usage
 The procedure behind this service is also the same, sending *balance/topup* from *operator* to *user*
 and there is made a transaction is made database. You only have to give *token/key* to make it functional.
+
+
+### Usage
 
 
 
