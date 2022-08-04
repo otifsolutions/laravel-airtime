@@ -3,6 +3,7 @@
 namespace OTIFSolutions\LaravelAirtime\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\DingConnect;
 use OTIFSolutions\LaravelAirtime\Models\Currency;
