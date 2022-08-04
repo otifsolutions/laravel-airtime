@@ -276,6 +276,12 @@ The service has the same concept behind, it is used to send `topup/balance` to u
 ### Usage
 
 
+To use this package, we'll set the `dtone_currency` via `Setting::set()`, it'll have currency name such as *EUR*, *USD* or *PKR*. So, set it right here before running other D-Tone commands :point_down:
+
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_currency', 'currency_name', 'string');
+```
+
 :heavy_check_mark: **For enabling D-Tone service**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', true, 'bool');
