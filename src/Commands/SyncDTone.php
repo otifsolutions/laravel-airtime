@@ -21,7 +21,7 @@ class SyncDTone extends Command {
 
         if (!Setting::get('dtone_currency')) {
             $this->line('***********************************************');
-            $this->warn('Sorry! This service cannot be until you set -> dtone_currency <- in setting');
+            $this->warn('Sorry! This service cannot be run until you set -> dtone_currency <- in setting');
             $this->line('***********************************************');
             return 0;
         }
