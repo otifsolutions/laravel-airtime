@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\DTone;
-use OTIFSolutions\LaravelAirtime\Models\{Currency, DToneCountry, DToneOperator, DToneProduct};
+use OTIFSolutions\LaravelAirtime\Models\{AirtimeCurrency, DToneCountry, DToneOperator, DToneProduct};
 
 class SyncDTone extends Command {
 
@@ -145,16 +145,16 @@ class SyncDTone extends Command {
         $this->withProgressBar($operators, function ($operator) use ($credentials) {
             $productResponses = DTone::TShop($credentials['name'], $credentials['token'])->getProducts($operator['t_shop_id']);
 
-            $senderCurrencyId = Currency::where('code', Setting::get('dtone_currency'))->first()['id'];
+            $senderCurrencyId = AirtimeCurrency::where('code', Setting::get('dtone_currency'))->first()['id'];
 
             if (isset($productResponses['product_list'], $productResponses['retail_price_list'], $productResponses['wholesale_price_list'])) {
                 $productNames = explode(",", $productResponses['product_list']);
                 $retailPrices = explode(",", $productResponses['retail_price_list']);
                 $wholesalePrices = explode(",", $productResponses['wholesale_price_list']);
                 foreach ($productNames as $i => $productName) {
-                    $currency = Currency::where('code', $productResponses['destination_currency'])->first();
+                    $currency = AirtimeCurrency::where('code', $productResponses['destination_currency'])->first();
                     if (!$currency) {
-                        $currency = Currency::create([
+                        $currency = AirtimeCurrency::create([
                             'code' => $productResponses['destination_currency'],
                             'base_currency_id' => 1,
                             'rate' => 0,

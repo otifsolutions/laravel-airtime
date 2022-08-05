@@ -20,11 +20,11 @@ class DToneProduct extends Model {
     }
 
     public function senderCurrency() {
-        return $this->belongsTo(Currency::class);
+        return $this->belongsTo(AirtimeCurrency::class);
     }
 
     public function destinationCurrency() {
-        return $this->belongsTo(Currency::class);
+        return $this->belongsTo(AirtimeCurrency::class);
     }
 
 }

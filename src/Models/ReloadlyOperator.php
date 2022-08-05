@@ -38,7 +38,7 @@ class ReloadlyOperator extends Model {
     }
 
     public function currency() {
-        return $this->hasOne(Currency::class);
+        return $this->hasOne(AirtimeCurrency::class);
     }
 
 }

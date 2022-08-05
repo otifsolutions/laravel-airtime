@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\Reloadly;
-use OTIFSolutions\LaravelAirtime\Models\{Currency,
+use OTIFSolutions\LaravelAirtime\Models\{AirtimeCurrency,
     ReloadlyCountry,
     ReloadlyDiscount,
     ReloadlyOperator,
@@ -89,9 +89,9 @@ class SyncReloadly extends Command {
 
         $this->line('Syncing with database.');
         $this->withProgressBar($countries, function ($country) {
-            $currency = Currency::where('code', $country['currencyCode'])->first();
+            $currency = AirtimeCurrency::where('code', $country['currencyCode'])->first();
             if ($currency === null) {
-                $currency = Currency::updateOrCreate([
+                $currency = AirtimeCurrency::updateOrCreate([
                     'code' => $country['currencyCode'],
                     'base_currency_id' => 1,
                     'rate' => 0,
@@ -139,9 +139,9 @@ class SyncReloadly extends Command {
             $this->line('Syncing with Database');
             $this->withProgressBar($response['content'], function ($operator) {
                 if (isset($operator['operatorId'])) {
-                    $senderCurrency = Currency::where('code', $operator['senderCurrencyCode'])->first();
+                    $senderCurrency = AirtimeCurrency::where('code', $operator['senderCurrencyCode'])->first();
                     if ($senderCurrency === null) {
-                        $senderCurrency = Currency::updateOrCreate([
+                        $senderCurrency = AirtimeCurrency::updateOrCreate([
                             'code' => $operator['senderCurrencyCode'],
                             'base_currency_id' => 1,
                             'rate' => 0,
@@ -149,9 +149,9 @@ class SyncReloadly extends Command {
                         ]);
                     }
 
-                    $destinationCurrency = Currency::where('code', $operator['destinationCurrencyCode'])->first();
+                    $destinationCurrency = AirtimeCurrency::where('code', $operator['destinationCurrencyCode'])->first();
                     if ($destinationCurrency === null) {
-                        $destinationCurrency = Currency::updateOrCreate([
+                        $destinationCurrency = AirtimeCurrency::updateOrCreate([
                             'code' => $operator['destinationCurrencyCode'],
                             'base_currency_id' => 1,
                             'rate' => 0,

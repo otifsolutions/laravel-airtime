@@ -23,11 +23,11 @@ class DingConnectProduct extends Model {
     }
 
     public function currency() {
-        return $this->belongsTo(Currency::class);
+        return $this->belongsTo(AirtimeCurrency::class);
     }
 
     public function destinationCurrency() {
-        return $this->belongsTo(Currency::class);
+        return $this->belongsTo(AirtimeCurrency::class);
     }
 
     public function country() {

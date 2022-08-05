@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Helpers\DingConnect;
-use OTIFSolutions\LaravelAirtime\Models\{Currency, DingConnectCountry, DingConnectOperator, DingConnectProduct};
+use OTIFSolutions\LaravelAirtime\Models\{AirtimeCurrency, DingConnectCountry, DingConnectOperator, DingConnectProduct};
 
 class SyncDingConnect extends Command {
 
@@ -171,8 +171,8 @@ class SyncDingConnect extends Command {
 
             $this->withProgressBar($productResponses, function ($productResponse) use ($category) {
                 $operator = DingConnectOperator::where('provider_code', $productResponse['ProviderCode'])->first();
-                $currency = Currency::where('code', $productResponse['Maximum']['SendCurrencyIso'])->first();
-                $destinationCurrency = Currency::where('code', $productResponse['Maximum']['ReceiveCurrencyIso'])->first();
+                $currency = AirtimeCurrency::where('code', $productResponse['Maximum']['SendCurrencyIso'])->first();
+                $destinationCurrency = AirtimeCurrency::where('code', $productResponse['Maximum']['ReceiveCurrencyIso'])->first();
 
                 try {
                     DingConnectProduct::withTrashed()->updateOrCreate([
