@@ -159,6 +159,7 @@ You can even schedule this command to run on a specific date and time. For more 
 | AirtimeCurrency | 1-1        | ReloadlyOperator   |
 | ReloadlyOperator| 1-m        | ReloadlyPromotion  |
 | ReloadlyOperator| 1-m        | ReloadlyTransaction|
+| ReloadlyOperator| 1-m        | ReloadlyDiscount   |
 
 
 
