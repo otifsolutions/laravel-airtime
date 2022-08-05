@@ -156,7 +156,7 @@ You can even schedule this command to run on a specific date and time. For more 
 | Model           | Relation   |Model               |
 | --------------- |:----------:|:------------------:|
 | ReloadlyCountry | 1-m        | ReloadlyOperator   |
-| Currency        | 1-1        | ReloadlyOperator   |
+| AirtimeCurrency | 1-1        | ReloadlyOperator   |
 | ReloadlyOperator| 1-m        | ReloadlyPromotion  |
 | ReloadlyOperator| 1-m        | ReloadlyTransaction|
 
@@ -263,8 +263,8 @@ execute the command and leave the tab open.
 | DingConnectOperator  | 1-m        | DingConnectProduct     |                                  |
 | DingConenctProduct   | 1-m        | DingConnectTransaction |                                  |
 | DingConnectOperator  | 1-m        | DingConnectTransaction |                                  |
-| Currency             | 1-m        | DingConnectProduct     | :key: currency_id                |
-| Currency             | 1-m        | DingConenctProduct     | :key: destination_currency_id    |
+| AirtimeCurrency      | 1-m        | DingConnectProduct     | :key: currency_id                |
+| AirtimeCurrency      | 1-m        | DingConenctProduct     | :key: destination_currency_id    |
 
 
 
@@ -324,8 +324,8 @@ php artisan sync:dtone
 | DToneCountry   | 1-m        | DToneProduct     |                              |
 | DToneOperator  | 1-m        | DToneTransaction |                              |
 | DToneProduct   | 1-m        | DToneTransaction |                              |
-| Currency       | 1-m        | DToneProduct     |:key: sender_currency_id      |
-| Currency       | 1-m        | DToneProduct     |:key: destination_currency_id |
+| AirtimeCurrency| 1-m        | DToneProduct     |:key: sender_currency_id      |
+| AirtimeCurrency| 1-m        | DToneProduct     |:key: destination_currency_id |
 
 
 
