@@ -14,7 +14,6 @@ return new class extends Migration {
 
         Schema::create('reloadly_countries', function (Blueprint $table) {
 
-            $table->engine = 'myIsam';
             $table->id();
             $table->string('iso');
             $table->string('name');

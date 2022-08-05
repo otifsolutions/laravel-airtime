@@ -13,7 +13,6 @@ return new class extends Migration {
         }
 
         Schema::create('ding_connect_countries', function (Blueprint $table) {
-            $table->engine = 'myIsam';
             $table->id();
             $table->string('name');
             $table->string('iso2', 22);

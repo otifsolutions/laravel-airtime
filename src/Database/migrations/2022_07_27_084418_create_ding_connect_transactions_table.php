@@ -13,7 +13,6 @@ return new class extends Migration {
         }
 
         Schema::create('ding_connect_transactions', function (Blueprint $table) {
-            $table->engine = 'myIsam';
             $table->id();
 
             $table->bigInteger('order_id')->nullable();

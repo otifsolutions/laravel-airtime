@@ -14,7 +14,6 @@ return new class extends Migration {
 
         Schema::create('ding_connect_products', function (Blueprint $table) {
 
-            $table->engine = 'myIsam';
 
             $table->id();
 

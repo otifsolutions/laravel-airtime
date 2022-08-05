@@ -13,7 +13,6 @@ return new class extends Migration {
         }
 
         Schema::create('reloadly_discounts', function (Blueprint $table) {
-            $table->engine = 'myIsam';
             $table->id();
             $table->string('rid');
 

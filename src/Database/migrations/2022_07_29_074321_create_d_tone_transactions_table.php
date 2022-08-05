@@ -13,7 +13,6 @@ return new class extends Migration {
         }
 
         Schema::create('d_tone_transactions', function (Blueprint $table) {
-            $table->engine = 'myIsam';
             $table->id();
 
             $table->foreignId('operator_id')->references('id')->on('d_tone_operators');

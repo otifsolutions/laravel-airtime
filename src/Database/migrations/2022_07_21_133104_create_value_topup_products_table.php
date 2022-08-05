@@ -13,7 +13,6 @@ return new class extends Migration {
         }
 
         Schema::create('value_topup_products', function (Blueprint $table) {
-            $table->engine = 'myIsam';
             $table->id();
 
             $table->foreignId('operator_id')

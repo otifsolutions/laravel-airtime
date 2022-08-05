@@ -13,7 +13,6 @@ return new class extends Migration {
         }
 
         Schema::create('d_tone_operators', function (Blueprint $table) {
-            $table->engine = 'myIsam';
             $table->id();
             $table->integer('t_shop_id');
             $table->foreignId('country_id')->references('id')->on('d_tone_countries');

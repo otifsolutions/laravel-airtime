@@ -8,7 +8,6 @@ return new class extends Migration {
 
     public function up() {
         Schema::create('airtime_currencies', function (Blueprint $table) {
-            $table->engine = 'myIsam';
             $table->id();
             $table->bigInteger('base_currency_id')->nullable();
             $table->string('code');

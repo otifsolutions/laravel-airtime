@@ -13,7 +13,6 @@ return new class extends Migration {
         }
 
         Schema::create('value_topup_operators', function (Blueprint $table) {
-            $table->engine = 'myIsam';
             $table->id();
 
             $table->foreignId('country_id')
