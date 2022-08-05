@@ -164,8 +164,8 @@ You can even schedule this command to run on a specific date and time. For more 
 
 ## Value Topup
 
-The service is same as above, just go to the site, register, grab the `username` and `password`,
-give to the package via command given. Hit the command to populate the data coming from the `API`
+The service is same as above, just go to the site, register, grab the `user_id` and `password`,
+give to the package via command given. Hit the command to synchronize the data coming from the `API`
 response.
 
 :heavy_check_mark: **For enabling Value-topup service**
@@ -177,10 +177,10 @@ response.
 
 
 #### Commands
-After the migrations run successfully, you have to give the `username` & `password` via command. Use *tinker*
+After the migrations run successfully, you have to give the `user_id` & `password` via command. Use *tinker*
 to run the commands
 
-:heavy_check_mark: **For username**
+:heavy_check_mark: **For user_id**
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_user_id', 'userid');
 ```
