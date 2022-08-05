@@ -30,15 +30,6 @@ class DTone {
                     'Content-Type: text/xml;'
                 ])->body($xml)->execute();
                 if ($response['TransferTo']['error_code'] === "925") {
-                    if (Setting::get('mattermost_bot_token')) {
-                        Curl::Make()->POST->url('https://team.otif-solutions.com/api/v4/posts')
-                            ->header([
-                                'Authorization: Bearer ' . Setting::get('mattermost_bot_token')
-                            ])->body([
-                                'channel_id' => "k7475c6g1b8i9k995wxbjjxgsa",
-                                'message' => "DTONE Balance Response : ```" . json_encode($response, JSON_THROW_ON_ERROR) . "```"
-                            ])->execute();
-                    }
                     return $this->makeRequest($body);
                 }
                 return $response;
