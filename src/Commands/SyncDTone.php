@@ -32,10 +32,10 @@ class SyncDTone extends Command {
 
         $this->info('Running migrations for D-Tone service');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_074020_create_d_tone_countries_table.php');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_074243_create_d_tone_operators_table.php');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_074302_create_d_tone_products_table.php');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_074321_create_d_tone_transactions_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000002_create_d_tone_countries_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000003_create_d_tone_operators_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000004_create_d_tone_products_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000005_create_d_tone_transactions_table.php');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++');
 
         $this->line("");
