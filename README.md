@@ -238,7 +238,12 @@ php artisan sync:value_topup_status
 
 
 ### How artisan command <u>sync:value_topup</u> works:
-
+- Check if service is enabled, then run its migrations one by one
+- Then credentials are checked and token is generated
+- Syncing operators
+- Syncing products
+- Syncing product descriptions
+- Then sycing countries data from json file
 
 
 ### Model Relationships :
