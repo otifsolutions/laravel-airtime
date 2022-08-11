@@ -168,20 +168,21 @@ You can even schedule this command to run on a specific date and time. For more 
 
 
 
-### How artisan command *sync:reloadly* works:
+### How artisan command <u>sync:reloadly</u> works:
 
 
 
 ### Model Relationships :
 
 
-| Model           | Relation   |Model               |
-| --------------- |:----------:|:------------------:|
-| ReloadlyCountry | 1-m        | ReloadlyOperator   |
-| AirtimeCurrency | 1-1        | ReloadlyOperator   |
-| ReloadlyOperator| 1-m        | ReloadlyPromotion  |
-| ReloadlyOperator| 1-m        | ReloadlyTransaction|
-| ReloadlyOperator| 1-m        | ReloadlyDiscount   |
+| Model           | Relation   |Model               | Foreign Key                 |
+| --------------- |:----------:|:------------------:|:---------------------------:|
+| ReloadlyOperator| 1-m        | ReloadlyPromotion  |                             |
+| ReloadlyOperator| 1-m        | ReloadlyTransaction|                             |  
+| ReloadlyOperator| 1-m        | ReloadlyDiscount   |                             |
+| ReloadlyCountry | 1-m        | ReloadlyOperator   |:key: country_id             |
+| AirtimeCurrency | 1-1        | ReloadlyOperator   |:key: sender_currency_id     |
+| AirtimeCurrency | 1-1        | ReloadlyOperator   |:key: destination_currency_id|
 
 
 
@@ -231,14 +232,14 @@ php artisan sync:value_topup_status
 ### Send transaction using value-topup:
 
 
-### How artisan command *sync:value_topup* works:
+### How artisan command <u>sync:value_topup</u> works:
 
 
 
 ### Model Relationships :
 
 
-| Model                | Relation   |Model                     | Key Name          |
+| Model                | Relation   |Model                     | Foreign Key       |
 | :------------------: |:----------:|:------------------------:|:-----------------:|
 | ValueTopupCategory   | 1-m        | ValueTopupCountry        |                   |
 | ValueTopupCategory   | 1-m        | ValueTopupOperator       |                   |
@@ -285,13 +286,13 @@ execute the command and leave the tab open.
 ### Sending transaction :
 
 
-### How artisan command *sync:ding_connect* works :
+### How artisan command <u>sync:ding_connect</u> works :
 
 
 ### Model Relationships :
 
 
-| Model                | Relation   |Model                   | Key Name                         |
+| Model                | Relation   |Model                   | Foreign Key                      |
 | :-------------------:|:----------:|:----------------------:|:--------------------------------:|
 | DingConnectCountry   | 1-m        | DingConenctOperator    |                                  |
 | DingConnectCountry   | 1-m        | DingConnectProduct     |                                  |
@@ -344,7 +345,7 @@ To sync data with using `D-Tone` platform, hit this command :point_down:
 php artisan sync:dtone
 ```
 
-### How artisan command *sync:dtone* works:
+### How artisan command <u>sync:dtone</u> works:
 
 
 ### Sending transaction :
@@ -355,7 +356,7 @@ php artisan sync:dtone
 ### Model Relationships
 
 
-| Model          | Relation   |Model             | Key Name                     |
+| Model          | Relation   |Model             | Foreign Key                  |
 | :-------------:|:----------:|:----------------:|:----------------------------:|
 | DToneCountry   | 1-m        | DToneOperator    |                              |
 | DToneCountry   | 1-m        | DToneProduct     |                              |
