@@ -128,17 +128,17 @@ $obj->sendTopup($reloadlyTransactionObj);
 #### Commands for setting relaodly credentials
 
 ```php
- \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_key', 'API Client ID')
+ \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_key', 'API Client ID');
 ```
 
 ```php
- \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_secret', 'API Client Secret')
+ \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_secret', 'API Client Secret');
 ```
 
 If working with sandbox, mode will be `TEST`, otherwise it'll be `LIVE` 
 
 ```php
- \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_mode', 'MODE')
+ \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_mode', 'MODE');
 ```
 
 After installing package, you'll have artisan command, hit this :point_down:
@@ -212,12 +212,12 @@ to run the commands
 ```
 
 :heavy_check_mark: **Artisan command to sync the data**
-```php
+```
 php artisan sync:value_topup
 ```
 
 :heavy_check_mark: **Artisan command to check the status**
-```php
+```
 php artisan sync:value_topup_status
 ```
 
@@ -321,7 +321,7 @@ And :point_down:
 
 
 To sync data with using `D-Tone` platform, hit this command :point_down:
-```php
+```
 php artisan sync:dtone
 ```
 
