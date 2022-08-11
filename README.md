@@ -311,12 +311,12 @@ execute the command and leave the tab open.
 | Model                | Relation   |Model                   | Foreign Key                      |
 | :-------------------:|:----------:|:----------------------:|:--------------------------------:|
 | DingConnectCountry   | 1-m        | DingConenctOperator    |                                  |
-| DingConnectCountry   | 1-m        | DingConnectProduct     |                                  |
-| DingConnectOperator  | 1-m        | DingConnectProduct     |                                  |
-| DingConenctProduct   | 1-m        | DingConnectTransaction |                                  |
-| DingConnectOperator  | 1-m        | DingConnectTransaction |                                  |
+| DingConnectCountry   | 1-m        | DingConnectProduct     | :key: country_id                 |
+| DingConnectOperator  | 1-m        | DingConnectProduct     | :key: operator_id                |
 | AirtimeCurrency      | 1-m        | DingConnectProduct     | :key: currency_id                |
 | AirtimeCurrency      | 1-m        | DingConenctProduct     | :key: destination_currency_id    |
+| DingConenctProduct   | 1-m        | DingConnectTransaction | :key: product_id                 |
+| DingConnectOperator  | 1-m        | DingConnectTransaction | :key: operator_id                |
 
 
 
