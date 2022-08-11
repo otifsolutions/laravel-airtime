@@ -30,12 +30,12 @@ class SyncValueTopup extends Command {
 
         $this->line('Running migrations for Value-topup service');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133006_create_value_topup_categories_table.php');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133040_create_value_topup_countries_table.php');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133104_create_value_topup_products_table.php');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133130_create_value_topup_promotions_table.php');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133154_create_value_topup_transactions_table.php');
-        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_133231_create_value_topup_operators_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_000002_create_value_topup_categories_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_000003_create_value_topup_countries_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_000004_create_value_topup_operators_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_000005_create_value_topup_products_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_000006_create_value_topup_promotions_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_21_000007_create_value_topup_transactions_table.php');
         $this->line('+++++++++++++++++++++++++++++++++++++++++++++++++++');
 
         $credentials = [
