@@ -297,7 +297,13 @@ execute the command and leave the tab open.
 
 
 ### How artisan command <u>sync:ding_connect</u> works :
-
+- Check if this servie is enabled
+- Run its migrations
+- Check the credentials, show user-friendly error message if wrong
+- Sync countries data from json file
+- Sync countries `name`, `iso2` and `dial_code`
+- Syncing operators
+- Syncing products
 
 ### Model Relationships :
 
