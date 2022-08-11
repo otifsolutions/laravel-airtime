@@ -361,10 +361,17 @@ To sync data with using `D-Tone` platform, hit this command :point_down:
 php artisan sync:dtone
 ```
 
-### How artisan command <u>sync:dtone</u> works:
 
 
 ### Sending transaction :
+
+
+### How artisan command <u>sync:dtone</u> works:
+- Check D-Tone currency and service
+- Run the migrations and check the credentials
+- Sync countries in `name`, `dial_code` and `t_shop_id`
+- Sync operators
+- Sync products
 
 
 
