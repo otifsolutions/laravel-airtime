@@ -93,7 +93,7 @@ the package will not allow you to do that. It'll ask you to enable it firlst.
 **4.** :link: [D Tone](#d-tone)
 
 
-## Reloadly:
+## Reloadly 
 
 It is the service that deals with topups transactions among users from 800+ of operators around the globe,
 maintains detailed record of all the successfull/unsuccessful transactions happened between operators and users
@@ -105,7 +105,7 @@ maintains detailed record of all the successfull/unsuccessful transactions happe
 
 
 
-### Usage
+### Usage :
 
 Sign-up at :link: [Reloadly](https://www.reloadly.com/) and get the keys from :link: [Reloadly/keys](https://www.reloadly.com/developers/api-settings),
 the keys will be used with the package, you have to grab these keys and give them to the package by `tinker`.
@@ -125,7 +125,7 @@ $obj->sendTopup($reloadlyTransactionObj);
 
 
 
-#### Commands for setting relaodly credentials
+#### Commands for setting relaodly credentials :
 
 ```php
  \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_key', 'API Client ID');
@@ -164,8 +164,15 @@ You can even schedule this command to run on a specific date and time. For more 
 :link: [Scheduling Artisan Commands](https://laravel.com/docs/master/scheduling#scheduling-artisan-commands)
 
 
+### Sending transactions  :
 
-### Model Relationships
+
+
+### How artisan command *sync:reloadly* works:
+
+
+
+### Model Relationships :
 
 
 | Model           | Relation   |Model               |
@@ -192,7 +199,7 @@ response.
 
 
 
-#### Commands
+#### Commands :
 After the migrations run successfully, you have to give the `user_id` & `password` via command. Use *tinker*
 to run the commands
 
@@ -221,7 +228,14 @@ php artisan sync:value_topup
 php artisan sync:value_topup_status
 ```
 
-### Model Relationships
+### Send transaction using value-topup:
+
+
+### How artisan command *sync:value_topup* works:
+
+
+
+### Model Relationships :
 
 
 | Model                | Relation   |Model                     | Key Name          |
@@ -241,7 +255,7 @@ The procedure behind this service is also the same, sending *balance/topup* from
 and there is made a transaction is made database. You only have to give *token/key* to make it functional.
 
 
-### Usage
+### Usage :
 
 
 
@@ -252,7 +266,7 @@ and there is made a transaction is made database. You only have to give *token/k
 
 
 
-#### Commands
+#### Commands :
 
 **To give token** :point_down:
 
@@ -264,12 +278,17 @@ after *setting/giving* the token, you can successfully execute the below given `
 it will synchronize the *countries*, *operators* and *products*. The process will work in background, just
 execute the command and leave the tab open.
 
-```php
+```
  php artisan sync:ding_connect
 ```
 
+### Sending transaction :
 
-### Model Relationships
+
+### How artisan command *sync:ding_connect* works :
+
+
+### Model Relationships :
 
 
 | Model                | Relation   |Model                   | Key Name                         |
@@ -290,7 +309,7 @@ execute the command and leave the tab open.
 The service has the same concept behind, it is used to send `topup/balance` to users.
 
 
-### Usage
+### Usage :
 
 
 To use this package, we'll set the `dtone_currency` via `Setting::set()`, it'll have currency name such as *EUR*, *USD* or *PKR*. So, set it right here before running other D-Tone commands :point_down:
@@ -325,8 +344,10 @@ To sync data with using `D-Tone` platform, hit this command :point_down:
 php artisan sync:dtone
 ```
 
+### How artisan command *sync:dtone* works:
 
 
+### Sending transaction :
 
 
 
