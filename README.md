@@ -84,11 +84,10 @@ the package will not allow you to do that. It'll ask you to enable it firlst.
 
 ## Table of Contents
 
-1. [Reloadly](#reloadly)
-2.  [Value Topup](#value-topup)
-3.  [Ding Connect](#ding-connect)
-4.  [D Tone](#d-tone)
-
+1. :link: [Reloadly](#reloadly)
+2. :link: [Value Topup](#value-topup)
+3. :link: [Ding Connect](#ding-connect)
+4. :link: [D Tone](#d-tone)
 
 
 ### Reloadly:
