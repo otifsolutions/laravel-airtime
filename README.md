@@ -169,8 +169,13 @@ You can even schedule this command to run on a specific date and time. For more 
 
 
 ### How artisan command <u>sync:reloadly</u> works:
-
-
+- First checks if this service is enabled or not
+- Migrations are run then credentials are checked
+- Token is generated with credentials and got the balance and set the balance
+- Soft deleting the countries to sync with active ones
+- Fetching operators and syncing them with mysql tables
+- Syncing promotions
+- Then sync discounts
 
 ### Model Relationships :
 
