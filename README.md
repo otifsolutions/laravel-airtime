@@ -45,6 +45,16 @@ the commands for service of your choice
 To check if service is enabled or disabled, do `Setting::get('service_name_service')`
 
 
+**MySQL Tables engine**
+Keep in mind that putting and pulling out data to/from mysql tables is different using different
+mySQL engines. By default the current engine is *InnoDB*. To switch the engine to *MyISAM*
+do this :point_down: and make the key `myisam_engine` `true`
+
+```php
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('myisam_engine', true, 'bool');
+```
+
+
 *After all, run the migrations using this command :point_down:*
 
 
