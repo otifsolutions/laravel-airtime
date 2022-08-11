@@ -3,7 +3,6 @@
 namespace OTIFSolutions\LaravelAirtime\Helpers;
 
 use OTIFSolutions\CurlHandler\Curl;
-use OTIFSolutions\Laravel\Settings\Models\Setting;
 use OTIFSolutions\LaravelAirtime\Models\DToneCountry;
 use OTIFSolutions\LaravelAirtime\Models\DToneOperator;
 use OTIFSolutions\LaravelAirtime\Models\DToneTransaction;
