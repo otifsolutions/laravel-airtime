@@ -93,7 +93,7 @@ the package will not allow you to do that. It'll ask you to enable it firlst.
 **4.** :link: [D Tone](#d-tone)
 
 
-## 1. Reloadly:
+## Reloadly:
 
 It is the service that deals with topups transactions among users from 800+ of operators around the globe,
 maintains detailed record of all the successfull/unsuccessful transactions happened between operators and users
@@ -178,7 +178,7 @@ You can even schedule this command to run on a specific date and time. For more 
 
 
 
-## 2. Value Topup
+## Value Topup
 
 The service is same as above, just go to the site, register, grab the `user_id` and `password`,
 give to the package via command given. Hit the command to synchronize the data coming from the `API`
@@ -235,7 +235,7 @@ php artisan sync:value_topup_status
 | ValueTopupProduct    | 1-m        | ValueTopupTransaction    |:key: product_id   |
 
 
-## 3. Ding Connect
+## Ding Connect
 
 The procedure behind this service is also the same, sending *balance/topup* from *operator* to *user*
 and there is made a transaction is made database. You only have to give *token/key* to make it functional.
@@ -285,7 +285,7 @@ execute the command and leave the tab open.
 
 
 
-## 4. D Tone
+## D Tone
 
 The service has the same concept behind, it is used to send `topup/balance` to users.
 
