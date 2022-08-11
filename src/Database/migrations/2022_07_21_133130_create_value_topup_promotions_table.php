@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use OTIFSolutions\Laravel\Settings\Models\Setting;
 
 return new class extends Migration {
 
@@ -13,6 +14,11 @@ return new class extends Migration {
         }
 
         Schema::create('value_topup_promotions', function (Blueprint $table) {
+
+            if (Setting::get('myisam_engine')) {
+                $table->engine = 'myIsam';
+            }
+
             $table->id();
 
             $table->foreignId('operator_id')
