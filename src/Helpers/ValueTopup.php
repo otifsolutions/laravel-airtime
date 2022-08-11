@@ -12,9 +12,6 @@ use OTIFSolutions\Laravel\Settings\Models\Setting;
 class ValueTopup {
 
     /**s
-     * @param null $key
-     * @param null $secret
-     * @param string $mode
      * @return object
      */
     public static function Make(): object {
@@ -27,9 +24,6 @@ class ValueTopup {
 
             /**
              *  constructor.
-             * @param $key
-             * @param $secret
-             * @param $mode
              */
             public function __construct() {
                 /*$this->userId = $userId;

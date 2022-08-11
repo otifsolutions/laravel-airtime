@@ -3,8 +3,7 @@
 namespace OTIFSolutions\LaravelAirtime\Helpers;
 
 use OTIFSolutions\CurlHandler\Curl;
-use OTIFSolutions\LaravelAirtime\Models\DingConnectOperator;
-use OTIFSolutions\LaravelAirtime\Models\DingConnectTransaction;
+use OTIFSolutions\LaravelAirtime\Models\{DingConnectOperator, DingConnectTransaction};
 
 class DingConnect {
 

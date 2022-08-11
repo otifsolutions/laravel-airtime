@@ -3,8 +3,7 @@
 namespace OTIFSolutions\LaravelAirtime\Helpers;
 
 use OTIFSolutions\CurlHandler\Curl;
-use OTIFSolutions\LaravelAirtime\Models\ReloadlyOperator;
-use OTIFSolutions\LaravelAirtime\Models\ReloadlyTransaction;
+use OTIFSolutions\LaravelAirtime\Models\{ReloadlyOperator, ReloadlyTransaction};
 
 /**
  * Class Reloadly
