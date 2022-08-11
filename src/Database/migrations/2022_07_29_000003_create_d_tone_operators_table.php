@@ -21,7 +21,11 @@ return new class extends Migration {
 
             $table->id();
             $table->integer('t_shop_id');
-            $table->foreignId('country_id')->references('id')->on('d_tone_countries');
+
+            $table->foreignId('country_id')
+                ->references('id')
+                ->on('d_tone_countries');
+
             $table->string('name');
             $table->string('type');
             $table->timestamps();
