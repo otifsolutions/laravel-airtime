@@ -383,8 +383,8 @@ php artisan sync:dtone
 | :-------------:|:----------:|:----------------:|:----------------------------:|
 | DToneCountry   | 1-m        | DToneOperator    |                              |
 | DToneCountry   | 1-m        | DToneProduct     |                              |
-| DToneOperator  | 1-m        | DToneTransaction |                              |
-| DToneProduct   | 1-m        | DToneTransaction |                              |
+| DToneOperator  | 1-m        | DToneTransaction |:key: operator_id             |
+| DToneProduct   | 1-m        | DToneTransaction |:key: product_id              |
 | AirtimeCurrency| 1-m        | DToneProduct     |:key: sender_currency_id      |
 | AirtimeCurrency| 1-m        | DToneProduct     |:key: destination_currency_id |
 
