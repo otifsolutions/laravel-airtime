@@ -166,13 +166,13 @@ $rdHelperObj = Reloadly::Make($key, $secred, $mode);
 $rdTransaction = ReloadlyTransaction::create([
         'order_id' => 1,    // order id, NULLABLE field
         'operator_id' => 1, // the operator id
-        'is_local' => false,   // if transaction is being made inside the country, national or international
-        'topup' => 100,     // the amount / balance to send to the other user
-        'amount' => 125,    // the real amount actually send with no tax deduction
+        'is_local' => false,   // Indicates either transaction is in operator currency in which customer will get airtime or its in currency of Reloadly account being used
+        'topup' => 100,     // amount in receiving currency
+        'amount' => 125,    //  amount in sending currency
         'number' => 00923219988771,     // the connected phone number to which transaction has to be made
         'sender_currency' => 'PKR',     // currency from which transaction is being made
         'destination_currency' => 'AUD'     // currency of transaction receiving channel/user
-        'status' => 'PENDING',      // currenty status of transaction, if made, not made, in the middle, failed, success 
+        'status' => 'PENDING',      //  'PENDING', 'SUCCESS', 'FAIL', 'PENDING_ORDER', 'CANCELLED'
         'response' => 'FILLED_ON_RESPONSE',    // filled when API request is hit, NULLABLE
         'pin' => 'FILLED_ON_RESPONSE'     // in case of purchasing pin, this is pin number, NULLABLE, filled when request is hit
     ]);
@@ -260,8 +260,8 @@ view of sending transaction :point_down:
 $vtObj = ValueTopup::Make()->setCredentials($userId, $password, $mode = 'LIVE');    // will return on object containing all the methods 
 
 $vtTransactionObj = ValueTopupTransaction::create([
-        'order_id' => 1, // order id
-        'category_id' => 1, // category id, like 1 for pin, 2 for rtr etc
+        'order_id' => 1, // 
+        'category_id' => 1, // foreign key for category to indicate which type of transaction is created here like Airtime, Pin etc
         'country_id' => 13, // country id, like 9 for Pakistan, 13 for Panama
         'operator_id' => 1,     // operator id
         'product_id' => 1, // product id
@@ -271,9 +271,9 @@ $vtTransactionObj = ValueTopupTransaction::create([
         'number' => '00923229988770',   // number to which we are sending transaciton
         'sender_currency' => 'PKR', // the currency type of sender user
         'receiver_currency' => 'INR',   // the receiver currency, destination currency
-        'status' => 'PENDING', // the status of transaction if it is done, pending, failed etc
+        'status' => 'PENDING', // 'PENDING', 'PROCESSING', 'SUCCESS', 'FAIL'
         'response' => 'JSON_RESPONSE', // response from the json after hitting the API, executing the transaction method
-        'details' => 'JSON_DETAILS' // filled when transaction method is executed, NULLABLE, ignore this
+        'details' => 'JSON_DETAILS' // filled when transaction method is executed, NULLABLE
     ]);
 
 ```
@@ -377,12 +377,12 @@ $dcTransactionObj = DingConenctTransaction::create([
         'order_id' => 1, // order id for the current transaction
         'operator_id' => 1,     // any operator id
         'product_id' => 1,  // product id
-        'sku_code' => 'GY_DC_TopUp', // which type of product/topup user wants to buy
+        'sku_code' => 'GY_DC_TopUp', // unique sku code provided by API to indicate which product is being bought.
         'send_value' => 200,    // the amount to be send
         'send_currency_code' => 'PKR',      // the currency of sender side
         'number' => '00923219988771',  // sender phone number sample
         'ref' => 'refence',     // distrubutior reference
-        'status' => 'PENDING', // current status of transaction, fail, pending, success etc NULLABLE
+        'status' => 'PENDING_ORDER', // 'PENDING', 'SUCCESS', 'FAIL', 'PENDING_ORDER', 'CANCELLED', default is 'PENDING_ORDER'
         'response' => 'JSON_RESPONSE'   // JSON response when send transaction request is hit 
     ]);
 
