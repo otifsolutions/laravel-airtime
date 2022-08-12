@@ -66,7 +66,7 @@ engine to *MyISAM* do this :point_down: and make the key `myisam_engine` `true`
  php artisan migrate
 ```
 Which will run the package's migrations, the migration for table `airtime_currencies` will only be run
-while the other migrations are holded there waiting for running, they'll only be run when that parcular 
+while the other migrations are holded there waiting for running, they'll only be run when that particular 
 service will be enabled *made true through Setting package*.
 
 
@@ -174,7 +174,7 @@ $rdTransaction = ReloadlyTransaction::create([
         'destination_currency' => 'AUD'     // currency of transaction receiving channel/user
         'status' => 'PENDING',      // currenty status of transaction, if made, not made, in the middle, failed, success 
         'response' => 'FILLED_ON_RESPONSE',    // filled when API request is hit, NULLABLE
-        'pin' => 'FILLED_ON_RESPONSE'     // the transaction number generated on on Request, the scratch number, NULLABLE, filled when request is hit
+        'pin' => 'FILLED_ON_RESPONSE'     // in case of purchasing pin, this is pin number, NULLABLE, filled when request is hit
     ]);
 
 $rdHelperObj->sendTopup($rdTransaction);
@@ -197,9 +197,9 @@ $rdHelperObj->sendTopup($rdTransaction);
 
 | Parent Model    | Relation   | Child Model        | Foreign Key                 |
 | --------------- |:----------:|:------------------:|:---------------------------:|
-| ReloadlyOperator| 1-m        | ReloadlyPromotion  |                             |
-| ReloadlyOperator| 1-m        | ReloadlyTransaction|                             |  
-| ReloadlyOperator| 1-m        | ReloadlyDiscount   |                             |
+| ReloadlyOperator| 1-m        | ReloadlyPromotion  |:key: operator_id            |
+| ReloadlyOperator| 1-m        | ReloadlyTransaction|:key: operator_id            |  
+| ReloadlyOperator| 1-m        | ReloadlyDiscount   |:key: operator_id            |
 | ReloadlyCountry | 1-m        | ReloadlyOperator   |:key: country_id             |
 | AirtimeCurrency | 1-1        | ReloadlyOperator   |:key: sender_currency_id     |
 | AirtimeCurrency | 1-1        | ReloadlyOperator   |:key: destination_currency_id|
@@ -322,9 +322,9 @@ This method takes `$transactionObj` with `$obj[product][sku_id]`, `amount`, `num
 
 | Parent Model         | Relation   | Child Model              | Foreign Key       |
 | :------------------: |:----------:|:------------------------:|:-----------------:|
-| ValueTopupCategory   | 1-m        | ValueTopupCountry        |                   |
-| ValueTopupCategory   | 1-m        | ValueTopupOperator       |                   |
-| ValueTopupOperator   | 1-m        | ValueTopupProducts       |                   |
+| ValueTopupCategory   | 1-m        | ValueTopupCountry        |:key: category_id  |
+| ValueTopupCategory   | 1-m        | ValueTopupOperator       |:key: category_id  |
+| ValueTopupOperator   | 1-m        | ValueTopupProducts       |:key: operator_id  |
 | ValueTopupCategory   | 1-m        | ValueTopupTransaction    |:key: category_id  |
 | ValueTopupCountry    | 1-m        | ValueTopupTransaction    |:key: country_id   |
 | ValueTopupOperator   | 1-m        | ValueTopupTransaction    |:key: operator_id  |
@@ -380,7 +380,7 @@ $dcTransactionObj = DingConenctTransaction::create([
         'sku_code' => 'GY_DC_TopUp', // which type of product/topup user wants to buy
         'send_value' => 200,    // the amount to be send
         'send_currency_code' => 'PKR',      // the currency of sender side
-        'number' => '011-994-12-498 0335',  // sender phone number sample
+        'number' => '00923219988771',  // sender phone number sample
         'ref' => 'refence',     // distrubutior reference
         'status' => 'PENDING', // current status of transaction, fail, pending, success etc NULLABLE
         'response' => 'JSON_RESPONSE'   // JSON response when send transaction request is hit 
@@ -405,7 +405,7 @@ $dingConenctObj->sendTransfer($dcTransactionObj);
 
 | Parent Model         | Relation   | Child Model            | Foreign Key                      |
 | :-------------------:|:----------:|:----------------------:|:--------------------------------:|
-| DingConnectCountry   | 1-m        | DingConenctOperator    |                                  |
+| DingConnectCountry   | 1-m        | DingConenctOperator    | :key: country_id                 |
 | DingConnectCountry   | 1-m        | DingConnectProduct     | :key: country_id                 |
 | DingConnectOperator  | 1-m        | DingConnectProduct     | :key: operator_id                |
 | AirtimeCurrency      | 1-m        | DingConnectProduct     | :key: currency_id                |
@@ -469,7 +469,7 @@ $dToneObj = DTone::Make($username, $token);
 $dtoneTransactionObj = DToneTransaction::create([
         'operator_id' => 1, // the operator id
         'product_id' => 1,  // the product id
-        'sender_phone_no' => '011-994-12-498 0335',     // the phone number which is about to send the transaction
+        'sender_phone_no' => '00923219988771',     // the phone number which is about to send the transaction
         'number' => '00923217878776'    // transaction receiver phone number, destination phone number
         'product' => 'certain-type' // the type of package/product user has baught
         'status' => 'PENDING',  // status of current transaction, if pending, failed, succeeded etc
@@ -500,12 +500,12 @@ $dToneObj->sendTransfer($dtoneTransactionObj);
 ### Model Relationships
 
 
-| Model          | Relation   |Model             | Foreign Key                  |
+| Parent Model   | Relation   | Child Model      | Foreign Key                  |
 | :-------------:|:----------:|:----------------:|:----------------------------:|
-| DToneCountry   | 1-m        | DToneOperator    |                              |
-| DToneCountry   | 1-m        | DToneProduct     |                              |
+| DToneCountry   | 1-m        | DToneOperator    |:key: country_id              |
 | DToneOperator  | 1-m        | DToneTransaction |:key: operator_id             |
 | DToneProduct   | 1-m        | DToneTransaction |:key: product_id              |
+| DToneCountry   | 1-m        | DToneProduct     |:key: country_id              |
 | AirtimeCurrency| 1-m        | DToneProduct     |:key: sender_currency_id      |
 | AirtimeCurrency| 1-m        | DToneProduct     |:key: destination_currency_id |
 
