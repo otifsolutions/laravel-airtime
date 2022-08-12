@@ -250,6 +250,48 @@ php artisan sync:value_topup_status
 ```
 
 ### Send transaction using value-topup:
+This service has four methods of sending transactions named as `topupTransaction`, `pinTransaction`,
+`cardTransaction` and `billPayTransaction`. Although, structure of sending transaction is the same
+as there is one table `value_topup_transactions` for all transactions. Here is the overall
+view of sending transaction :point_down:
+
+```php
+
+$vtObj = ValueTopup::Make()->setCredentials($userId, $password, $mode = 'LIVE');    // will return on object containing all the methods 
+
+$vtTransactionObj = ValueTopupTransaction::create([
+        'order_id' => 1, // order id
+        'category_id' => 1, // category id, like 1 for pin, 2 for rtr etc
+        'country_id' => 13, // country id, like 9 for Pakistan, 13 for Panama
+        'operator_id' => 1,     // operator id
+        'product_id' => 1, // product id
+        'reference' => 'reference',
+        'topup' => 100,     // the amount to send
+        'amount' => 125,    // the amount defore tax deduction
+        'number' => '00923229988770',   // number to which we are sending transaciton
+        'sender_currency' => 'PKR', // the currency type of sender user
+        'receiver_currency' => 'INR',   // the receiver currency, destination currency
+        'status' => 'PENDING', // the status of transaction if it is done, pending, failed etc
+        'response' => 'JSON_RESPONSE', // response from the json after hitting the API, executing the transaction method
+        'details' => 'JSON_DETAILS' // filled when transaction method is executed, NULLABLE, ignore this
+    ]);
+
+```
+
+Now here :point_down: is the detail of the provided four tansaction methods
+
+<u>topupTransaction()</u> this method takes few fields filled `ValueTopupTransaction` object like `$vtTransactionObj[product][sku_id]`,
+`amount`, `number`, `reference`, `number`, `receiver_currency` and `sender_currency`, it hits `/transaction/topup` uri in behind 
+```php
+$vtObj->topupTransaction($vtTransactionObj);        
+```
+
+<u>pinTransaction()</u>
+
+
+
+
+
 
 ### How artisan command <u>sync:value_topup</u> works:
 - Check if service is enabled, then run its migrations one by one
