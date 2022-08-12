@@ -79,7 +79,7 @@ To check which commands are available for whole of this `airtime` package, simpl
 ```
 
 If you hit the command for syncing data for a specific service without activating/enabling it,
-the package will not allow you to do that. It'll ask you to enable it firlst.
+the package will not allow you to do that. It'll ask you to enable it first.
 
 
 
