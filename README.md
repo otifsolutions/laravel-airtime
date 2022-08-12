@@ -115,17 +115,6 @@ The third one is mode, wheter it'll be `LIVE` or `TEST`. We are using :link: [Se
 package to set the keys
 
 
-To send the transactions, create the object of heler class `Reloadly` and it's static method takes three parameters,
-`key`, `secret` and `mode`. Simply you can get the settings here with `Setting::get('key')`. `Reloadly::Make` will
-return an object, that object has `sendTopup` method that takes object of `\OTIFSolutions\LaravelAirtime\Models\ReloadlyTransaction`.
-
-
-```php
-$obj = Reloadly::Make(key, secret, mode);
-$obj->sendTopup($reloadlyTransactionObj);
-```
-
-
 
 #### Commands for setting relaodly credentials :
 
@@ -185,7 +174,7 @@ $rdTransaction = ReloadlyTransaction::create([
         'destination_currency' => 'AUD'     // currency of transaction receiving channel/user
         'status' => 'PENDING',      // currenty status of transaction, if made, not made, in the middle, failed, success 
         'response' => 'FILLED_ON_RESPONSE',    // filled when API request is hit, NULLABLE
-        'pin' => 'FILLED_ON_RESPONSE'     // the transaction number generated on on Request, the scratch number, NULLABLE
+        'pin' => 'FILLED_ON_RESPONSE'     // the transaction number generated on on Request, the scratch number, NULLABLE, filled when request is hit
     ]);
 
 $rdHelperObj->sendTopup($rdTransaction);
