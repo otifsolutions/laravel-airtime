@@ -175,7 +175,7 @@ class method `sendTopup(ReloadlyTransaction $reloadlyTransactionObj)` and execut
 $rdHelperObj = Reloadly::Make($key, $secred, $mode);
 
 $rdTransaction = ReloadlyTransaction::create([
-        'order_id' => 1,
+        'order_id' => 1,    // order id, NULLABLE field
         'operator_id' => 1, // the operator id
         'is_local' => false,   // if transaction is being made inside the country, national or international
         'topup' => 100,     // the amount / balance to send to the other user
@@ -262,7 +262,6 @@ php artisan sync:value_topup_status
 
 ### Send transaction using value-topup:
 
-
 ### How artisan command <u>sync:value_topup</u> works:
 - Check if service is enabled, then run its migrations one by one
 - Then credentials are checked and token is generated
@@ -320,6 +319,30 @@ execute the command and leave the tab open.
 ```
 
 ### Sending transaction :
+
+To send transaction using *Ding Connect Service*, first create obj of helper class by giving 
+the `API_Key` or `Token` to `DingConenct::Make()` method, it'll return an object having 
+`sendTranser()` method like this :point_down:
+
+```php
+$dingConenctObj = DingConnect::Make($tokenOrKey);
+
+$dcTransactionObj = DingConenctTransaction::create([
+        'order_id' => 1, // order id for the current transaction
+        'operator_id' => 1,     // any operator id
+        'product_id' => 1,  // product id
+        'sku_code' => 'GY_DC_TopUp', // which type of product/topup user wants to buy
+        'send_value' => 200,    // the amount to be send
+        'send_currency_code' => 'PKR',      // the currency of sender side
+        'number' => '011-994-12-498 0335',  // sender phone number sample
+        'ref' => 'refence',     // distrubutior reference
+        'status' => 'PENDING', // current status of transaction, fail, pending, success etc NULLABLE
+        'response' => 'JSON_RESPONSE'   // JSON response when send transaction request is hit 
+    ]);
+
+$dingConenctObj->sendTransfer($dcTransactionObj);
+
+```
 
 
 ### How artisan command <u>sync:ding_connect</u> works :
