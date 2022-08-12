@@ -29,7 +29,7 @@ return new class extends Migration {
 
             $table->string('reference')->unique();
             $table->double('topup');
-            $table->double('amout');
+            $table->double('amount');
             $table->double('number');
 
             $table->string('sender_currency');
