@@ -34,6 +34,7 @@ Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 
 
 **Note :books:**
+
 By default, all these services are `disabled`. You have to enable service of your choice via `Setting::set`. Please,
 don't forget to add third argument as `bool`, it defines the type of the key.
 
@@ -74,7 +75,7 @@ service will be enabled *made true through Setting package*.
 To check which commands are available for whole of this `airtime` package, simple hit this command, and look against the key `sync:xxxxxxxx_xxxxxx_xxxxxxx`
 
 ```
-php artisan
+ php artisan
 ```
 
 If you hit the command for syncing data for a specific service without activating/enabling it,
@@ -99,6 +100,7 @@ It is the service that deals with topups transactions among users from 800+ of o
 maintains detailed record of all the successfull/unsuccessful transactions happened between operators and users
 
 :heavy_check_mark: **For enabling Reloadly service**
+
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_service', true, 'bool');
 ```
@@ -165,7 +167,31 @@ You can even schedule this command to run on a specific date and time. For more 
 
 
 ### Sending transactions  :
+To send transaction, create an object of `ReloadlyTransaction` with properties, pass as parameter to the `Reloadly` helper
+class method `sendTopup(ReloadlyTransaction $reloadlyTransactionObj)` and execute it
 
+```php
+
+$rdHelperObj = Reloadly::Make($key, $secred, $mode);
+
+$rdTransaction = ReloadlyTransaction::create([
+        'order_id' => 1,
+        'operator_id' => 1, // the operator id
+        'is_local' => false,   // if transaction is being made inside the country, national or international
+        'topup' => 200,     // the amount / balance to send to the other user
+        'amount' => 500,    // the amount present in the account
+        'number' => 00923219988771,     // the connected phone number to which transaction has to be made
+        'sender_currency' => 'PKR',     // currency from which transaction is being made
+        'destination_currency' => 'AUD'     // currency of transaction receiving channel/user
+        'status' => 'PENDING',      // currenty status of transaction, if made, not made, in the middle, failed, success 
+        'response' => 'On_JSON_Response',    // filled when hit, NULLABLE
+        'pin' => 'On_JSON_Response_pin_details'     // filled when request is hit, NULLABLE
+    ]);
+
+$rdHelperObj->sendTopup($rdTransaction);
+
+
+```
 
 
 ### How artisan command <u>sync:reloadly</u> works:
