@@ -178,14 +178,14 @@ $rdTransaction = ReloadlyTransaction::create([
         'order_id' => 1,
         'operator_id' => 1, // the operator id
         'is_local' => false,   // if transaction is being made inside the country, national or international
-        'topup' => 200,     // the amount / balance to send to the other user
-        'amount' => 500,    // the amount present in the account
+        'topup' => 100,     // the amount / balance to send to the other user
+        'amount' => 125,    // the real amount actually send with no tax deduction
         'number' => 00923219988771,     // the connected phone number to which transaction has to be made
         'sender_currency' => 'PKR',     // currency from which transaction is being made
         'destination_currency' => 'AUD'     // currency of transaction receiving channel/user
         'status' => 'PENDING',      // currenty status of transaction, if made, not made, in the middle, failed, success 
-        'response' => 'On_JSON_Response',    // filled when hit, NULLABLE
-        'pin' => 'On_JSON_Response_pin_details'     // filled when request is hit, NULLABLE
+        'response' => 'FILLED_ON_RESPONSE',    // filled when API request is hit, NULLABLE
+        'pin' => 'FILLED_ON_RESPONSE'     // the transaction number generated on on Request, the scratch number, NULLABLE
     ]);
 
 $rdHelperObj->sendTopup($rdTransaction);
@@ -206,7 +206,7 @@ $rdHelperObj->sendTopup($rdTransaction);
 ### Model Relationships :
 
 
-| Model           | Relation   |Model               | Foreign Key                 |
+| Parent Model    | Relation   | Child Model        | Foreign Key                 |
 | --------------- |:----------:|:------------------:|:---------------------------:|
 | ReloadlyOperator| 1-m        | ReloadlyPromotion  |                             |
 | ReloadlyOperator| 1-m        | ReloadlyTransaction|                             |  
@@ -275,7 +275,7 @@ php artisan sync:value_topup_status
 ### Model Relationships :
 
 
-| Model                | Relation   |Model                     | Foreign Key       |
+| Parent Model         | Relation   | Child Model              | Foreign Key       |
 | :------------------: |:----------:|:------------------------:|:-----------------:|
 | ValueTopupCategory   | 1-m        | ValueTopupCountry        |                   |
 | ValueTopupCategory   | 1-m        | ValueTopupOperator       |                   |
@@ -334,7 +334,7 @@ execute the command and leave the tab open.
 ### Model Relationships :
 
 
-| Model                | Relation   |Model                   | Foreign Key                      |
+| Parent Model         | Relation   | Child Model            | Foreign Key                      |
 | :-------------------:|:----------:|:----------------------:|:--------------------------------:|
 | DingConnectCountry   | 1-m        | DingConenctOperator    |                                  |
 | DingConnectCountry   | 1-m        | DingConnectProduct     | :key: country_id                 |
