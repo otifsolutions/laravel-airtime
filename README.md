@@ -402,6 +402,32 @@ php artisan sync:dtone
 
 
 ### Sending transaction :
+To send the transaction using this service, create an object of `DToneTransaction`, pass as parameter
+to helper class `DTone` method `sendTransfer()`, for understand this code snippet :point_down:
+
+```php
+
+$dToneObj = DTone::Make($username, $token);
+
+$dtoneTransactionObj = DToneTransaction::create([
+        'operator_id' => 1, // the operator id
+        'product_id' => 1,  // the product id
+        'sender_phone_no' => '011-994-12-498 0335',     // the phone number which is about to send the transaction
+        'number' => '00923217878776'    // transaction receiver phone number, destination phone number
+        'product' => 'certain-type' // the type of package/product user has baught
+        'status' => 'PENDING',  // status of current transaction, if pending, failed, succeeded etc
+        'response' => 'JSON_RESPONSE' // response came after hitting the request, nullable
+    ]);
+
+
+$dToneObj->sendTransfer($dtoneTransactionObj);
+
+
+```
+
+
+
+
 
 
 ### How artisan command <u>sync:dtone</u> works:
