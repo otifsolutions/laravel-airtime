@@ -279,24 +279,25 @@ $vtTransactionObj = ValueTopupTransaction::create([
 ```
 
 Now here :point_down: is the detail of the provided four tansaction methods
-<span style="color:green;">topupTransaction($transaction) : array </span>
-
+**topupTransaction($transaction) : array**
 This method takes few fields filled `ValueTopupTransaction` object like `$vtTransactionObj[product][sku_id]`,
 `amount`, `number`, `reference`, `number`, `receiver_currency` and `sender_currency`, it hits `/transaction/topup` uri in behind 
 ```php
 $vtObj->topupTransaction($vtTransactionObj);        
 ```
-<span style="color:green;">pinTransaction($transaction)</span>
+**pinTransaction($transaction) : array**
+
 This method takes `$transactionObj` with `$obj[product][sku_id]`, `reference` and it hits 
 `/transaction/pin` in behind
 
-<span style="color:green;">cardTransaction($transaction, $firstName, $lastName, $email) : array </span>
+**cardTransaction($transaction, $firstName, $lastName, $email) : array**
+
 This transaction method takes firstname, lastname and email in addition, in `$transactionObj` it 
 takes `$obj[product][sku_id]`, `amount`, `reference` and it hits `/transaction/giftcard/order` in behind 
 the scene
 
+**billPayTransaction($transaction) : array**
 
-<span style="color:green;">billPayTransaction($transaction) : array </span>
 This method takes `$transactionObj` with `$obj[product][sku_id]`, `amount`, `number`,
 `reference` and `sender_currency`, it uses the endpoint `/transaction/billpay/` in the backend
 
