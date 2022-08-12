@@ -12,12 +12,8 @@ use OTIFSolutions\LaravelAirtime\Commands\{SyncDingConnect,
 
 class AirtimeServiceProvider extends ServiceProvider {
 
-    public function register() {
-
-    }
-
     public function boot() {
-        // $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
+
         $this->loadMigrationsFrom(__DIR__ . '/Database/migrations/2022_07_18_000001_create_airtime_currencies_table.php');
 
         if ($this->app->runningInConsole()) {
