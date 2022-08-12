@@ -164,8 +164,8 @@ class method `sendTopup(ReloadlyTransaction $reloadlyTransactionObj)` and execut
 $rdHelperObj = Reloadly::Make($key, $secred, $mode);
 
 $rdTransaction = ReloadlyTransaction::create([
-        'order_id' => 1,    // order id, NULLABLE field
-        'operator_id' => 1, // the operator id
+        'order_id' => 1,    // possible key to create relation to link with orders table if there is centralized table for all orders with different integrations like Reloadly, Valuetopup.
+        'operator_id' => 1, // the operator id, under which operator the transaction is being from total 800+ operators
         'is_local' => false,   // Indicates either transaction is in operator currency in which customer will get airtime or its in currency of Reloadly account being used
         'topup' => 100,     // amount in receiving currency
         'amount' => 125,    //  amount in sending currency
@@ -260,12 +260,12 @@ view of sending transaction :point_down:
 $vtObj = ValueTopup::Make()->setCredentials($userId, $password, $mode = 'LIVE');    // will return on object containing all the methods 
 
 $vtTransactionObj = ValueTopupTransaction::create([
-        'order_id' => 1, // 
+        'order_id' => 1, // possible key to create relation to link with orders table if there is centralized table for all orders with different integrations like Reloadly, Valuetopup.
         'category_id' => 1, // foreign key for category to indicate which type of transaction is created here like Airtime, Pin etc
         'country_id' => 13, // country id, like 9 for Pakistan, 13 for Panama
-        'operator_id' => 1,     // operator id
-        'product_id' => 1, // product id
-        'reference' => 'reference',
+        'operator_id' => 1,     // the operator id, under which operator the transaction is being made
+        'product_id' => 1, // id of particular product/package ranged to 1100+, like 1 for product name this '8ta South Africa 5.40 USD'
+        'reference' => 'reference', // the reference number generated for particular proudct/package baught, unique
         'topup' => 100,     // the amount to send
         'amount' => 125,    // the amount defore tax deduction
         'number' => '00923229988770',   // number to which we are sending transaciton
@@ -374,9 +374,9 @@ the `API_Key` or `Token` to `DingConenct::Make()` method, it'll return an object
 $dingConenctObj = DingConnect::Make($tokenOrKey);
 
 $dcTransactionObj = DingConenctTransaction::create([
-        'order_id' => 1, // order id for the current transaction
-        'operator_id' => 1,     // any operator id
-        'product_id' => 1,  // product id
+        'order_id' => 1, // possible key to create relation to link with orders table if there is centralized table for all orders with different integrations like Reloadly, Valuetopup
+        'operator_id' => 1,     // id from any total 600+ operators under which transaction is made, like 1 for operator name 'Digicel Guyana'
+        'product_id' => 1,  // the product/package id from one of 3300+ products which is being baught
         'sku_code' => 'GY_DC_TopUp', // unique sku code provided by API to indicate which product is being bought.
         'send_value' => 200,    // the amount to be send
         'send_currency_code' => 'PKR',      // the currency of sender side
@@ -467,8 +467,8 @@ to helper class `DTone` method `sendTransfer()`, for understand this code snippe
 $dToneObj = DTone::Make($username, $token);
 
 $dtoneTransactionObj = DToneTransaction::create([
-        'operator_id' => 1, // the operator id
-        'product_id' => 1,  // the product id
+        'operator_id' => 1, // id from any operators available for this service
+        'product_id' => 1,  // id of any product/package which is being baught by the user
         'sender_phone_no' => '00923219988771',     // the phone number which is about to send the transaction
         'number' => '00923217878776'    // transaction receiver phone number, destination phone number
         'product' => 'certain-type' // the type of package/product user has baught
