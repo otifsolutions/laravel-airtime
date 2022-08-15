@@ -316,7 +316,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 Now here :point_down: is the detail of the provided four tansaction methods
 
-### Topup transaction
+#### Topup transaction
 
 ```php
 topupTransaction($transaction) : array
@@ -332,11 +332,13 @@ $vtObj->topupTransaction($vtTransactionObj);
 
 #### Pin transaction
 
-**pinTransaction($transaction) : array** :pushpin:
+```php
+pinTransaction($transaction) : array
+```
 
 > This method takes `$transactionObj` with `$obj[product][sku_id]`, `reference` and it hits `/transaction/pin` in behind
 
-### Card transaction
+#### Card transaction
 
 ```php
 cardTransaction($transaction, $firstName, $lastName, $email) : array 
@@ -346,7 +348,7 @@ cardTransaction($transaction, $firstName, $lastName, $email) : array
     takes `$obj[product][sku_id]`, `amount`, `reference` and it hits `/transaction/giftcard/order` in behind
     the scene
 
-### Bill pay transaction
+#### Bill pay transaction
 
 ```php
 billPayTransaction($transaction) : array
