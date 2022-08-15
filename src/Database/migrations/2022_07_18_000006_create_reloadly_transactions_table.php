@@ -21,7 +21,7 @@ return new class extends Migration {
 
             $table->id();
 
-            $table->bigInteger('order_id')->nullable();
+            // $table->bigInteger('order_id')->nullable();
 
             $table->foreignId('operator_id')
                 ->references('id')
