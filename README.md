@@ -99,6 +99,10 @@ the package will not allow you to do that. It'll ask you to enable it first.
     - [Commands](#commands)
     - [Sending transactions](#sending-transactions)
     - [Other transaction methods](#other-transaction-methods)
+        - [Topup Transaction](#topup-transaction)
+        - [Pin transaction](#pin-transaction)
+        - [Card transaction](#card-transaction)
+        - [Bill pay transaction](#bill-pay-transaction)
     - [How sync command works behind the scene](#how-sync-command-works-behind-the-scene)
     - [Relationships defined between models](#relationships-defined-between-models)
 - [Ding Connect](#ding-connect)
@@ -308,11 +312,15 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 
 
-### Other transaction methods
+### Other transaction methods :pushpin:
 
 Now here :point_down: is the detail of the provided four tansaction methods
 
-**topupTransaction($transaction) : array** :pushpin:
+### Topup transaction
+
+```php
+topupTransaction($transaction) : array
+```
 
 > This method takes few fields filled `ValueTopupTransaction` object like `$vtTransactionObj[product][sku_id]`,
     `amount`, `number`, `reference`, `number`, `receiver_currency` and `sender_currency`,
@@ -322,17 +330,27 @@ Now here :point_down: is the detail of the provided four tansaction methods
 $vtObj->topupTransaction($vtTransactionObj);        
 ```
 
+#### Pin transaction
+
 **pinTransaction($transaction) : array** :pushpin:
 
 > This method takes `$transactionObj` with `$obj[product][sku_id]`, `reference` and it hits `/transaction/pin` in behind
 
-**cardTransaction($transaction, $firstName, $lastName, $email) : array** :pushpin:
+### Card transaction
+
+```php
+cardTransaction($transaction, $firstName, $lastName, $email) : array 
+```
 
 > This transaction method takes firstname, lastname and email in addition, in `$transactionObj` it
     takes `$obj[product][sku_id]`, `amount`, `reference` and it hits `/transaction/giftcard/order` in behind
     the scene
 
-**billPayTransaction($transaction) : array** :pushpin:
+### Bill pay transaction
+
+```php
+billPayTransaction($transaction) : array
+```
 
 > This method takes `$transactionObj` with `$obj[product][sku_id]`, `amount`, `number`,
     `reference` and `sender_currency`, it uses the endpoint `/transaction/billpay/` in the backend
