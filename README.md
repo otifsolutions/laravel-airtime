@@ -107,7 +107,7 @@ the package will not allow you to do that. It'll ask you to enable it first.
     - [Relationships defined between models](#relationships-defined-between-models)
 - [Ding Connect](#ding-connect)
     - [Usage](#usage)
-    - [Commands](#comamnds)
+    - [Commands](#commands)
     - [Sending transaction](#sendingtransaction)
     - [How sync comamnd works in action](#how-sync-comamnd-works-in-action)
     - [Model relationships](#model-relationships)
