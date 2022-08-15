@@ -88,13 +88,18 @@ the package will not allow you to do that. It'll ask you to enable it first.
 
 ## Table of Contents
 
-**1.** :link: [Reloadly](#reloadly)
+**1.** [Reloadly](#reloadly)
+    - [Usage](#usage)
+    - [Commands for setting relaodly credentials](#commands-for-setting-relaodly-credentials)
+    - [Scheduling command](#scheduling-command)
+    - [How to send transactions](#how-to-send-transactions)
+    - [How artisan sync comamnd works works for this service](#how-artisan-sync-comamnd-works-works-for-this-service)
+    
+**2.** [Value Topup](#value-topup) 
 
-**2.** :link: [Value Topup](#value-topup)
+**3.** [Ding Connect](#ding-connect)  
 
-**3.** :link: [Ding Connect](#ding-connect)
-
-**4.** :link: [D Tone](#d-tone)
+**4.** [D Tone](#d-tone) 
 
 
 ## Reloadly 
@@ -110,7 +115,7 @@ maintains detailed record of all the successfull/unsuccessful transactions happe
 
 
 
-### Usage :
+### Usage
 
 Sign-up at :link: [Reloadly](https://www.reloadly.com/) and get the keys from :link: [Reloadly/keys](https://www.reloadly.com/developers/api-settings),
 the keys will be used with the package, you have to grab these keys and give them to the package by `tinker`.
@@ -119,7 +124,7 @@ package to set the keys
 
 
 
-#### Commands for setting relaodly credentials :
+#### Commands for setting relaodly credentials
 
 ```php
  \OTIFSolutions\Laravel\Settings\Models\Setting::set('reloadly_api_key', 'API Client ID');
@@ -141,7 +146,8 @@ After installing package, you'll have artisan command, hit this :point_down:
  php artisan sync:reloadly
 ```
 
-:heavy_check_mark: **To schedule command**
+
+### Scheduling command
 
 It will synchronise all of the data came from the response. To shedule it,
 go to your project `App\Console\Kernel` class and in
@@ -158,7 +164,7 @@ You can even schedule this command to run on a specific date and time. For more 
 :link: [Scheduling Artisan Commands](https://laravel.com/docs/master/scheduling#scheduling-artisan-commands)
 
 
-### Sending transactions  :
+### How to send transactions
 To send transaction, create an object of `ReloadlyTransaction` with properties, pass as parameter to the `Reloadly` helper
 class method `sendTopup(ReloadlyTransaction $reloadlyTransactionObj)` and execute it
 
@@ -189,7 +195,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 
 
-### How artisan command sync:reloadly works:
+### How artisan sync comamnd works works for this service
 - First checks if this service is enabled or not
 - Migrations are run then credentials are checked
 - Token is generated with credentials and got the balance and set the balance
