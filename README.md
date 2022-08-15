@@ -182,11 +182,13 @@ $rdHelperObj->sendTopup($rdTransaction);
 
 ```
 
-| Colomn       | Detail                                            |
-|:------------:|:-------------------------------------------------:|
-| status       | 'SUCCESS', 'FAIL' statuses of current transaction |
-| response     |  Filled when API request is hit, NULLABLE         |
-| pin          |  'FILLED_ON_RESPONSE'  In case of purchasing pin, this is pin number, NULLABLE, filled when request is hit|                           |
+
+
+| Colomn       | Detail                                                                                 |
+|:------------:|:-------------------------------------------------------------------------------------- |
+| status       | Status of current transaction whether is is success of failed                          |
+| response     | When API request is hit, some kind of details in json                                  |
+| pin          | In case of purchasing pin, this is pin number, filled when request is hit              |
 
 
 
@@ -203,7 +205,7 @@ $rdHelperObj->sendTopup($rdTransaction);
 
 
 | Parent Model    | Relation   | Child Model        | Foreign Key                 |
-| --------------- |:----------:|:------------------:|:---------------------------:|
+|:--------------- |:---------- |:------------------ |:--------------------------- |
 | ReloadlyOperator| 1-m        | ReloadlyPromotion  |:key: operator_id            |
 | ReloadlyOperator| 1-m        | ReloadlyTransaction|:key: operator_id            |  
 | ReloadlyOperator| 1-m        | ReloadlyDiscount   |:key: operator_id            |
@@ -331,7 +333,7 @@ This method takes `$transactionObj` with `$obj[product][sku_id]`, `amount`, `num
 
 
 | Parent Model         | Relation   | Child Model              | Foreign Key       |
-| :------------------: |:----------:|:------------------------:|:-----------------:|
+| :------------------  |:---------- |:-----------------------  |:----------------  |
 | ValueTopupCategory   | 1-m        | ValueTopupCountry        |:key: category_id  |
 | ValueTopupCategory   | 1-m        | ValueTopupOperator       |:key: category_id  |
 | ValueTopupOperator   | 1-m        | ValueTopupProducts       |:key: operator_id  |
@@ -415,7 +417,7 @@ $dingConenctObj->sendTransfer($dcTransactionObj);
 
 
 | Parent Model         | Relation   | Child Model            | Foreign Key                      |
-| :-------------------:|:----------:|:----------------------:|:--------------------------------:|
+| :------------------- |:---------- |:---------------------  |:-------------------------------  |
 | DingConnectCountry   | 1-m        | DingConenctOperator    | :key: country_id                 |
 | DingConnectCountry   | 1-m        | DingConnectProduct     | :key: country_id                 |
 | DingConnectOperator  | 1-m        | DingConnectProduct     | :key: operator_id                |
@@ -508,7 +510,7 @@ $dToneObj->sendTransfer($dtoneTransactionObj);
 
 
 | Parent Model   | Relation   | Child Model      | Foreign Key                  |
-| :-------------:|:----------:|:----------------:|:----------------------------:|
+| :------------  |:---------  |:---------------  |:---------------------------  |
 | DToneCountry   | 1-m        | DToneOperator    |:key: country_id              |
 | DToneOperator  | 1-m        | DToneTransaction |:key: operator_id             |
 | DToneProduct   | 1-m        | DToneTransaction |:key: product_id              |
