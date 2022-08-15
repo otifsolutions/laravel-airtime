@@ -18,8 +18,10 @@ mySQL database tables got from the response by using the artisan commands.
  composer require otifsolutions/laravel-airtime
 ```
 
-We have used the :link: [Setting](https://github.com/otifsolutions/laravel-settings) package by :link: [OTIF Solutions](https://github.com/otifsolutions) to set
-the keys we use
+We have used the :link: [Setting](https://github.com/otifsolutions/laravel-settings) package by :link:
+[OTIF Solutions](https://github.com/otifsolutions) to set
+
+The keys we use
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('key', 'value', 'type');
 ```
@@ -59,12 +61,13 @@ engine to *MyISAM* do this :point_down: and make the key `myisam_engine` `true`
 ```
 
 
-*After all, run the migrations using this command :point_down:*
+After all, run the migrations using this command :point_down:
 
 
 ```
  php artisan migrate
 ```
+
 Which will run the package's migrations, the migration for table `airtime_currencies` will only be run
 while the other migrations are holded there waiting for running, they'll only be run when that particular 
 service will be enabled *made true through Setting package*.
@@ -174,9 +177,9 @@ $rdTransaction = ReloadlyTransaction::create([
     ]);
 
 $rdHelperObj->sendTopup($rdTransaction);
-
 ```
 
+Other fields that are to be filled with some `values/jsons` on API response for each transaction object
 
 | Colomn      | Detail                                                                                 |
 |:----------- |:-------------------------------------------------------------------------------------- |
@@ -277,6 +280,7 @@ $vtTransactionObj = ValueTopupTransaction::create([
 ```
 
 
+Other fields that are to be filled with some `values/jsons` on API response for each transaction object
 
 | Colomn      | Detail                                                                                 |
 |:----------- |:-------------------------------------------------------------------------------------- |
@@ -292,27 +296,28 @@ Now here :point_down: is the detail of the provided four tansaction methods
 
 **topupTransaction($transaction) : array** :pushpin:
 
-This method takes few fields filled `ValueTopupTransaction` object like `$vtTransactionObj[product][sku_id]`,
-`amount`, `number`, `reference`, `number`, `receiver_currency` and `sender_currency`, it hits `/transaction/topup` uri in behind 
+> This method takes few fields filled `ValueTopupTransaction` object like `$vtTransactionObj[product][sku_id]`,
+    `amount`, `number`, `reference`, `number`, `receiver_currency` and `sender_currency`,
+    it hits `/transaction/topup` uri in behind
 
 ```php
 $vtObj->topupTransaction($vtTransactionObj);        
 ```
+
 **pinTransaction($transaction) : array** :pushpin:
 
-This method takes `$transactionObj` with `$obj[product][sku_id]`, `reference` and it hits 
-`/transaction/pin` in behind
+> This method takes `$transactionObj` with `$obj[product][sku_id]`, `reference` and it hits `/transaction/pin` in behind
 
 **cardTransaction($transaction, $firstName, $lastName, $email) : array** :pushpin:
 
-This transaction method takes firstname, lastname and email in addition, in `$transactionObj` it 
-takes `$obj[product][sku_id]`, `amount`, `reference` and it hits `/transaction/giftcard/order` in behind 
-the scene
+> This transaction method takes firstname, lastname and email in addition, in `$transactionObj` it
+    takes `$obj[product][sku_id]`, `amount`, `reference` and it hits `/transaction/giftcard/order` in behind
+    the scene
 
 **billPayTransaction($transaction) : array** :pushpin:
 
-This method takes `$transactionObj` with `$obj[product][sku_id]`, `amount`, `number`,
-`reference` and `sender_currency`, it uses the endpoint `/transaction/billpay/` in the backend
+> This method takes `$transactionObj` with `$obj[product][sku_id]`, `amount`, `number`,
+    `reference` and `sender_currency`, it uses the endpoint `/transaction/billpay/` in the backend
 
 
 
@@ -397,6 +402,7 @@ $dingConenctObj->sendTransfer($dcTransactionObj);
 ```
 
 
+Other fields that are to be filled with some `values/jsons` on API response for each transaction object
 
 | Colomn      | Detail                                                                                 |
 |:----------- |:-------------------------------------------------------------------------------------- |
@@ -497,6 +503,7 @@ $dToneObj->sendTransfer($dtoneTransactionObj);
 ```
 
 
+Other fields that are to be filled with some `values/jsons` on API response for each transaction object
 
 | Colomn      | Detail                                                                                 |
 |:----------- |:-------------------------------------------------------------------------------------- |
