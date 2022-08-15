@@ -33,7 +33,7 @@ return new class extends Migration {
             $table->string('number')->nullable();
             $table->string('sender_currency')->nullable();
             $table->string('receiver_currency')->nullable();
-            $table->enum('status', ['PENDING', 'SUCCESS', 'FAIL', 'PENDING_ORDER', 'CANCELLED'])->default('PENDING_ORDER');
+            $table->enum('status', ['PENDING', 'SUCCESS', 'FAILED', 'CANCELLED'])->default('PENDING');
             $table->json('response')->nullable();
             $table->json('pin')->nullable();
             $table->timestamps();

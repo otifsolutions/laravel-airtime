@@ -36,7 +36,7 @@ return new class extends Migration {
             $table->string('send_currency_code');
             $table->string('number')->nullable();
             $table->string('ref');
-            $table->enum('status', ['PENDING', 'SUCCESS', 'FAIL', 'PENDING_ORDER', 'CANCELLED'])->default('PENDING_ORDER');
+            $table->enum('status', ['PENDING', 'SUCCESS', 'FAILED', 'CANCELLED'])->default('PENDING');
             $table->json('response')->nullable();
             $table->timestamps();
         });
