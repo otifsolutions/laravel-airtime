@@ -176,7 +176,7 @@ $rdTransaction = ReloadlyTransaction::create([
 $rdHelperObj->sendTopup($rdTransaction);
 
     // these colomns are also present in the transaction table that are filled on API response
-    // 'status' => 'PENDING', // 'PENDING', 'SUCCESS', 'FAIL', 'PENDING_ORDER', 'CANCELLED'
+    // 'status' => 'PENDING', // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED'
     // 'response' => 'FILLED_ON_RESPONSE',   //  filled when API request is hit, NULLABLE
     // 'pin' => 'FILLED_ON_RESPONSE'  //  in case of purchasing pin, this is pin number, NULLABLE, filled when request is hit
 
@@ -389,7 +389,7 @@ $dcTransactionObj = DingConenctTransaction::create([
 $dingConenctObj->sendTransfer($dcTransactionObj);
 
     // these fields are filled on API Response, when method is called
-    // 'status' => 'PENDING_ORDER', // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED', default is 'PENDING_ORDER'
+    // 'status' => 'PENDING', // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED', default is 'PENDING'
     // 'response' => 'JSON_RESPONSE'   // JSON response when send transaction request is hit
 
 ```
