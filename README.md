@@ -470,8 +470,8 @@ $dtoneTransactionObj = DToneTransaction::create([
         'operator_id' => 1, // id from any operators available for this service
         'product_id' => 1,  // id of any product/package which is being baught by the user
         'sender_phone_no' => '00923219988771',     // the phone number which is about to send the transaction
-        'number' => '00923217878776'    // transaction receiver phone number, destination phone number
-        'product' => 'certain-type' // the type of package/product user has baught
+        'number' => '00923217878776',    // transaction receiver phone number, destination phone number
+        'product' => 'certain-type', // the type of package/product user has baught
         'status' => 'PENDING',  // status of current transaction, if pending, failed, succeeded etc
         'response' => 'JSON_RESPONSE' // response came after hitting the request, nullable
     ]);
