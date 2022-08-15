@@ -176,11 +176,18 @@ $rdTransaction = ReloadlyTransaction::create([
 $rdHelperObj->sendTopup($rdTransaction);
 
     // these colomns are also present in the transaction table that are filled on API response
-    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAILED', 'CANCELLED' statuses of current transaction
-    // 'response' => 'FILLED_ON_RESPONSE',   //  filled when API request is hit, NULLABLE
-    // 'pin' => 'FILLED_ON_RESPONSE'  //  in case of purchasing pin, this is pin number, NULLABLE, filled when request is hit
+    // 'status' => 'PENDING',  //
+    // 'response' =>
+    // 'pin' =>
 
 ```
+
+| Colomn       | Detail                                            |
+|:------------:|:-------------------------------------------------:|
+| status       | 'SUCCESS', 'FAIL' statuses of current transaction |
+| response     |  Filled when API request is hit, NULLABLE         |
+| pin          |  'FILLED_ON_RESPONSE'  In case of purchasing pin, this is pin number, NULLABLE, filled when request is hit|                           |
+
 
 
 ### How artisan command <u>sync:reloadly</u> works:
@@ -273,7 +280,7 @@ $vtTransactionObj = ValueTopupTransaction::create([
     ]);
 
     // these are fields that are filled on API response
-    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAILED', 'CANCELLED' statuses of current transaction
+    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED' statuses of current transaction
     // 'response' => 'JSON_RESPONSE', // response from the json after hitting the API, executing the transaction method
     // 'details' => 'JSON_DETAILS' // filled when transaction method is executed, NULLABLE
 
@@ -380,16 +387,16 @@ $dcTransactionObj = DingConenctTransaction::create([
         'operator_id' => 1,     // id from any total 600+ operators under which transaction is made, like 1 for operator name 'Digicel Guyana'
         'product_id' => 1,  // the product/package id from one of 3300+ products which is being baught
         'sku_code' => 'GY_DC_TopUp', // unique sku code provided by API to indicate which product is being bought.
-        'send_value' => 200,    // the amount to be send
+        'send_value' => 200,    // the amount to be sent
         'send_currency_code' => 'PKR',      // the currency of sender side
         'number' => '00923219988771',  // sender phone number sample
-        'ref' => 'refence',     // distrubutior reference
+        'ref' => 'refence',     // distributor reference
     ]);
 
 $dingConenctObj->sendTransfer($dcTransactionObj);
 
     // these fields are filled on API Response, when method is called
-    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAILED', 'CANCELLED' statuses of current transaction
+    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED' statuses of current transaction
     // 'response' => 'JSON_RESPONSE'   // JSON response when send transaction request is hit
 
 ```
@@ -481,7 +488,7 @@ $dtoneTransactionObj = DToneTransaction::create([
 $dToneObj->sendTransfer($dtoneTransactionObj);
 
     // these fields are filled when API is hit by the method
-    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAILED', 'CANCELLED' statuses of current transaction
+    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED' statuses of current transaction
     // 'response' => 'JSON_RESPONSE' // response came after hitting the request, nullable
 
 ```
