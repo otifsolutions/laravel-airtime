@@ -175,24 +175,18 @@ $rdTransaction = ReloadlyTransaction::create([
 
 $rdHelperObj->sendTopup($rdTransaction);
 
-    // these colomns are also present in the transaction table that are filled on API response
-    // 'status' => 'PENDING',  //
-    // 'response' =>
-    // 'pin' =>
-
 ```
 
 
-
-| Colomn       | Detail                                                                                 |
-|:------------:|:-------------------------------------------------------------------------------------- |
-| status       | Status of current transaction whether is is success of failed                          |
-| response     | When API request is hit, some kind of details in json                                  |
-| pin          | In case of purchasing pin, this is pin number, filled when request is hit              |
-
+| Colomn      | Detail                                                                                 |
+|:----------- |:-------------------------------------------------------------------------------------- |
+| status      | Status of current transaction whether it is SUCCESS or FAIL                            |
+| response    | When API request is hit, some kind of json details                                     |
+| pin         | In case of purchasing pin, this is pin number, filled when request is hit              |
 
 
-### How artisan command <u>sync:reloadly</u> works:
+
+### How artisan command sync:reloadly works:
 - First checks if this service is enabled or not
 - Migrations are run then credentials are checked
 - Token is generated with credentials and got the balance and set the balance
@@ -280,15 +274,19 @@ $vtTransactionObj = ValueTopupTransaction::create([
         'sender_currency' => 'PKR', // the currency type of sender user
         'receiver_currency' => 'INR',   // the receiver currency, destination currency
     ]);
-
-    // these are fields that are filled on API response
-    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED' statuses of current transaction
-    // 'response' => 'JSON_RESPONSE', // response from the json after hitting the API, executing the transaction method
-    // 'details' => 'JSON_DETAILS' // filled when transaction method is executed, NULLABLE
-
-
-
 ```
+
+
+
+| Colomn      | Detail                                                                                 |
+|:----------- |:-------------------------------------------------------------------------------------- |
+| status      | Status of current transaction whether it is SUCCESS or FAIL                            |
+| response    | Response from the json after hitting the API, executing the transaction method         |
+| details     | Filled when transaction method is executed                                             |
+
+
+
+
 
 Now here :point_down: is the detail of the provided four tansaction methods
 
@@ -320,7 +318,7 @@ This method takes `$transactionObj` with `$obj[product][sku_id]`, `amount`, `num
 
 
 
-### How artisan command <u>sync:value_topup</u> works:
+### How artisan command sync:value_topup works:
 - Check if service is enabled, then run its migrations one by one
 - Then credentials are checked and token is generated
 - Syncing operators
@@ -396,15 +394,23 @@ $dcTransactionObj = DingConenctTransaction::create([
     ]);
 
 $dingConenctObj->sendTransfer($dcTransactionObj);
-
-    // these fields are filled on API Response, when method is called
-    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED' statuses of current transaction
-    // 'response' => 'JSON_RESPONSE'   // JSON response when send transaction request is hit
-
 ```
 
 
-### How artisan command <u>sync:ding_connect</u> works :
+
+| Colomn      | Detail                                                                                 |
+|:----------- |:-------------------------------------------------------------------------------------- |
+| status      | Status of current transaction whether it is SUCCESS or FAIL                            |
+| response    | JSON response when send transaction request is hit                                     |
+
+
+
+
+
+
+
+
+### How artisan command sync:ding_connect works :
 - Check if this servie is enabled
 - Run its migrations
 - Check the credentials, show user-friendly error message if wrong
@@ -488,15 +494,21 @@ $dtoneTransactionObj = DToneTransaction::create([
     ]);
 
 $dToneObj->sendTransfer($dtoneTransactionObj);
-
-    // these fields are filled when API is hit by the method
-    // 'status' => 'PENDING',  // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED' statuses of current transaction
-    // 'response' => 'JSON_RESPONSE' // response came after hitting the request, nullable
-
 ```
 
 
-### How artisan command <u>sync:dtone</u> works:
+
+| Colomn      | Detail                                                                                 |
+|:----------- |:-------------------------------------------------------------------------------------- |
+| status      | Status of current transaction whether it is SUCCESS or FAIL                            |
+| response    | JSON response when send transaction request is hit                                     |
+
+
+
+
+
+
+### How artisan command sync:dtone works:
 - Check D-Tone currency and service
 - Run the migrations and check the credentials
 - Sync countries in `name`, `dial_code` and `t_shop_id`
