@@ -88,18 +88,31 @@ the package will not allow you to do that. It'll ask you to enable it first.
 
 ## Table of Contents
 
-**1.** [Reloadly](#reloadly)
+- [Reloadly](#reloadly)
     - [Usage](#usage)
     - [Commands for setting relaodly credentials](#commands-for-setting-relaodly-credentials)
     - [Scheduling command](#scheduling-command)
     - [How to send transactions](#how-to-send-transactions)
-    - [How artisan sync comamnd works works for this service](#how-artisan-sync-comamnd-works-works-for-this-service)
-    
-**2.** [Value Topup](#value-topup) 
-
-**3.** [Ding Connect](#ding-connect)  
-
-**4.** [D Tone](#d-tone) 
+    - [How artisan sync comamnd works for this service](#how-artisan-sync-comamnd-works-for-this-service)
+    - [Model Relationships](#model-relationships)
+- [Value Topup](#value-topup)
+    - [Commands](#commands)
+    - [Sending transactions](#sending-transactions)
+    - [Other transaction methods](#other-transaction-methods)
+    - [How sync command works behind the scene](#how-sync-command-works-behind-the-scene)
+    - [Relationships defined between models](#relationships-defined-between-models)
+- [Ding Connect](#ding-connect)
+    - [Usage](#usage)
+    - [Commands](#comamnds)
+    - [Sending transaction](#sendingtransaction)
+    - [How sync comamnd works in action](#how-sync-comamnd-works-in-action)
+    - [Model relationships](#model-relationships)
+- [D Tone](#d-tone)
+    - [How to use this service](#how-to-use-this-service)
+    - [Settings and commands](#settings-and-commands)
+    - [Sending transaction](#sending-transaction)
+    - [How sync command works](#how-sync-command-works)
+    - [Model Relationships](#model-relationships)
 
 
 ## Reloadly 
@@ -195,7 +208,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 
 
-### How artisan sync comamnd works works for this service
+### How artisan sync comamnd works for this service
 - First checks if this service is enabled or not
 - Migrations are run then credentials are checked
 - Token is generated with credentials and got the balance and set the balance
@@ -204,7 +217,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 - Syncing promotions
 - Then sync discounts
 
-### Model Relationships :
+### Model Relationships
 
 
 | Parent Model    | Relation   | Child Model        | Foreign Key                 |
@@ -230,9 +243,8 @@ response.
 ```
 
 
+#### Commands
 
-
-#### Commands :
 After the migrations run successfully, you have to give the `user_id` & `password` via command. Use *tinker*
 to run the commands
 
@@ -261,7 +273,7 @@ php artisan sync:value_topup
 php artisan sync:value_topup_status
 ```
 
-### Send transaction using value-topup:
+### Sending transactions
 This service has four methods of sending transactions named as `topupTransaction`, `pinTransaction`,
 `cardTransaction` and `billPayTransaction`. Although, structure of sending transaction is the same
 as there is one table `value_topup_transactions` for all transactions. Here is the overall
@@ -296,7 +308,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 
 
-
+### Other transaction methods
 
 Now here :point_down: is the detail of the provided four tansaction methods
 
@@ -329,7 +341,7 @@ $vtObj->topupTransaction($vtTransactionObj);
 
 
 
-### How artisan command sync:value_topup works:
+### How sync command works behind the scene
 - Check if service is enabled, then run its migrations one by one
 - Then credentials are checked and token is generated
 - Syncing operators
@@ -338,7 +350,7 @@ $vtObj->topupTransaction($vtTransactionObj);
 - Then syncing countries data from json file
 
 
-### Model Relationships :
+### Relationships defined between models
 
 
 | Parent Model         | Relation   | Child Model              | Foreign Key       |
@@ -358,7 +370,7 @@ The procedure behind this service is also the same, sending *balance/topup* from
 and there is made a transaction is made database. You only have to give *token/key* to make it functional.
 
 
-### Usage :
+### Usage
 
 
 
@@ -369,7 +381,7 @@ and there is made a transaction is made database. You only have to give *token/k
 
 
 
-#### Commands :
+#### Commands
 
 **To give token** :point_down:
 
@@ -385,7 +397,7 @@ execute the command and leave the tab open.
  php artisan sync:ding_connect
 ```
 
-### Sending transaction :
+### Sending transaction
 
 To send transaction using *Ding Connect Service*, first create obj of helper class by giving 
 the `API_Key` or `Token` to `DingConenct::Make()` method, it'll return an object having 
@@ -422,7 +434,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 
 
-### How artisan command sync:ding_connect works :
+### How sync comamnd works in action
 - Check if this servie is enabled
 - Run its migrations
 - Check the credentials, show user-friendly error message if wrong
@@ -431,7 +443,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 - Syncing operators
 - Syncing products
 
-### Model Relationships :
+### Model relationships
 
 
 | Parent Model         | Relation   | Child Model            | Foreign Key                      |
@@ -452,7 +464,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 The service has the same concept behind, it is used to send `topup/balance` to users.
 
 
-### Usage :
+### How to use this service
 
 
 To use this package, we'll set the `dtone_currency` via `Setting::set()`, it'll have currency name such as *EUR*, *USD* or *PKR*. So, set it right here before running other D-Tone commands :point_down:
@@ -468,7 +480,7 @@ To use this package, we'll set the `dtone_currency` via `Setting::set()`, it'll 
 
 
 
-#### Commands
+#### Settings and commands
 
 First set :point_down:
 ```php
@@ -489,7 +501,8 @@ php artisan sync:dtone
 
 
 
-### Sending transaction :
+### Sending transaction
+
 To send the transaction using this service, create an object of `DToneTransaction`, pass as parameter
 to helper class `DTone` method `sendTransfer()`, for understand this code snippet :point_down:
 
@@ -521,7 +534,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 
 
-### How artisan command sync:dtone works:
+### How sync command works
 - Check D-Tone currency and service
 - Run the migrations and check the credentials
 - Sync countries in `name`, `dial_code` and `t_shop_id`
