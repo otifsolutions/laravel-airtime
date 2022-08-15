@@ -119,6 +119,9 @@ the package will not allow you to do that. It'll ask you to enable it first.
     - [Model Relationships](#model-relationships)
 
 
+<br><br>
+
+
 ## Reloadly 
 
 It is the service that deals with topups transactions among users from 800+ of operators around the globe,
@@ -233,6 +236,9 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | AirtimeCurrency | 1-1        | ReloadlyOperator   |:key: sender_currency_id     |
 | AirtimeCurrency | 1-1        | ReloadlyOperator   |:key: destination_currency_id|
 
+
+
+<br><br><br>
 
 
 ## Value Topup
@@ -382,6 +388,11 @@ billPayTransaction($transaction) : array
 | ValueTopupCountry    | 1-m        | ValueTopupTransaction    |:key: country_id   |
 | ValueTopupOperator   | 1-m        | ValueTopupTransaction    |:key: operator_id  |
 | ValueTopupProduct    | 1-m        | ValueTopupTransaction    |:key: product_id   |
+
+
+<br><br><br>
+
+
 
 
 ## Ding Connect
