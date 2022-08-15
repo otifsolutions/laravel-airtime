@@ -164,7 +164,6 @@ class method `sendTopup(ReloadlyTransaction $reloadlyTransactionObj)` and execut
 $rdHelperObj = Reloadly::Make($key, $secred, $mode);
 
 $rdTransaction = ReloadlyTransaction::create([
-        'order_id' => 1,    // possible key to create relation to link with orders table if there is centralized table for all orders with different integrations like Reloadly, Valuetopup.
         'operator_id' => 1, // the operator id, under which operator the transaction is being from total 800+ operators
         'is_local' => false,   // Indicates either transaction is in operator currency in which customer will get airtime or its in currency of Reloadly account being used
         'topup' => 100,     // amount in receiving currency
@@ -172,13 +171,14 @@ $rdTransaction = ReloadlyTransaction::create([
         'number' => '00923219988771',     // the connected phone number to which transaction has to be made
         'sender_currency' => 'PKR',     // currency from which transaction is being made
         'destination_currency' => 'AUD'     // currency of transaction receiving channel/user
-        'status' => 'PENDING',      //  'PENDING', 'SUCCESS', 'FAIL', 'PENDING_ORDER', 'CANCELLED'
-        'response' => 'FILLED_ON_RESPONSE',    // filled when API request is hit, NULLABLE
-        'pin' => 'FILLED_ON_RESPONSE'     // in case of purchasing pin, this is pin number, NULLABLE, filled when request is hit
     ]);
 
 $rdHelperObj->sendTopup($rdTransaction);
 
+    // these colomns are also present in the transaction table that are filled on API response
+    // 'status' => 'PENDING', // 'PENDING', 'SUCCESS', 'FAIL', 'PENDING_ORDER', 'CANCELLED'
+    // 'response' => 'FILLED_ON_RESPONSE',   //  filled when API request is hit, NULLABLE
+    // 'pin' => 'FILLED_ON_RESPONSE'  //  in case of purchasing pin, this is pin number, NULLABLE, filled when request is hit
 
 ```
 
@@ -260,7 +260,6 @@ view of sending transaction :point_down:
 $vtObj = ValueTopup::Make()->setCredentials($userId, $password, $mode = 'LIVE');    // will return on object containing all the methods 
 
 $vtTransactionObj = ValueTopupTransaction::create([
-        'order_id' => 1, // possible key to create relation to link with orders table if there is centralized table for all orders with different integrations like Reloadly, Valuetopup.
         'category_id' => 1, // foreign key for category to indicate which type of transaction is created here like Airtime, Pin etc
         'country_id' => 13, // country id, like 9 for Pakistan, 13 for Panama
         'operator_id' => 1,     // the operator id, under which operator the transaction is being made
@@ -271,10 +270,14 @@ $vtTransactionObj = ValueTopupTransaction::create([
         'number' => '00923229988770',   // number to which we are sending transaciton
         'sender_currency' => 'PKR', // the currency type of sender user
         'receiver_currency' => 'INR',   // the receiver currency, destination currency
-        'status' => 'PENDING', // 'PENDING', 'PROCESSING', 'SUCCESS', 'FAIL'
-        'response' => 'JSON_RESPONSE', // response from the json after hitting the API, executing the transaction method
-        'details' => 'JSON_DETAILS' // filled when transaction method is executed, NULLABLE
     ]);
+
+    // these are fields that are filled on API response
+    // 'status' => 'PENDING', // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED'
+    // 'response' => 'JSON_RESPONSE', // response from the json after hitting the API, executing the transaction method
+    // 'details' => 'JSON_DETAILS' // filled when transaction method is executed, NULLABLE
+
+
 
 ```
 
@@ -374,7 +377,6 @@ the `API_Key` or `Token` to `DingConenct::Make()` method, it'll return an object
 $dingConenctObj = DingConnect::Make($tokenOrKey);
 
 $dcTransactionObj = DingConenctTransaction::create([
-        'order_id' => 1, // possible key to create relation to link with orders table if there is centralized table for all orders with different integrations like Reloadly, Valuetopup
         'operator_id' => 1,     // id from any total 600+ operators under which transaction is made, like 1 for operator name 'Digicel Guyana'
         'product_id' => 1,  // the product/package id from one of 3300+ products which is being baught
         'sku_code' => 'GY_DC_TopUp', // unique sku code provided by API to indicate which product is being bought.
@@ -382,11 +384,13 @@ $dcTransactionObj = DingConenctTransaction::create([
         'send_currency_code' => 'PKR',      // the currency of sender side
         'number' => '00923219988771',  // sender phone number sample
         'ref' => 'refence',     // distrubutior reference
-        'status' => 'PENDING_ORDER', // 'PENDING', 'SUCCESS', 'FAIL', 'PENDING_ORDER', 'CANCELLED', default is 'PENDING_ORDER'
-        'response' => 'JSON_RESPONSE'   // JSON response when send transaction request is hit 
     ]);
 
 $dingConenctObj->sendTransfer($dcTransactionObj);
+
+    // these fields are filled on API Response, when method is called
+    // 'status' => 'PENDING_ORDER', // 'PENDING', 'SUCCESS', 'FAIL', 'CANCELLED', default is 'PENDING_ORDER'
+    // 'response' => 'JSON_RESPONSE'   // JSON response when send transaction request is hit
 
 ```
 
@@ -472,19 +476,15 @@ $dtoneTransactionObj = DToneTransaction::create([
         'sender_phone_no' => '00923219988771',     // the phone number which is about to send the transaction
         'number' => '00923217878776',    // transaction receiver phone number, destination phone number
         'product' => 'certain-type', // the type of package/product user has baught
-        'status' => 'PENDING',  // status of current transaction, if pending, failed, succeeded etc
-        'response' => 'JSON_RESPONSE' // response came after hitting the request, nullable
     ]);
-
 
 $dToneObj->sendTransfer($dtoneTransactionObj);
 
+    // these fields are filled when API is hit by the method
+    // 'status' => 'PENDING',  // status of current transaction, if pending, failed, succeeded etc
+    // 'response' => 'JSON_RESPONSE' // response came after hitting the request, nullable
 
 ```
-
-
-
-
 
 
 ### How artisan command <u>sync:dtone</u> works:
