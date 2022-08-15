@@ -314,7 +314,7 @@ This method takes `$transactionObj` with `$obj[product][sku_id]`, `amount`, `num
 - Syncing operators
 - Syncing products
 - Syncing product descriptions
-- Then sycing countries data from json file
+- Then syncing countries data from json file
 
 
 ### Model Relationships :
