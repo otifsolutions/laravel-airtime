@@ -11,6 +11,8 @@ mySQL database tables got from the response by using the artisan commands.
 `php >= 7.4`
 
 
+<br>
+
 ### Via Composer installation:
 :link: [Composer](https://getcomposer.org/download/) required to install the package
 
@@ -34,6 +36,7 @@ To get that specific value against that `key` :key:
 The package uses these four listed services, consider if that particular service is `enabled` or `disabled`.
 Or, you can make it enable by setting `true`. Don't forget to add `bool`.
 
+<br>
 
 **Note :books:**
 
@@ -46,7 +49,10 @@ the commands for service of your choice
 
 **AND**
 
-To check if service is enabled or disabled, do `Setting::get('service_name_service')`
+> To check if service is enabled or disabled, do `Setting::get('service_name_service')`
+
+
+<br>
 
 
 **MySQL table storage engine**
@@ -57,7 +63,7 @@ these storage engines, visit :link: [MyIsam & InnoDB](https://phoenixnap.com/kb/
 engine to *MyISAM* do this :point_down: and make the key `myisam_engine` `true`
 
 ```php
-\OTIFSolutions\Laravel\Settings\Models\Setting::set('myisam_engine', true, 'bool');
+\OTIFSolutions\Laravel\Settings\Models\Setting::set('myisam_engine', false, 'bool');
 ```
 
 
@@ -84,6 +90,8 @@ To check which commands are available for whole of this `airtime` package, simpl
 If you hit the command for syncing data for a specific service without activating/enabling it,
 the package will not allow you to do that. It'll ask you to enable it first.
 
+
+<br>
 
 
 ## Table of Contents
@@ -214,6 +222,8 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | pin         | In case of purchasing pin, this is pin number, filled when request is hit              |
 
 
+<br>
+
 
 ### How artisan sync comamnd works for this service
 - First checks if this service is enabled or not
@@ -283,7 +293,10 @@ php artisan sync:value_topup
 php artisan sync:value_topup_status
 ```
 
+<br>
+
 ### Sending transactions
+
 This service has four methods of sending transactions named as `topupTransaction`, `pinTransaction`,
 `cardTransaction` and `billPayTransaction`. Although, structure of sending transaction is the same
 as there is one table `value_topup_transactions` for all transactions. Here is the overall
@@ -316,6 +329,8 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | response    | Response from the json after hitting the API, executing the transaction method         |
 | details     | Filled when transaction method is executed                                             |
 
+
+<br>
 
 
 ### Other transaction methods :pushpin:
@@ -368,6 +383,7 @@ billPayTransaction($transaction) : array
 
 
 ### How sync command works behind the scene
+
 - Check if service is enabled, then run its migrations one by one
 - Then credentials are checked and token is generated
 - Syncing operators
@@ -450,6 +466,7 @@ $dcTransactionObj = DingConenctTransaction::create([
 $dingConenctObj->sendTransfer($dcTransactionObj);
 ```
 
+<br>
 
 Other fields that are to be filled with some `values/jsons` on API response for each transaction object
 
@@ -459,7 +476,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | response    | JSON response when send transaction request is hit                                     |
 
 
-
+<br>
 
 
 
@@ -487,7 +504,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | DingConenctProduct   | 1-m        | DingConnectTransaction | :key: product_id                 |
 | DingConnectOperator  | 1-m        | DingConnectTransaction | :key: operator_id                |
 
-
+<br><br><br>
 
 
 ## D Tone
@@ -509,7 +526,7 @@ To use this package, we'll set the `dtone_currency` via `Setting::set()`, it'll 
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_service', true, 'bool');
 ```
 
-
+<br>
 
 #### Settings and commands
 
@@ -530,7 +547,7 @@ To sync data with using `D-Tone` platform, hit this command :point_down:
 php artisan sync:dtone
 ```
 
-
+<br>
 
 ### Sending transaction
 
@@ -553,6 +570,8 @@ $dToneObj->sendTransfer($dtoneTransactionObj);
 ```
 
 
+<br>
+
 Other fields that are to be filled with some `values/jsons` on API response for each transaction object
 
 | Colomn      | Detail                                                                                 |
@@ -561,7 +580,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | response    | JSON response when send transaction request is hit                                     |
 
 
-
+<br>
 
 
 
