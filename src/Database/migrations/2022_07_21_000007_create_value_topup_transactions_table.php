@@ -34,7 +34,7 @@ return new class extends Migration {
 
             $table->string('sender_currency');
             $table->string('receiver_currency');
-            $table->enum('status', ['PENDING', 'SUCCESS', 'FAILED', 'CANCELLED'])->default('PENDING');
+            $table->enum('status', ['PENDING', 'SUCCESS', 'FAIL', 'CANCELLED'])->default('PENDING');
 
             $table->json('response')->nullable();
             $table->json('details')->nullable();
