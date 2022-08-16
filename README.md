@@ -207,7 +207,7 @@ $rdTransaction = ReloadlyTransaction::create([
         'amount' => 125,    //  amount in sending currency
         'number' => '00923219988771',     // the connected phone number to which transaction has to be made
         'sender_currency' => 'PKR',     // currency from which transaction is being made
-        'destination_currency' => 'AUD'     // currency of transaction receiving channel/user
+        'destination_currency' => 'PKR'     // currency of transaction receiving channel/user
     ]);
 
 $rdHelperObj->sendTopup($rdTransaction);
@@ -316,7 +316,7 @@ $vtTransactionObj = ValueTopupTransaction::create([
         'amount' => 125,    // the amount defore tax deduction
         'number' => '00923229988770',   // number to which we are sending transaciton
         'sender_currency' => 'PKR', // the currency type of sender user
-        'receiver_currency' => 'INR',   // the receiver currency, destination currency
+        'receiver_currency' => 'PKR',   // the receiver currency, destination currency
     ]);
 ```
 
@@ -460,7 +460,7 @@ $dcTransactionObj = DingConenctTransaction::create([
         'send_value' => 200,    // the amount to be sent
         'send_currency_code' => 'PKR',      // the currency of sender side
         'number' => '00923219988771',  // sender phone number sample
-        'ref' => 'refence',     // distributor reference
+        'ref' => 'reference',     // distributor reference
     ]);
 
 $dingConenctObj->sendTransfer($dcTransactionObj);
@@ -563,7 +563,7 @@ $dtoneTransactionObj = DToneTransaction::create([
         'product_id' => 1,  // id of any product/package which is being baught by the user
         'sender_phone_no' => '00923219988771',     // the phone number which is about to send the transaction
         'number' => '00923217878776',    // transaction receiver phone number, destination phone number
-        'product' => 'certain-type', // the type of package/product user has baught
+        'product' => 'some-type', // the type of package/product user has baught
     ]);
 
 $dToneObj->sendTransfer($dtoneTransactionObj);
