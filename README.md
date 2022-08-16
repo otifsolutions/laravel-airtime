@@ -278,7 +278,7 @@ to run the commands
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_password', 'password');
 ```
 
-:heavy_check_mark: **For mode test/live**
+:heavy_check_mark: **For mode test/live** (be careful with the mode Test/Live)
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('value_topup_api_mode', 'MODE');
 ```
@@ -304,7 +304,7 @@ view of sending transaction :point_down:
 
 ```php
 
-$vtObj = ValueTopup::Make()->setCredentials($userId, $password, $mode = 'LIVE');    // will return on object containing all the methods 
+$vtObj = ValueTopup::Make()->setCredentials($userId, $password, $mode = 'LIVE');    // will return on object containing all the methods & becareful with the mode
 
 $vtTransactionObj = ValueTopupTransaction::create([
         'category_id' => 1, // foreign key for category to indicate which type of transaction is created here like Airtime, Pin etc
