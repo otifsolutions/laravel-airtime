@@ -37,7 +37,6 @@ return new class extends Migration {
             $table->enum('status', ['PENDING', 'SUCCESS', 'FAIL', 'CANCELLED', 'PROCESSING'])->default('PENDING');
 
             $table->json('response')->nullable();
-            $table->json('details')->nullable();
 
             $table->timestamps();
         });
