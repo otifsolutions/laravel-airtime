@@ -102,7 +102,7 @@ the package will not allow you to do that. It'll ask you to enable it first.
     - [Scheduling command](#scheduling-command)
     - [How to send transactions](#how-to-send-transactions)
     - [How artisan sync comamnd works for this service](#how-artisan-sync-comamnd-works-for-this-service)
-    - [Model Relationships](#model-relationships)
+    - [Model relations for reloadly](#model-relations-for-reloadly)
 - [Value Topup](#value-topup)
     - [Commands](#commands)
     - [Sending transactions](#sending-transactions)
@@ -112,19 +112,19 @@ the package will not allow you to do that. It'll ask you to enable it first.
         - [Card transaction](#card-transaction)
         - [Bill pay transaction](#bill-pay-transaction)
     - [How sync command works behind the scene](#how-sync-command-works-behind-the-scene)
-    - [Relationships defined between models](#relationships-defined-between-models)
+    - [Model relationships for ValueTopup](#model-relationships-for-ValueTopup)
 - [Ding Connect](#ding-connect)
     - [Usage](#usage)
     - [Commands](#commands)
     - [Sending transaction](#sending-transaction)
     - [How sync comamnd works in action](#how-sync-comamnd-works-in-action)
-    - [Model relationships](#model-relationships)
+    - [Model relationships for Ding Connect](#model-relationships-for-ding-connect)
 - [D Tone](#d-tone)
     - [How to use this service](#how-to-use-this-service)
     - [Settings and commands](#settings-and-commands)
     - [Sending transaction](#sending-transaction)
     - [How sync command works](#how-sync-command-works)
-    - [Model Relationships](#model-relationships)
+    - [Model Relationships for D Tone Service](#model-relationships-for-d-tone-service)
 
 
 <br><br>
@@ -234,7 +234,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 - Syncing promotions
 - Then sync discounts
 
-### Model Relationships
+### Model relations for reloadly
 
 
 | Parent Model    | Relation   | Child Model        | Foreign Key                 |
@@ -393,7 +393,7 @@ billPayTransaction($transaction)
 - Then syncing countries data from json file
 
 
-### Relationships defined between models
+### Model relationships for ValueTopup
 
 
 | Parent Model         | Relation   | Child Model              | Foreign Key       |
@@ -492,7 +492,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 - Syncing operators
 - Syncing products
 
-### Model relationships
+### Model relationships for Ding Connect
 
 
 | Parent Model         | Relation   | Child Model            | Foreign Key                      |
@@ -595,7 +595,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 
 
-### Model Relationships
+### Model Relationships for D Tone Service
 
 
 | Parent Model   | Relation   | Child Model      | Foreign Key                  |
