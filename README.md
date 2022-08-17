@@ -307,13 +307,13 @@ view of sending transaction :point_down:
 $vtObj = ValueTopup::Make()->setCredentials($userId, $password, $mode = 'LIVE');    // will return on object containing all the methods & becareful with the mode
 
 $vtTransactionObj = ValueTopupTransaction::create([
-        'category_id' => 1, // foreign key for category to indicate which type of transaction is created here like Airtime, Pin etc
-        'country_id' => 13, // country id, like 9 for Pakistan, 13 for Panama
-        'operator_id' => 1,     // the operator id, under which operator the transaction is being made
-        'product_id' => 1, // id of particular product/package ranged to 1100+, like 1 for product name this '8ta South Africa 5.40 USD'
+        'category_id' => 2, // foreign key for category to indicate which type of transaction is created here like Airtime, Pin etc
+        'country_id' => 9, // country id, like 9 for Pakistan, 13 for Panama
+        'operator_id' => 16,     // the operator id, under which operator the transaction is being made
+        'product_id' => 1031, // id of particular product/package ranged to 1100+, like 1 for product name this '8ta South Africa 5.40 USD'
         'reference' => '166064462062fb6d0c4ab37', // user generated truly unique string of 50 characters, Correlation ID which you send in actual topup api method
         'topup' => 100,     // the amount to send
-        'amount' => 125,    // the amount defore tax deduction
+        'amount' => 200,    // the amount defore tax deduction
         'number' => '00923229988770',   // number to which we are sending transaciton
         'sender_currency' => 'PKR', // the currency type of sender user
         'receiver_currency' => 'PKR',   // the receiver currency, destination currency
