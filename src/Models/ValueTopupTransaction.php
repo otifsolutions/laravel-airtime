@@ -9,8 +9,7 @@ class ValueTopupTransaction extends Model {
     protected $guarded = ['id'];
 
     protected $casts = [
-        'response' => 'json',
-        'details' => 'json'
+        'response' => 'json'
     ];
 
     public function category() {
