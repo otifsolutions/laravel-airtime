@@ -335,7 +335,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 <br>
 
 
-### Other transaction methods :pushpin:
+### Other transaction methods
 
 Now here :point_down: is the detail of the provided four tansaction methods
 
