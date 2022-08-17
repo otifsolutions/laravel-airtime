@@ -309,14 +309,14 @@ $vtObj = ValueTopup::Make()->setCredentials($userId, $password, $mode = 'LIVE');
 $vtTransactionObj = ValueTopupTransaction::create([
         'category_id' => 2, // foreign key for category to indicate which type of transaction is created here like Airtime, Pin etc
         'country_id' => 9, // country id, like 9 for Pakistan, 13 for Panama
-        'operator_id' => 16,     // the operator id, under which operator the transaction is being made
-        'product_id' => 1031, // id of particular product/package ranged to 1100+, like 1 for product name this '8ta South Africa 5.40 USD'
+        'operator_id' => 16,     // operator id, under which operator the transaction is being made
+        'product_id' => 1031, // id of particular product/package ranging more than 100, like 1 for product '8ta South Africa 5.40 USD'
         'reference' => '166064462062fb6d0c4ab37', // user generated truly unique string of 50 characters, Correlation ID which you send in actual topup api method
-        'topup' => 100,     // the amount to send
-        'amount' => 200,    // the amount defore tax deduction
-        'number' => '00923229988770',   // number to which we are sending transaciton
-        'sender_currency' => 'PKR', // the currency type of sender user
-        'receiver_currency' => 'PKR',   // the receiver currency, destination currency
+        'topup' => 100,     // it is by default in Customer Wallet Currency
+        'amount' => 200,    // amount in sending currency
+        'number' => '00923229988770',   // number to which we are sending transaction, destination phone number
+        'sender_currency' => 'PKR', // currency type of sender user
+        'receiver_currency' => 'PKR',   // receiving currency, destination currency
     ]);
 
     // you can generate reference by uniqid(time())
@@ -329,7 +329,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | Colomn      | Detail                                                                                 |
 |:----------- |:-------------------------------------------------------------------------------------- |
 | status      | Status of current transaction whether it is SUCCESS or FAIL                            |
-| response    | Response from the json after hitting the API, executing the transaction method         |
+| response    | Json response by API after hitting `topupTransaction` method                           |
 
 
 <br>
