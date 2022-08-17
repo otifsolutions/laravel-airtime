@@ -318,6 +318,9 @@ $vtTransactionObj = ValueTopupTransaction::create([
         'sender_currency' => 'PKR', // the currency type of sender user
         'receiver_currency' => 'PKR',   // the receiver currency, destination currency
     ]);
+
+    // you can generate reference by uniqid(time())
+
 ```
 
 
