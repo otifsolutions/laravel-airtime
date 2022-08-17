@@ -7,7 +7,7 @@ use OTIFSolutions\Laravel\Settings\Models\Setting;
 
 /**
  * Class ValueTopup
- * @package OTIFSolutions\LaravelAirtime\Helpers
+ * @package OTIFSolutions\LaravelAirtime
  */
 class ValueTopup {
 

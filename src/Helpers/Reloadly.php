@@ -7,7 +7,7 @@ use OTIFSolutions\LaravelAirtime\Models\{ReloadlyOperator, ReloadlyTransaction};
 
 /**
  * Class Reloadly
- * @package App\Classes
+ * @package OTIFSolutions\LaravelAirtime
  */
 class Reloadly {
 

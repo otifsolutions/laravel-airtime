@@ -67,10 +67,6 @@ class DTone {
                 return $response['TransferTo'] ?? null;
             }
 
-            /**
-             * @param DToneTransaction $transaction
-             * @return bool
-             */
             public function sendTransfer(DToneTransaction $transaction): bool {
                 $number = $transaction['number'];
                 if (strpos($number, "0") === 0) {
