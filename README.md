@@ -265,8 +265,7 @@ response.
 
 #### Commands
 
-After the migrations run successfully, you have to give the `user_id` & `password` via command. Use *tinker*
-to run the commands
+Just simpley give the `user_id` & `password` via command. Use *tinker*
 
 :heavy_check_mark: **For user_id**
 ```php
@@ -517,7 +516,7 @@ The service has the same concept behind, it is used to send `topup/balance` to u
 ### How to use this service
 
 
-To use this package, we'll set the `dtone_currency` via `Setting::set()`, it'll have currency name such as *EUR*, *USD* or *PKR*. So, set it right here before running other D-Tone commands :point_down:
+To use this service, set the `dtone_currency` via `Setting::set()`, it'll have currency name such as *EUR*, *USD* or *PKR*. So, set it right here before running other D-Tone commands :point_down:
 
 ```php
 \OTIFSolutions\Laravel\Settings\Models\Setting::set('dtone_currency', 'currency_name', 'string');
