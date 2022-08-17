@@ -116,7 +116,7 @@ the package will not allow you to do that. It'll ask you to enable it first.
 - [Ding Connect](#ding-connect)
     - [Usage](#usage)
     - [Commands](#commands)
-    - [Sending transaction](#sendingtransaction)
+    - [Sending transaction](#sending-transaction)
     - [How sync comamnd works in action](#how-sync-comamnd-works-in-action)
     - [Model relationships](#model-relationships)
 - [D Tone](#d-tone)
