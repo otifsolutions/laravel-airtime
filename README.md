@@ -1,8 +1,8 @@
 
 ### Laravel Airtime
 ___________________
-The package will use these four listed serivces, hit those API's and get all the data synced in
-mySQL database tables got from the response by using the artisan commands.
+
+Versatile package that uses third party services to send balance/topup to users/phoneNumbers
 
 **Requirements**
 

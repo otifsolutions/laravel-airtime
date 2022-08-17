@@ -1,6 +1,6 @@
 {
   "name": "otifsolutions/laravel-airtime",
-  "description": "Fully functional and versatile package that uses third party services to send balance/topup to users/phoneNumbers",
+  "description": "Versatile package that uses third party services to send balance/topup to users/phoneNumbers",
   "type": "library",
   "license": "MIT",
   "authors": [
