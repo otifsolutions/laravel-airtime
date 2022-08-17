@@ -228,7 +228,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 ### How artisan sync comamnd works for this service
 - First checks if this service is enabled or not
 - Migrations are run then credentials are checked
-- Token is generated with credentials and got the balance and set the balance
+- Token is generated with credentials, got the balance and set the balance
 - Soft deleting the countries to sync with active ones
 - Fetching operators and syncing them with mysql tables
 - Syncing promotions
@@ -328,7 +328,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | Colomn      | Detail                                                                                 |
 |:----------- |:-------------------------------------------------------------------------------------- |
 | status      | Status of current transaction whether it is SUCCESS or FAIL                            |
-| response    | Json response by API after hitting on of given transaction method                      |
+| response    | Json response by API after hitting one of given transaction method                      |
 
 
 <br>
