@@ -1,6 +1,6 @@
 {
   "name": "otifsolutions/laravel-airtime",
-  "description": "The package will use the four service, prompt the user to enable them, hit their API's and get all the data synced in mySQL database tables got from the response by using the artisan commands.",
+  "description": "Fully functional and versatile package that uses third party services to send balance/topup to users/phoneNumbers",
   "type": "library",
   "license": "MIT",
   "authors": [
