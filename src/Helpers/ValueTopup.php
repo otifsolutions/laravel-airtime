@@ -4,15 +4,14 @@ namespace OTIFSolutions\LaravelAirtime\Helpers;
 
 use OTIFSolutions\CurlHandler\Curl;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
-use OTIFSolutions\LaravelAirtime\Models\ValueTopupTransaction;
 
 /**
  * Class ValueTopup
- * @package App\Classes
+ * @package OTIFSolutions\LaravelAirtime\Helpers
  */
 class ValueTopup {
 
-    /**s
+    /**
      * @return object
      */
     public static function Make(): object {
@@ -23,28 +22,20 @@ class ValueTopup {
             private $password;
             private $token;
 
-            /**
-             *  constructor.
-             */
             public function __construct() {
-                /*$this->userId = $userId;
-                $this->password = $password;*/
+
                 $this->token = Setting::get('value_topup_token');
                 $this->mode = Setting::get('value_topup_api_mode');
-                /*$this->mode = $mode;*/
             }
 
-            /**
-             * @return string
-             */
             private function getApiUrl(): string {
                 $this->mode = Setting::get('value_topup_api_mode');
                 return $this->mode === 'LIVE' ? 'https://www.valuetopup.com/api/v1' : 'https://sandbox.valuetopup.com/api/v1';
             }
 
             /**
-             * @param $key
-             * @param $secret
+             * @param $userId
+             * @param $password
              * @param string $mode
              * @return object
              */
@@ -72,9 +63,6 @@ class ValueTopup {
                 return $this;
             }
 
-            /**
-             * @return array
-             */
             public function getBalance(): array {
                 return Curl::Make()->GET->url($this->getApiUrl() . "/account/balance")->header([
                     "Content-Type:application/json",
@@ -82,9 +70,6 @@ class ValueTopup {
                 ])->execute();
             }
 
-            /**
-             * @return array
-             */
             public function getValueTopupCarrier(): array {
 
                 return Curl::Make()->GET->url($this->getApiUrl() . "/catalog/carriers")->header([
@@ -94,9 +79,6 @@ class ValueTopup {
 
             }
 
-            /**
-             * @return array
-             */
             public function getValueTopupProducts(): array {
 
                 return Curl::Make()->GET->url($this->getApiUrl() . "/catalog/skus")->header([
@@ -105,9 +87,6 @@ class ValueTopup {
                 ])->execute();
             }
 
-            /**
-             * @return array
-             */
             public function getValueTopupProductsDescription(): array {
 
                 return Curl::Make()->GET->url($this->getApiUrl() . "/catalog/sku/description")->header([
@@ -117,9 +96,6 @@ class ValueTopup {
 
             }
 
-            /**
-             * @return array
-             */
             public function getValueTopupOperatorLogo(): array {
 
                 return Curl::Make()->GET->url($this->getApiUrl() . "/catalog/sku/logos")->header([
@@ -129,9 +105,6 @@ class ValueTopup {
 
             }
 
-            /**
-             * @return array
-             */
             public function getValueTopupCurrentPromotion(): array {
 
                 return Curl::Make()->GET->url($this->getApiUrl() . "/catalog/promotion/current")->header([
@@ -140,9 +113,6 @@ class ValueTopup {
                 ])->execute();
             }
 
-            /**
-             * @return array
-             */
             public function getValueTopupUpcomingPromotion(): array {
 
                 return Curl::Make()->GET->url($this->getApiUrl() . "/catalog/promotion/upcoming")->header([
@@ -151,9 +121,6 @@ class ValueTopup {
                 ])->execute();
             }
 
-            /**
-             * @return array
-             */
             public function getValueTopupStatus($reference): array {
 
                 return Curl::Make()->GET->url($this->getApiUrl() . "/transaction/status/" . $reference)->header([
@@ -163,9 +130,6 @@ class ValueTopup {
                 ])->execute();
             }
 
-            /**
-             * @return array
-             */
             public function getOperatorByNumber($number): array {
 
                 return Curl::Make()->GET->url($this->getApiUrl() . "/catalog/lookup/mobile/" . $number)->header([
@@ -174,9 +138,6 @@ class ValueTopup {
                 ])->execute();
             }
 
-            /**
-             * @return array
-             */
             public function getBillDetails($skuId, $accountNo): array {
 
                 return Curl::Make()->GET->url($this->getApiUrl() . "/transaction/billpay/fetch-account-detail?skuId=" . $skuId . "&accountNumber=" . $accountNo)->header([
@@ -186,11 +147,7 @@ class ValueTopup {
                 ])->execute();
             }
 
-            /**
-             * @param $transaction
-             * @return ValueTopupTransaction
-             */
-            public function topupTransaction($transaction) : ValueTopupTransaction {
+            public function topupTransaction($transaction) {
 
                 $body = [
                     "skuId" => $transaction['product']['sku_id'],
@@ -204,23 +161,22 @@ class ValueTopup {
                     "transactionCurrencyCode" => $transaction['sender_currency'],
                 ];
 
-                $resposne = Curl::Make()->POST->url($this->getApiUrl() . "/transaction/topup")->header([
+                $response = Curl::Make()->POST->url($this->getApiUrl() . "/transaction/topup")->header([
                     "Accept: application/json",
                     "Content-type: application/json",
                     "Authorization: Basic " . $this->token
                 ])->body($body)->execute();
 
-                if (isset($resposne['responseCode']) && $resposne['responseCode'] !== NULL && $resposne['responseCode'] !== '') {
-
-                    if ($resposne['responseCode'] === '000') {
+                if (isset($response['responseCode']) && $response['responseCode'] !== NULL && $response['responseCode'] !== '') {
+                    if ($response['responseCode'] === '000') {
                         $transaction['status'] = 'SUCCESSFUL';
-                    } else if ($resposne['responseCode'] === '851' || $resposne['responseCode'] === '852') {
+                    } else if ($response['responseCode'] === '851' || $response['responseCode'] === '852') {
                         $transaction['status'] = 'PROCESSING';
                     } else {
                         $transaction['status'] = 'FAIL';
                     }
 
-                    $transaction['response'] = $resposne;
+                    $transaction['response'] = $response;
                     $transaction->save();
 
                 }
@@ -229,10 +185,7 @@ class ValueTopup {
 
             }
 
-            /**
-             * @return array
-             */
-            public function pinTransaction($transaction): array {
+            public function pinTransaction($transaction) {
 
                 $body = [
                     "skuId" => $transaction['product']['sku_id'],
@@ -240,17 +193,31 @@ class ValueTopup {
                     "quantity" => "1",
                 ];
 
-                return Curl::Make()->POST->url($this->getApiUrl() . "/transaction/pin")->header([
+                $response = Curl::Make()->POST->url($this->getApiUrl() . "/transaction/pin")->header([
                     "Accept: application/json",
                     "Content-type: application/json",
                     "Authorization: Basic " . $this->token
                 ])->body($body)->execute();
+
+                if (isset($response['responseCode']) && $response['responseCode'] !== NULL && $response['responseCode'] !== '') {
+                    if ($response['responseCode'] === '000') {
+                        $transaction['status'] = 'SUCCESSFUL';
+                    } else if ($response['responseCode'] === '851' || $response['responseCode'] === '852') {
+                        $transaction['status'] = 'PROCESSING';
+                    } else {
+                        $transaction['status'] = 'FAIL';
+                    }
+
+                    $transaction['response'] = $response;
+                    $transaction->save();
+
+                }
+
+                return $transaction;
+
             }
 
-            /**
-             * @return array
-             */
-            public function cardTransaction($transaction, $firstName, $lastName, $email): array {
+            public function cardTransaction($transaction, $firstName, $lastName, $email) {
 
                 $body = [
                     "skuId" => $transaction['product']['sku_id'],
@@ -263,18 +230,31 @@ class ValueTopup {
                     "message" => "",
                 ];
 
-                return Curl::Make()->POST->url($this->getApiUrl() . "/transaction/giftcard/order")->header([
+                $response = Curl::Make()->POST->url($this->getApiUrl() . "/transaction/giftcard/order")->header([
                     "Accept: application/json",
                     "Content-type: application/json",
                     "Authorization: Basic " . $this->token
                 ])->body($body)->execute();
 
+                if (isset($response['responseCode']) && $response['responseCode'] !== NULL && $response['responseCode'] !== '') {
+                    if ($response['responseCode'] === '000') {
+                        $transaction['status'] = 'SUCCESSFUL';
+                    } else if ($response['responseCode'] === '851' || $response['responseCode'] === '852') {
+                        $transaction['status'] = 'PROCESSING';
+                    } else {
+                        $transaction['status'] = 'FAIL';
+                    }
+
+                    $transaction['response'] = $response;
+                    $transaction->save();
+
+                }
+
+                return $transaction;
+
             }
 
-            /**
-             * @return array
-             */
-            public function billPayTransaction($transaction): array {
+            public function billPayTransaction($transaction) {
 
                 $body = [
                     "skuId" => $transaction['product']['sku_id'],
@@ -288,11 +268,27 @@ class ValueTopup {
                     "currencyCode" => $transaction['sender_currency'],
                 ];
 
-                return Curl::Make()->POST->url($this->getApiUrl() . "/transaction/billpay")->header([
+                $response = Curl::Make()->POST->url($this->getApiUrl() . "/transaction/billpay")->header([
                     "Accept: application/json",
                     "Content-type: application/json",
                     "Authorization: Basic " . $this->token
                 ])->body($body)->execute();
+
+                if (isset($response['responseCode']) && $response['responseCode'] !== NULL && $response['responseCode'] !== '') {
+                    if ($response['responseCode'] === '000') {
+                        $transaction['status'] = 'SUCCESSFUL';
+                    } else if ($response['responseCode'] === '851' || $response['responseCode'] === '852') {
+                        $transaction['status'] = 'PROCESSING';
+                    } else {
+                        $transaction['status'] = 'FAIL';
+                    }
+
+                    $transaction['response'] = $response;
+                    $transaction->save();
+
+                }
+
+                return $transaction;
 
             }
 
