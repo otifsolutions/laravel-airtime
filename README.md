@@ -311,7 +311,7 @@ $vtTransactionObj = ValueTopupTransaction::create([
         'country_id' => 13, // country id, like 9 for Pakistan, 13 for Panama
         'operator_id' => 1,     // the operator id, under which operator the transaction is being made
         'product_id' => 1, // id of particular product/package ranged to 1100+, like 1 for product name this '8ta South Africa 5.40 USD'
-        'reference' => '166064462062fb6d0c4ab37', // truly unique string of length 50 refrerence is actually Correlation ID which you send in actual topup api method, unique id of customer system
+        'reference' => '166064462062fb6d0c4ab37', // user generated truly unique string of 50 characters, Correlation ID which you send in actual topup api method
         'topup' => 100,     // the amount to send
         'amount' => 125,    // the amount defore tax deduction
         'number' => '00923229988770',   // number to which we are sending transaciton
@@ -327,7 +327,6 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 |:----------- |:-------------------------------------------------------------------------------------- |
 | status      | Status of current transaction whether it is SUCCESS or FAIL                            |
 | response    | Response from the json after hitting the API, executing the transaction method         |
-| details     | Filled when transaction method is executed                                             |
 
 
 <br>
