@@ -329,7 +329,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | Colomn      | Detail                                                                                 |
 |:----------- |:-------------------------------------------------------------------------------------- |
 | status      | Status of current transaction whether it is SUCCESS or FAIL                            |
-| response    | Json response by API after hitting `topupTransaction` method                           |
+| response    | Json response by API after hitting on of given transaction method                      |
 
 
 <br>
@@ -342,7 +342,7 @@ Now here :point_down: is the detail of the provided four tansaction methods
 #### Topup transaction
 
 ```php
-topupTransaction($transaction) : array
+topupTransaction($transaction)
 ```
 
 > This method takes few fields filled `ValueTopupTransaction` object like `$vtTransactionObj[product][sku_id]`,
@@ -356,7 +356,7 @@ $vtObj->topupTransaction($vtTransactionObj);
 #### Pin transaction
 
 ```php
-pinTransaction($transaction) : array
+pinTransaction($transaction)
 ```
 
 > This method takes `$transactionObj` with `$obj[product][sku_id]`, `reference` and it hits `/transaction/pin` in behind
@@ -364,7 +364,7 @@ pinTransaction($transaction) : array
 #### Card transaction
 
 ```php
-cardTransaction($transaction, $firstName, $lastName, $email) : array 
+cardTransaction($transaction, $firstName, $lastName, $email)
 ```
 
 > This transaction method takes firstname, lastname and email in addition, in `$transactionObj` it
@@ -374,7 +374,7 @@ cardTransaction($transaction, $firstName, $lastName, $email) : array
 #### Bill pay transaction
 
 ```php
-billPayTransaction($transaction) : array
+billPayTransaction($transaction)
 ```
 
 > This method takes `$transactionObj` with `$obj[product][sku_id]`, `amount`, `number`,
