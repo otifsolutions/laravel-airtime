@@ -4,6 +4,7 @@ namespace OTIFSolutions\LaravelAirtime\Helpers;
 
 use OTIFSolutions\CurlHandler\Curl;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
+use OTIFSolutions\LaravelAirtime\Models\ValueTopupTransaction;
 
 /**
  * Class ValueTopup
@@ -186,9 +187,10 @@ class ValueTopup {
             }
 
             /**
-             * @return array
+             * @param $transaction
+             * @return ValueTopupTransaction
              */
-            public function topupTransaction($transaction): array {
+            public function topupTransaction($transaction) : ValueTopupTransaction {
 
                 $body = [
                     "skuId" => $transaction['product']['sku_id'],
@@ -202,11 +204,29 @@ class ValueTopup {
                     "transactionCurrencyCode" => $transaction['sender_currency'],
                 ];
 
-                return Curl::Make()->POST->url($this->getApiUrl() . "/transaction/topup")->header([
+                $resposne = Curl::Make()->POST->url($this->getApiUrl() . "/transaction/topup")->header([
                     "Accept: application/json",
                     "Content-type: application/json",
                     "Authorization: Basic " . $this->token
                 ])->body($body)->execute();
+
+                if (isset($resposne['responseCode']) && $resposne['responseCode'] !== NULL && $resposne['responseCode'] !== '') {
+
+                    if ($resposne['responseCode'] === '000') {
+                        $transaction['status'] = 'SUCCESSFUL';
+                    } else if ($resposne['responseCode'] === '851' || $resposne['responseCode'] === '852') {
+                        $transaction['status'] = 'PROCESSING';
+                    } else {
+                        $transaction['status'] = 'FAIL';
+                    }
+
+                    $transaction['response'] = $resposne;
+                    $transaction->save();
+
+                }
+
+                return $transaction;
+
             }
 
             /**
