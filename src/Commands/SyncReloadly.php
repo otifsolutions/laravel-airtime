@@ -9,9 +9,10 @@ use OTIFSolutions\LaravelAirtime\Helpers\Reloadly;
 use OTIFSolutions\LaravelAirtime\Models\{AirtimeCurrency,
     ReloadlyCountry,
     ReloadlyDiscount,
+    ReloadlyGiftCardProduct,
     ReloadlyOperator,
-    ReloadlyPromotion
-};
+    ReloadlyPromotion,
+    ReloadlyUtility};
 
 class SyncReloadly extends Command {
 
@@ -35,6 +36,8 @@ class SyncReloadly extends Command {
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_000004_create_reloadly_discounts_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_000005_create_reloadly_promotions_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_000006_create_reloadly_transactions_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000006_create_reloadly_gift_card_products_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000007_create_reloadly_gift_card_transactions_table.php');
         $this->line('++++++++++++++++++++++++++++++++++++++++++++++');
 
         $this->line('');
@@ -137,68 +140,70 @@ class SyncReloadly extends Command {
             $this->info('Fetch Success !!!');
             $page++;
             $this->line('Syncing with Database');
-            $this->withProgressBar($response['content'], function ($operator) {
-                if (isset($operator['operatorId'])) {
-                    $senderCurrency = AirtimeCurrency::where('code', $operator['senderCurrencyCode'])->first();
-                    if ($senderCurrency === null) {
-                        $senderCurrency = AirtimeCurrency::updateOrCreate([
-                            'code' => $operator['senderCurrencyCode'],
-                            'base_currency_id' => 1,
-                            'rate' => 0,
-                            'profit' => 0
-                        ]);
-                    }
+            if (isset($response['content'])){
+                $this->withProgressBar($response['content'], function ($operator) {
+                    if (isset($operator['operatorId'])) {
+                        $senderCurrency = AirtimeCurrency::where('code', $operator['senderCurrencyCode'])->first();
+                        if ($senderCurrency === null) {
+                            $senderCurrency = AirtimeCurrency::updateOrCreate([
+                                'code' => $operator['senderCurrencyCode'],
+                                'base_currency_id' => 1,
+                                'rate' => 0,
+                                'profit' => 0
+                            ]);
+                        }
 
-                    $destinationCurrency = AirtimeCurrency::where('code', $operator['destinationCurrencyCode'])->first();
-                    if ($destinationCurrency === null) {
-                        $destinationCurrency = AirtimeCurrency::updateOrCreate([
-                            'code' => $operator['destinationCurrencyCode'],
-                            'base_currency_id' => 1,
-                            'rate' => 0,
-                            'profit' => 0
-                        ]);
-                    }
+                        $destinationCurrency = AirtimeCurrency::where('code', $operator['destinationCurrencyCode'])->first();
+                        if ($destinationCurrency === null) {
+                            $destinationCurrency = AirtimeCurrency::updateOrCreate([
+                                'code' => $operator['destinationCurrencyCode'],
+                                'base_currency_id' => 1,
+                                'rate' => 0,
+                                'profit' => 0
+                            ]);
+                        }
 
-                    ReloadlyOperator::withTrashed()->updateOrCreate(
-                        ['rid' => $operator['operatorId']], [
-                            'rid' => $operator['operatorId'],
-                            'country_id' => ReloadlyCountry::where('iso', $operator['country']['isoName'])->first()['id'],
-                            'name' => $operator['name'],
-                            'bundle' => $operator['bundle'],
-                            'data' => $operator['data'],
-                            'pin' => $operator['pin'],
-                            'supports_local_amounts' => $operator['supportsLocalAmounts'],
-                            'denomination_type' => $operator['denominationType'],
-                            'sender_currency_id' => $senderCurrency['id'],
-                            'sender_currency_symbol' => $operator['senderCurrencySymbol'],
-                            'destination_currency_id' => $destinationCurrency['id'],
-                            'destination_currency_symbol' => $operator['destinationCurrencySymbol'],
-                            'commission' => $operator['commission'],
-                            'international_discount' => $operator['internationalDiscount'],
-                            'local_discount' => $operator['localDiscount'],
-                            'most_popular_amount' => $operator['mostPopularAmount'],
-                            'min_amount' => $operator['minAmount'],
-                            'local_min_amount' => $operator['localMinAmount'],
-                            'max_amount' => $operator['maxAmount'],
-                            'local_max_amount' => $operator['localMaxAmount'],
-                            'fx_rate' => $operator['fx']['rate'],
-                            'logo_urls' => $operator['logoUrls'],
-                            'fixed_amounts' => $operator['fixedAmounts'],
-                            'fixed_amounts_descriptions' => $operator['fixedAmountsDescriptions'],
-                            'local_fixed_amounts' => $operator['localFixedAmounts'],
-                            'local_fixed_amounts_descriptions' => $operator['localFixedAmountsDescriptions'] ?? [],
-                            'suggested_amounts' => $operator['suggestedAmounts'],
-                            'suggested_amounts_map' => $operator['suggestedAmountsMap'],
-                            'deleted_at' => NULL
-                        ]
-                    );
-                }
-            });
+                        ReloadlyOperator::withTrashed()->updateOrCreate(
+                            ['rid' => $operator['operatorId']], [
+                                'rid' => $operator['operatorId'],
+                                'country_id' => ReloadlyCountry::where('iso', $operator['country']['isoName'])->first()['id'],
+                                'name' => $operator['name'],
+                                'bundle' => $operator['bundle'],
+                                'data' => $operator['data'],
+                                'pin' => $operator['pin'],
+                                'supports_local_amounts' => $operator['supportsLocalAmounts'],
+                                'denomination_type' => $operator['denominationType'],
+                                'sender_currency_id' => $senderCurrency['id'],
+                                'sender_currency_symbol' => $operator['senderCurrencySymbol'],
+                                'destination_currency_id' => $destinationCurrency['id'],
+                                'destination_currency_symbol' => $operator['destinationCurrencySymbol'],
+                                'commission' => $operator['commission'],
+                                'international_discount' => $operator['internationalDiscount'],
+                                'local_discount' => $operator['localDiscount'],
+                                'most_popular_amount' => $operator['mostPopularAmount'],
+                                'min_amount' => $operator['minAmount'],
+                                'local_min_amount' => $operator['localMinAmount'],
+                                'max_amount' => $operator['maxAmount'],
+                                'local_max_amount' => $operator['localMaxAmount'],
+                                'fx_rate' => $operator['fx']['rate'],
+                                'logo_urls' => $operator['logoUrls'],
+                                'fixed_amounts' => $operator['fixedAmounts'],
+                                'fixed_amounts_descriptions' => $operator['fixedAmountsDescriptions'],
+                                'local_fixed_amounts' => $operator['localFixedAmounts'],
+                                'local_fixed_amounts_descriptions' => $operator['localFixedAmountsDescriptions'] ?? [],
+                                'suggested_amounts' => $operator['suggestedAmounts'],
+                                'suggested_amounts_map' => $operator['suggestedAmountsMap'],
+                                'deleted_at' => NULL
+                            ]
+                        );
+                    }
+                });
+            }
 
             $this->line(' ');
             $this->info('Sync Completed For ' . count($response['content']) . ' Operators');
 
-        } while ($response['totalPages'] >= $page);
+        } while (isset($response['totalPages']) && $response['totalPages'] >= $page);
 
         $this->line('****************************************************************');
         $this->info('All Operators Synced !!! ');
@@ -221,31 +226,33 @@ class SyncReloadly extends Command {
             $this->info('Fetch Success !!!');
             $page++;
             $this->line('Syncing with Database');
-            $this->withProgressBar($response['content'], function ($promotion) {
-                if (isset($promotion['promotionId'])) {
-                    $operator = ReloadlyOperator::where('rid', $promotion['operatorId'])->first();
-                    if ($operator) {
-                        ReloadlyPromotion::updateOrCreate(
-                            ['rid' => $promotion['promotionId']], [
-                                'rid' => $promotion['promotionId'],
-                                'operator_id' => $operator['id'],
-                                'title' => $promotion['title'],
-                                'title2' => $promotion['title2'],
-                                'description' => $promotion['description'],
-                                'start_date' => $promotion['startDate'],
-                                'end_date' => $promotion['endDate'],
-                                'denominations' => $promotion['denominations'],
-                                'local_denominations' => $promotion['localDenominations']
-                            ]
-                        );
+            if (isset($response['content'])){
+                $this->withProgressBar($response['content'], function ($promotion) {
+                    if (isset($promotion['promotionId'])) {
+                        $operator = ReloadlyOperator::where('rid', $promotion['operatorId'])->first();
+                        if ($operator) {
+                            ReloadlyPromotion::updateOrCreate(
+                                ['rid' => $promotion['promotionId']], [
+                                    'rid' => $promotion['promotionId'],
+                                    'operator_id' => $operator['id'],
+                                    'title' => $promotion['title'],
+                                    'title2' => $promotion['title2'],
+                                    'description' => $promotion['description'],
+                                    'start_date' => $promotion['startDate'],
+                                    'end_date' => $promotion['endDate'],
+                                    'denominations' => $promotion['denominations'],
+                                    'local_denominations' => $promotion['localDenominations']
+                                ]
+                            );
+                        }
                     }
-                }
-            });
+                });
+            }
 
             $this->line(' ');
             $this->info('Sync Completed For ' . count($response['content']) . ' Promotions');
 
-        } while ($response['totalPages'] >= $page);
+        } while (isset($response['totalPages']) && $response['totalPages'] >= $page);
 
         $this->line('****************************************************************');
         $this->info('All Promotions Synced !!! ');
@@ -272,35 +279,106 @@ class SyncReloadly extends Command {
             $this->info('Fetch Success !!!');
             $page++;
             $this->line('Syncing with Database');
-            $this->withProgressBar($response['content'], function ($discount) {
-                if (isset($discount['operator']['operatorId'])) {
-                    $operator = ReloadlyOperator::where('rid', $discount['operator']['operatorId'])->first();
-                    if ($operator) {
-                        ReloadlyDiscount::withTrashed()->updateOrCreate(
-                            ['rid' => $discount['operator']['operatorId']], [
-                                'rid' => $discount['operator']['operatorId'],
-                                'operator_id' => $operator['id'],
-                                'percentage' => $discount['percentage'],
-                                'international_percentage' => $discount['internationalPercentage'],
-                                'local_percentage' => $discount['localPercentage'],
-                                'updated_at' => $discount['updatedAt'],
-                                'deleted_at' => NULL
-                            ]
-                        );
+            if (isset($response['content'])){
+                $this->withProgressBar($response['content'], function ($discount) {
+                    if (isset($discount['operator']['operatorId'])) {
+                        $operator = ReloadlyOperator::where('rid', $discount['operator']['operatorId'])->first();
+                        if ($operator) {
+                            ReloadlyDiscount::withTrashed()->updateOrCreate(
+                                ['rid' => $discount['operator']['operatorId']], [
+                                    'rid' => $discount['operator']['operatorId'],
+                                    'operator_id' => $operator['id'],
+                                    'percentage' => $discount['percentage'],
+                                    'international_percentage' => $discount['internationalPercentage'],
+                                    'local_percentage' => $discount['localPercentage'],
+                                    'updated_at' => $discount['updatedAt'],
+                                    'deleted_at' => NULL
+                                ]
+                            );
+                        }
                     }
-                }
-            });
+                });
+            }
 
             $this->line(' ');
             $this->info('Sync Completed For ' . count($response['content']) . ' Discounts');
 
-        } while ($response['totalPages'] >= $page);
+        } while (isset($response['totalPages']) && $response['totalPages'] >= $page);
 
         $this->line('****************************************************************');
         $this->info('All Discounts Synced !!! ');
         $this->line('****************************************************************');
         $this->line('');
 
+        $this->line('');
+        $this->line('****************************************************************');
+        $this->info('Soft Deleting All Reloadly Gift Cards to Sync only Active ones');
+        $this->line('****************************************************************');
+
+        ReloadlyGiftCardProduct::whereNull('deleted_at')->delete();
+
+
+        $page = 1;
+        $credentials['gift_card_token'] = $reloadly->getGiftToken();
+        do {
+            $this->line(' ');
+            $this->line("Fetching Gift Products Page : ".$page);
+            $response = $reloadly->getReloadlyGiftProducts($page);
+            $this->info("Fetch Success !!!");
+            $page++;
+            $this->line("Syncing with Database");
+            if (isset($response['content'])) {
+                $this->withProgressBar($response['content'], function ($product) {
+                    if (isset($product['productId'], $product['country']['isoName'])) {
+                        $country = ReloadlyCountry::where('iso', $product['country']['isoName'])->first();
+                        if (!$country) {
+                            $currency = AirtimeCurrency::where('code', $product['recipientCurrencyCode'])->first();
+                            $country = ReloadlyCountry::updateOrCreate(['iso' => $product['country']['isoName']], [
+                                'name' => $product['country']['name'],
+                                'flag' => $product['country']['flagUrl'],
+                                'currency_id' => $currency['id'],
+                                'currency_code' => $product['recipientCurrencyCode'],
+                                'currency_name' => $product['recipientCurrencyCode'],
+                                'currency_symbol' => $product['recipientCurrencyCode'],
+                                'calling_codes' => []
+                            ]);
+                        }
+                        ReloadlyGiftCardProduct::updateOrCreate(
+                            ['rid' => $product['productId']],
+                            [
+                                'rid' => $product['productId'],
+                                'country_id' => $country['id'],
+                                'title' => $product['productName'],
+                                'is_global' => $product['global'],
+                                'sender_fee' => $product['senderFee'],
+                                'discount_percentage' => $product['discountPercentage'],
+                                'denomination_type' => $product['denominationType'],
+                                'recipient_currency_code' => $product['recipientCurrencyCode'],
+                                'min_recipient_denomination' => $product['minRecipientDenomination'],
+                                'max_recipient_denomination' => $product['maxRecipientDenomination'],
+                                'sender_currency_code' => $product['senderCurrencyCode'],
+                                'min_sender_denomination' => $product['minSenderDenomination'],
+                                'max_sender_denomination' => $product['maxSenderDenomination'],
+                                'fixed_recipient_denominations' => $product['fixedRecipientDenominations'],
+                                'fixed_sender_denominations' => $product['fixedSenderDenominations'],
+                                'fixed_denominations_map' => $product['fixedRecipientToSenderDenominationsMap'],
+                                'logo_urls' => $product['logoUrls'],
+                                'brand' => $product['brand'],
+                                'country' => $product['country'],
+                                'redeem_instruction' => $product['redeemInstruction'],
+                            ]
+                        );
+                    }
+                });
+                $this->line(' ');
+                $this->info("Sync Completed For ".count($response['content'])." Gift Products");
+            }
+        } while (isset($response['totalPages']) && $response['totalPages'] >= $page);
+
+        $this->line('');
+        $this->line('****************************************************************');
+        $this->info('Soft Deleting All Reloadly Gift Cards to Sync only Active ones');
+        $this->line('****************************************************************');
         return 0;
     }
 

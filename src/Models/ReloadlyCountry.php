@@ -16,4 +16,8 @@ class ReloadlyCountry extends Model {
         return $this->hasMany(ReloadlyOperator::class);
     }
 
+    public  function gifts(){
+        return $this->hasMany(ReloadlyGiftCardProduct::class,'country_id');
+    }
+
 }

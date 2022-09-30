@@ -213,6 +213,33 @@ $rdTransaction = ReloadlyTransaction::create([
 $rdHelperObj->sendTopup($rdTransaction);
 ```
 
+
+### How to send Reloady Gift Card transactions
+To send transaction, create an object of `ReloadlyTransaction` with properties, pass as parameter to the `Reloadly` helper
+class method `sendTopup(ReloadlyTransaction $reloadlyTransactionObj)` and execute it
+
+```php
+
+$rdHelperObj = Reloadly::Make($key, $secred, $mode);
+$rdHelperObj->getGiftToken();
+$giftCard = GiftCardProduct::find($request['gift_id']); // selected gift card
+$rdTransaction = ReloadlyGiftCardTransaction::create([
+        'user_id' => $user['id'], // user who is using the service
+        'email' => $request['email'], // customr/user for whick service is used
+        'invoice_id' => $invoice['id'], // invoice for the record 
+        'product_id' => $giftCard['id'],
+        'product' => $giftCard, // the reloadly gift card 
+        'recipient_currency_id' => $recipientCurrency['id'], // currency from which transaction is being made
+        'sender_currency_id' => $senderCurrency['id'], // currency of transaction receiving channel/user
+        'sender_amount' => $giftCard['fixed_sender_denominations'][$paymentIndex] + $giftCard['sender_fee'], // You can add your fee as well 
+        'reloadly_fee' => $giftCard['sender_fee'], // The fee of the gift card
+        'recipient_amount' => $giftCard['fixed_recipient_denominations'][$request['selected_index']], // The price of the gift card
+        'reference' => Str::random(10),
+    ]);
+$rdTransaction->sendTransaction();
+```
+
+
 Other fields that are to be filled with some `values/jsons` on API response for each transaction object
 
 | Colomn      | Detail                                                                                 |
@@ -243,6 +270,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 | ReloadlyOperator| 1-m        | ReloadlyTransaction|:key: operator_id            |  
 | ReloadlyOperator| 1-m        | ReloadlyDiscount   |:key: operator_id            |
 | ReloadlyCountry | 1-m        | ReloadlyOperator   |:key: country_id             |
+| ReloadlyCountry | 1-m        | ReloadlyGiftCardProduct   |:key: country_id             |
 | AirtimeCurrency | 1-1        | ReloadlyOperator   |:key: sender_currency_id     |
 | AirtimeCurrency | 1-1        | ReloadlyOperator   |:key: destination_currency_id|
 

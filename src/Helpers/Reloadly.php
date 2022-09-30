@@ -25,6 +25,8 @@ class Reloadly {
             private $key;
             private $secret;
             private $token;
+            private $gift_token;
+            private $utility_token;
 
             /**
              *  constructor.
@@ -43,6 +45,20 @@ class Reloadly {
              */
             private function getApiUrl(): string {
                 return $this->mode === 'LIVE' ? 'https://topups.reloadly.com' : 'https://topups-sandbox.reloadly.com';
+            }
+
+            /**
+             * @return string
+             */
+            public function getGiftCardApiUrl(): string{
+                return $this->mode === 'LIVE' ?'https://giftcards.reloadly.com':'https://giftcards-sandbox.reloadly.com';
+            }
+
+            /**
+             * @return string
+             */
+            public function getUtilityApiUrl(): string{
+                return $this->mode === 'LIVE' ?'https://utilities.reloadly.com':'https://utilities-sandbox.reloadly.com';
             }
 
             /**
@@ -87,6 +103,43 @@ class Reloadly {
                 $this->token = $response['access_token'] ?? null;
 
                 return $this->token;
+            }
+
+            public function setGiftToken(string $gift_token): object {
+                $this->gift_token = $gift_token;
+                return $this;
+            }
+
+            public function getGiftToken(): ?string {
+                $response = Curl::Make()->POST->url("https://auth.reloadly.com/oauth/token")->header([
+                    "Content-Type:application/json"
+                ])->body([
+                    'client_id' => $this->key,
+                    'client_secret' => $this->secret,
+                    'grant_type' => 'client_credentials',
+                    'audience' => $this->getGiftCardApiUrl()
+                ])->execute();
+                $this->gift_token = isset($response['access_token'])? $response['access_token']:null;
+                return $this->gift_token;
+            }
+
+
+            public function setUtilityToken(string $utility_token): object {
+                $this->utility_token = $utility_token;
+                return $this;
+            }
+
+            public function getUtilityToken(): ?string {
+                $response = Curl::Make()->POST->url("https://auth.reloadly.com/oauth/token")->header([
+                    "Content-Type:application/json"
+                ])->body([
+                    'client_id' => $this->key,
+                    'client_secret' => $this->secret,
+                    'grant_type' => 'client_credentials',
+                    'audience' => $this->getUtilityApiUrl()
+                ])->execute();
+                $this->utility_token = isset($response['access_token'])?$response['access_token']:null;
+                return $this->utility_token;
             }
 
             /**
@@ -194,6 +247,36 @@ class Reloadly {
                 $transaction->save();
                 return false;
             }
+
+            public function getReloadlyGiftProducts($page=1){
+                return Curl::Make()->GET->url($this->getGiftCardApiUrl() ."/products?page=$page&size=200")->header([
+                    "Content-Type:application/json",
+                    "Authorization: Bearer ".$this->gift_token
+                ])->execute();
+            }
+
+            public function orderReloadlyGiftProducts($rid, $iso, $quantity, $price, $identifier, $senderName, $email){
+                return Curl::Make()->POST->url($this->getGiftCardApiUrl()."/orders")->header([
+                    "Content-Type:application/json",
+                    "Authorization: Bearer ".$this->gift_token
+                ])->body([
+                    'productId' => $rid,
+                    'countryCode' => $iso,
+                    'quantity' => $quantity,
+                    'unitPrice' => $price,
+                    'customIdentifier' => $identifier,
+                    'senderName' => $senderName,
+                    'recipientEmail' => $email
+                ])->execute();
+            }
+
+            public function getReloadlyUtilities($page=1){
+                return Curl::Make()->GET->url($this->getUtilityApiUrl() ."/billers?id=10&name=string&type=ELECTRICITY_BILL_PAYMENT&serviceType=string&countryISOCode=string&page=0&size=0")->header([
+                    "Content-Type:application/json",
+                    "Authorization: Bearer ".$this->utility_token
+                ])->execute();
+            }
+
         };
     }
 }
