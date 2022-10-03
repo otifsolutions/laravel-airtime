@@ -6,9 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use OTIFSolutions\LaravelAirtime\Commands\{SyncDingConnect,
     SyncDTone,
     SyncReloadly,
+    SyncReloadlyUtilityTransaction,
     SyncValueTopup,
-    SyncValueTopupStatus
-};
+    SyncValueTopupStatus};
 
 class AirtimeServiceProvider extends ServiceProvider {
 
@@ -22,7 +22,8 @@ class AirtimeServiceProvider extends ServiceProvider {
                 SyncValueTopupStatus::class,
                 SyncReloadly::class,
                 SyncDingConnect::class,
-                SyncDTone::class
+                SyncDTone::class,
+                SyncReloadlyUtilityTransaction::class
             ]);
         }
 

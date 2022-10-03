@@ -212,11 +212,21 @@ $rdTransaction = ReloadlyTransaction::create([
 
 $rdHelperObj->sendTopup($rdTransaction);
 ```
+Other fields that are to be filled with some `values/jsons` on API response for each transaction object
+
+| Colomn      | Detail                                                                                 |
+|:----------- |:-------------------------------------------------------------------------------------- |
+| status      | Status of current transaction whether it is SUCCESS or FAIL                            |
+| response    | When API request is hit, some kind of json details                                     |
+| pin         | In case of purchasing pin, this is pin number, filled when request is hit              |
+
+
+<br>
+
 
 
 ### How to send Reloady Gift Card transactions
-To send transaction, create an object of `ReloadlyTransaction` with properties, pass as parameter to the `Reloadly` helper
-class method `sendTopup(ReloadlyTransaction $reloadlyTransactionObj)` and execute it
+To send transaction, create an object of `ReloadlyGiftCardTransaction` with properties, call the sendTransaction() method on that object. 
 
 ```php
 
@@ -240,17 +250,35 @@ $rdTransaction->sendTransaction();
 ```
 
 
-Other fields that are to be filled with some `values/jsons` on API response for each transaction object
+### How to send Reloady Utility Bill transactions
+To send transaction, create an object of `ReloadlyUtilityTransaction` with properties, pass as parameter to the `Reloadly` helper
+class method `sendTopup(ReloadlyTransaction $reloadlyTransactionObj)` and execute it
 
-| Colomn      | Detail                                                                                 |
-|:----------- |:-------------------------------------------------------------------------------------- |
-| status      | Status of current transaction whether it is SUCCESS or FAIL                            |
-| response    | When API request is hit, some kind of json details                                     |
-| pin         | In case of purchasing pin, this is pin number, filled when request is hit              |
+```php
 
+$rdHelperObj = Reloadly::Make($key, $secred, $mode);
+$rdHelperObj->getUtilityToken();
+$utilityBiller = ReloadlyUtility::find($request['biller_id']); // The selected biller for which bill is paying.
 
-<br>
+$rdTransaction = ReloadlyUtilityTransaction::create([
+        'user_id' => $user['id'], // user who is using the service
+        'utility_id' => $utilityBiller['id'], // user who is using the service
+        'subscriber_account_number' => $request['account_number'], // customr/user no. for which service is used 
+        'is_local' => $request['is_local'], // Local amount or international amount 
+        'amount' => 10000, // The amount paid to the biller
+        'reference_id' => Str::random(10),
+    ]);
+$rdHelperObj->payUtilityBill($rdTransaction);
 
+``` 
+Now at console run the command to confirm the transaction
+```
+php artisan sync:reloadly_utility_transaction
+```
+OR You Can set the command to run after every minute in **app/Console/Kernel.php**
+```
+$schedule->command('sync:reloadly_utility_transaction')->everyMinute();
+```
 
 ### How artisan sync comamnd works for this service
 - First checks if this service is enabled or not

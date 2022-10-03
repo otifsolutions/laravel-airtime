@@ -3,7 +3,7 @@
 namespace OTIFSolutions\LaravelAirtime\Helpers;
 
 use OTIFSolutions\CurlHandler\Curl;
-use OTIFSolutions\LaravelAirtime\Models\{ReloadlyOperator, ReloadlyTransaction};
+use OTIFSolutions\LaravelAirtime\Models\{ReloadlyOperator, ReloadlyTransaction, ReloadlyUtilityTransaction};
 
 /**
  * Class Reloadly
@@ -271,10 +271,83 @@ class Reloadly {
             }
 
             public function getReloadlyUtilities($page=1){
-                return Curl::Make()->GET->url($this->getUtilityApiUrl() ."/billers?id=10&name=string&type=ELECTRICITY_BILL_PAYMENT&serviceType=string&countryISOCode=string&page=0&size=0")->header([
+                return Curl::Make()->GET->url($this->getUtilityApiUrl() ."/billers?page=$page&size=200")->header([
                     "Content-Type:application/json",
                     "Authorization: Bearer ".$this->utility_token
                 ])->execute();
+            }
+
+            public function payUtilityBill(ReloadlyUtilityTransaction $transaction): bool {
+                if (isset($transaction['utility_biller']['id'])) {
+                    $transaction['response'] = Curl::Make()->POST->url($this->getUtilityApiUrl() . "/pay")->header([
+                        "Content-Type:application/json",
+                        "Authorization: Bearer " . $this->utility_token
+                    ])->body([
+                        'subscriberAccountNumber' => $transaction['subscriber_account_number'],
+                        'billerId' => $transaction['utility_biller']['rid'],
+                        'amount' => $transaction['is_local'] ? $transaction['amount'] : $transaction['amount'] / $transaction['fx_rate'],
+                        'useLocalAmount' => $transaction['is_local'] ? "true" : "false",
+                        'referenceId' => $transaction['reference_id']
+                    ])->execute();
+                    if (isset($transaction['response']['status']) && $transaction['response']['id'] !== null && $transaction['response']['id'] !== '') {
+                        $transaction['t_id'] = $transaction['response']['id'];
+                        $transaction['status'] = $transaction['response']['status'];
+                        $transaction['reference_id'] = $transaction['response']['referenceId'];
+                        $transaction['code'] = $transaction['response']['code'];
+                        $transaction['message'] = $transaction['response']['message'];
+                        $transaction->save();
+                        return true;
+                    }
+
+                    $transaction['status'] = 'FAIL';
+                    $transaction->save();
+                    return false;
+                }
+
+                $transaction['status'] = 'FAIL';
+                $transaction['response'] = [
+                    'error' => 'UTILITY BILLER Not Found'
+                ];
+                $transaction->save();
+                return false;
+            }
+
+            public function confirmReloadlyUtilityTransaction(ReloadlyUtilityTransaction $transaction)
+            {
+                if (isset($transaction['t_id'])) {
+                    $transaction['response'] = Curl::Make()->GET->url($this->getUtilityApiUrl() . "/transactions/".$transaction['t_id'])->header([
+                        "Content-Type:application/json",
+                        "Authorization: Bearer " . $this->utility_token
+                    ])->execute();
+                    $transaction['code'] = $transaction['response']['code'];
+                    $transaction['message'] = $transaction['response']['message'];
+                    if (isset($transaction['response']['transaction']) && $transaction['response']['transaction']['status'] == 'SUCCESSFUL') {
+                        $transactionResponse = $transaction['response']['transaction'];
+                        $transaction['status'] = $transactionResponse['status'];
+                        $transaction['balance_info'] = $transactionResponse['balanceInfo'];
+                        $transaction['biller_details'] = $transactionResponse['billDetails'];
+                        $transaction['amount_currency_code'] = $transactionResponse['amountCurrencyCode'];
+                        $transaction['delivery_amount'] = $transactionResponse['deliveryAmount'];
+                        $transaction['delivery_amount_currency_code'] = $transactionResponse['deliveryAmountCurrencyCode'];
+                        $transaction['fee'] = $transactionResponse['fee'];
+                        $transaction['fee_currency_code'] = $transactionResponse['feeCurrencyCode'];
+                        $transaction['discount'] = $transactionResponse['discount'];
+                        $transaction['discount_currency_code'] = $transactionResponse['discountCurrencyCode'];
+                        $transaction['submitted_at'] = $transactionResponse['submittedAt'];
+                        $transaction->save();
+                        return true;
+                    }
+                    $transaction['status'] = 'FAIL';
+                    $transaction->save();
+                    return false;
+                }
+
+                $transaction['status'] = 'FAIL';
+                $transaction['response'] = [
+                    'error' => 'UTILITY BILLER Not Found'
+                ];
+                $transaction->save();
+                return false;
             }
 
         };

@@ -38,6 +38,8 @@ class SyncReloadly extends Command {
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_000006_create_reloadly_transactions_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000006_create_reloadly_gift_card_products_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000007_create_reloadly_gift_card_transactions_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000008_create_reloadly_utilities_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000008_create_reloadly_utility_transactions_table.php');
         $this->line('++++++++++++++++++++++++++++++++++++++++++++++');
 
         $this->line('');
@@ -375,10 +377,76 @@ class SyncReloadly extends Command {
             }
         } while (isset($response['totalPages']) && $response['totalPages'] >= $page);
 
+        $this->line('****************************************************************');
+        $this->info('All Reloadly Gift Cards Synced !!! ');
+        $this->line('****************************************************************');
+        $this->line('');
+
         $this->line('');
         $this->line('****************************************************************');
-        $this->info('Soft Deleting All Reloadly Gift Cards to Sync only Active ones');
+        $this->info('Soft Deleting All Reloadly Utility Billers to Sync only Active ones');
         $this->line('****************************************************************');
+        ReloadlyUtility::whereNull('deleted_at')->delete();
+        $page = 1;
+        $credentials['utility_token'] = $reloadly->getUtilityToken();
+        do {
+            $this->line(' ');
+            $this->line("Fetching Utility Payments : ".$page);
+            $response = $reloadly->getReloadlyUtilities($page);
+            $this->info("Fetch Success !!!");
+            $page++;
+            $this->line("Syncing with Database");
+            if (isset($response['content'])) {
+                $this->withProgressBar($response['content'], function ($biller) {
+                    if (isset($biller['id'], $biller['countryCode'])) {
+                        $country = ReloadlyCountry::where('iso', $biller['countryCode'])->first();
+                        if (!$country) {
+                            $currency = AirtimeCurrency::where('code', $biller['localTransactionCurrencyCode'])->first();
+                            if ($currency)
+                                $country = ReloadlyCountry::updateOrCreate(['iso' => $biller['country']['isoName']], [
+                                    'name' => $biller['country']['name'],
+                                    'flag' => $biller['country']['flagUrl'],
+                                    'currency_id' => $currency['id'],
+                                    'currency_code' => $biller['recipientCurrencyCode'],
+                                    'currency_name' => $biller['recipientCurrencyCode'],
+                                    'currency_symbol' => $biller['recipientCurrencyCode'],
+                                    'calling_codes' => []
+                                ]);
+                        }
+                        ReloadlyUtility::updateOrCreate(['rid' => $biller['id']],
+                            [
+                                'rid' => $biller['id'],
+                                'country_id' => $country['id'],
+                                'name' => $biller['name'],
+                                'country_code' => $biller['countryCode'],
+                                'country_name' => $biller['countryName'],
+                                'type' => $biller['type'],
+                                'service_type' => $biller['serviceType'],
+                                'local_amount_supported' => $biller['localAmountSupported'],
+                                'local_transaction_currency_code' => $biller['localTransactionCurrencyCode'],
+                                'min_local_transaction_amount' => $biller['minLocalTransactionAmount'],
+                                'max_local_transaction_amount' => $biller['maxLocalTransactionAmount'],
+                                'local_transaction_fee' => $biller['localTransactionFee'],
+                                'local_transaction_fee_currency_code' => $biller['localTransactionFeeCurrencyCode'],
+                                'fx_rate' => @$biller['fx']['rate'],
+                                'fx_currency_code' => @$biller['fx']['currencyCode'],
+                                'local_discount_percentage' => $biller['localDiscountPercentage'],
+                                'international_amount_supported' => $biller['internationalAmountSupported'],
+                                'international_transaction_currency_code' => $biller['internationalTransactionCurrencyCode'],
+                                'min_international_transaction_amount' => $biller['minInternationalTransactionAmount'],
+                                'max_international_transaction_amount' => $biller['maxInternationalTransactionAmount'],
+                                'international_transaction_fee' => $biller['internationalTransactionFee'],
+                                'international_transaction_fee_currency_code' => $biller['internationalTransactionFeeCurrencyCode'],
+                                'international_discount_percentage' => $biller['internationalDiscountPercentage'],
+                            ]
+                        );
+                    }
+                });
+                $this->line(' ');
+                $this->info("Sync Completed For ".count($response['content'])." Gift Products");
+            }
+        } while (isset($response['totalPages']) && $response['totalPages'] >= $page);
+
         return 0;
     }
 
