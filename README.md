@@ -101,7 +101,7 @@ the package will not allow you to do that. It'll ask you to enable it first.
     - [Commands for setting relaodly credentials](#commands-for-setting-relaodly-credentials)
     - [Scheduling command](#scheduling-command)
     - [How to send transactions](#how-to-send-transactions)
-    - [How to send gift card](#how-to-send-gift-cards)
+    - [How to send gift cards](#how-to-send-gift-cards)
     - [How to pay utility bills](#how-to-pay-utility-bills)
     - [How artisan sync comamnd works for this service](#how-artisan-sync-comamnd-works-for-this-service)
     - [Model relations for reloadly](#model-relations-for-reloadly)
@@ -227,7 +227,7 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 
 
-### How to send gift card
+### How to send gift cards
 To send transaction, create an object of `ReloadlyGiftCardTransaction` with properties, call the sendTransaction() method on that object. 
 
 ```php
