@@ -101,6 +101,8 @@ the package will not allow you to do that. It'll ask you to enable it first.
     - [Commands for setting relaodly credentials](#commands-for-setting-relaodly-credentials)
     - [Scheduling command](#scheduling-command)
     - [How to send transactions](#how-to-send-transactions)
+    - [How to send gift card](#how-to-send-gift-cards)
+    - [How to pay utility bills](#how-to-pay-utility-bills)
     - [How artisan sync comamnd works for this service](#how-artisan-sync-comamnd-works-for-this-service)
     - [Model relations for reloadly](#model-relations-for-reloadly)
 - [Value Topup](#value-topup)
@@ -225,14 +227,14 @@ Other fields that are to be filled with some `values/jsons` on API response for 
 
 
 
-### How to send Reloady Gift Card transactions
+### How to send gift card
 To send transaction, create an object of `ReloadlyGiftCardTransaction` with properties, call the sendTransaction() method on that object. 
 
 ```php
 
 $rdHelperObj = Reloadly::Make($key, $secred, $mode);
 $rdHelperObj->getGiftToken();
-$giftCard = GiftCardProduct::find($request['gift_id']); // selected gift card
+$giftCard = ReloadlyGiftCardProduct::find($request['gift_id']); // selected gift card
 $rdTransaction = ReloadlyGiftCardTransaction::create([
         'user_id' => $user['id'], // user who is using the service
         'email' => $request['email'], // customr/user for whick service is used
@@ -247,10 +249,11 @@ $rdTransaction = ReloadlyGiftCardTransaction::create([
         'reference' => Str::random(10),
     ]);
 $rdTransaction->sendTransaction();
+
 ```
 
 
-### How to send Reloady Utility Bill transactions
+### How to pay utility bills
 To send transaction, create an object of `ReloadlyUtilityTransaction` with properties, pass as parameter to the `Reloadly` helper
 class method `sendTopup(ReloadlyTransaction $reloadlyTransactionObj)` and execute it
 
@@ -270,12 +273,16 @@ $rdTransaction = ReloadlyUtilityTransaction::create([
     ]);
 $rdHelperObj->payUtilityBill($rdTransaction);
 
+```
+Now You need to confirm the transaction by add this line:
+```
+$rdHelperObj->confirmReloadlyUtilityTransaction($rdTransaction);
 ``` 
-Now at console run the command to confirm the transaction
+OR by running this command 
 ```
 php artisan sync:reloadly_utility_transaction
-```
-OR You Can set the command to run after every minute in **app/Console/Kernel.php**
+``` 
+You Can set the command to run after every minute in **app/Console/Kernel.php**
 ```
 $schedule->command('sync:reloadly_utility_transaction')->everyMinute();
 ```
