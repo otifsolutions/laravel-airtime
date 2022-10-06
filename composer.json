@@ -22,7 +22,7 @@
     }
   },
   "require": {
-    "otifsolutions/curl-handler": "^1",
+    "otifsolutions/curl-handler": "^1.0",
     "otifsolutions/laravel-settings": "^1"
   }
 }
