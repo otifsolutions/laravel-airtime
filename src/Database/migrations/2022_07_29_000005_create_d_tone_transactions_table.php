@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use OTIFSolutions\Laravel\Settings\Models\Setting;
 
-return new class extends Migration {
+class CreateDToneTransactionsTable extends Migration {
 
     public function up() {
 
