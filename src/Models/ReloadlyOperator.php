@@ -22,19 +22,19 @@ class ReloadlyOperator extends Model {
     ];
 
     public function country() {
-        return $this->belongsTo(ReloadlyCountry::class);
+        return $this->belongsTo(ReloadlyCountry::class,'country_id');
     }
 
     public function discount() {
-        return $this->hasOne(ReloadlyDiscount::class);
+        return $this->hasOne(ReloadlyDiscount::class,'operator_id');
     }
 
     public function promotions() {
-        return $this->hasMany(ReloadlyPromotion::class);
+        return $this->hasMany(ReloadlyPromotion::class,'operator_id');
     }
 
     public function transactions() {
-        return $this->hasMany(ReloadlyTransaction::class);
+        return $this->hasMany(ReloadlyTransaction::class,'operator_id');
     }
 
     public function currency() {

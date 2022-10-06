@@ -13,7 +13,7 @@ class ReloadlyCountry extends Model {
     protected $casts = ['calling_codes' => 'json'];
 
     public function operators() {
-        return $this->hasMany(ReloadlyOperator::class);
+        return $this->hasMany(ReloadlyOperator::class,'country_id');
     }
 
     public  function gifts(){

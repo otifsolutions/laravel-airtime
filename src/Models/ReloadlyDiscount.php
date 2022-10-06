@@ -12,7 +12,7 @@ class ReloadlyDiscount extends Model {
     protected $guarded = ['id'];
 
     public function operator() {
-        return $this->belongsTo(ReloadlyOperator::class);
+        return $this->belongsTo(ReloadlyOperator::class,'operator_id');
     }
 
 }
