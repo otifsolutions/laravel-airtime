@@ -27,12 +27,16 @@ class ReloadlyGiftCardProduct extends Model
     public function getAmountsAttribute(){
         $discount = 0; // Can be set based on your logic like $discount = $this->pivot->discount
         $amounts = [];
-        foreach ($this['fixed_denominations_map'] as $key => $denomonation)
-        {
-            $amounts[$key] = $denomonation + $this['sender_fee'];
-            $amounts[$key] *= (1 - ($discount / 100));
-            $amounts[$key] = round($amounts[$key],2);
+
+        if($this['denomination_type'] == 'FIXED') {
+            foreach ($this['fixed_denominations_map'] as $key => $denomonation)
+            {
+                $amounts[$key] = $denomonation + $this['sender_fee'];
+                $amounts[$key] *= (1 - ($discount / 100));
+                $amounts[$key] = round($amounts[$key],2);
+            }
         }
+    
         return $amounts;
     }
 }
