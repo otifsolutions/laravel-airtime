@@ -335,41 +335,45 @@ class SyncReloadly extends Command {
                         $country = ReloadlyCountry::where('iso', $product['country']['isoName'])->first();
                         if (!$country) {
                             $currency = AirtimeCurrency::where('code', $product['recipientCurrencyCode'])->first();
-                            $country = ReloadlyCountry::updateOrCreate(['iso' => $product['country']['isoName']], [
-                                'name' => $product['country']['name'],
-                                'flag' => $product['country']['flagUrl'],
-                                'currency_id' => $currency['id'],
-                                'currency_code' => $product['recipientCurrencyCode'],
-                                'currency_name' => $product['recipientCurrencyCode'],
-                                'currency_symbol' => $product['recipientCurrencyCode'],
-                                'calling_codes' => []
-                            ]);
+                            if ($currency) {
+                                $country = ReloadlyCountry::updateOrCreate(['iso' => $product['country']['isoName']], [
+                                    'name' => $product['country']['name'],
+                                    'flag' => $product['country']['flagUrl'],
+                                    'currency_id' => $currency['id'],
+                                    'currency_code' => $product['recipientCurrencyCode'],
+                                    'currency_name' => $product['recipientCurrencyCode'],
+                                    'currency_symbol' => $product['recipientCurrencyCode'],
+                                    'calling_codes' => []
+                                ]);
+                            }
                         }
-                        ReloadlyGiftCardProduct::updateOrCreate(
-                            ['rid' => $product['productId']],
-                            [
-                                'rid' => $product['productId'],
-                                'country_id' => $country['id'],
-                                'title' => $product['productName'],
-                                'is_global' => $product['global'],
-                                'sender_fee' => $product['senderFee'],
-                                'discount_percentage' => $product['discountPercentage'],
-                                'denomination_type' => $product['denominationType'],
-                                'recipient_currency_code' => $product['recipientCurrencyCode'],
-                                'min_recipient_denomination' => $product['minRecipientDenomination'],
-                                'max_recipient_denomination' => $product['maxRecipientDenomination'],
-                                'sender_currency_code' => $product['senderCurrencyCode'],
-                                'min_sender_denomination' => $product['minSenderDenomination'],
-                                'max_sender_denomination' => $product['maxSenderDenomination'],
-                                'fixed_recipient_denominations' => $product['fixedRecipientDenominations'],
-                                'fixed_sender_denominations' => $product['fixedSenderDenominations'],
-                                'fixed_denominations_map' => $product['fixedRecipientToSenderDenominationsMap'],
-                                'logo_urls' => $product['logoUrls'],
-                                'brand' => $product['brand'],
-                                'country' => $product['country'],
-                                'redeem_instruction' => $product['redeemInstruction'],
-                            ]
-                        );
+                        if ($country){
+                            ReloadlyGiftCardProduct::updateOrCreate(
+                                ['rid' => $product['productId']],
+                                [
+                                    'rid' => $product['productId'],
+                                    'country_id' => $country['id'],
+                                    'title' => $product['productName'],
+                                    'is_global' => $product['global'],
+                                    'sender_fee' => $product['senderFee'],
+                                    'discount_percentage' => $product['discountPercentage'],
+                                    'denomination_type' => $product['denominationType'],
+                                    'recipient_currency_code' => $product['recipientCurrencyCode'],
+                                    'min_recipient_denomination' => $product['minRecipientDenomination'],
+                                    'max_recipient_denomination' => $product['maxRecipientDenomination'],
+                                    'sender_currency_code' => $product['senderCurrencyCode'],
+                                    'min_sender_denomination' => $product['minSenderDenomination'],
+                                    'max_sender_denomination' => $product['maxSenderDenomination'],
+                                    'fixed_recipient_denominations' => $product['fixedRecipientDenominations'],
+                                    'fixed_sender_denominations' => $product['fixedSenderDenominations'],
+                                    'fixed_denominations_map' => $product['fixedRecipientToSenderDenominationsMap'],
+                                    'logo_urls' => $product['logoUrls'],
+                                    'brand' => $product['brand'],
+                                    'country' => $product['country'],
+                                    'redeem_instruction' => $product['redeemInstruction'],
+                                ]
+                            );
+                        }
                     }
                 });
                 $this->line(' ');
@@ -413,33 +417,35 @@ class SyncReloadly extends Command {
                                     'calling_codes' => []
                                 ]);
                         }
-                        ReloadlyUtility::updateOrCreate(['rid' => $biller['id']],
-                            [
-                                'rid' => $biller['id'],
-                                'country_id' => $country['id'],
-                                'name' => $biller['name'],
-                                'country_code' => $biller['countryCode'],
-                                'country_name' => $biller['countryName'],
-                                'type' => $biller['type'],
-                                'service_type' => $biller['serviceType'],
-                                'local_amount_supported' => $biller['localAmountSupported'],
-                                'local_transaction_currency_code' => $biller['localTransactionCurrencyCode'],
-                                'min_local_transaction_amount' => $biller['minLocalTransactionAmount'],
-                                'max_local_transaction_amount' => $biller['maxLocalTransactionAmount'],
-                                'local_transaction_fee' => $biller['localTransactionFee'],
-                                'local_transaction_fee_currency_code' => $biller['localTransactionFeeCurrencyCode'],
-                                'fx_rate' => @$biller['fx']['rate'],
-                                'fx_currency_code' => @$biller['fx']['currencyCode'],
-                                'local_discount_percentage' => $biller['localDiscountPercentage'],
-                                'international_amount_supported' => $biller['internationalAmountSupported'],
-                                'international_transaction_currency_code' => $biller['internationalTransactionCurrencyCode'],
-                                'min_international_transaction_amount' => $biller['minInternationalTransactionAmount'],
-                                'max_international_transaction_amount' => $biller['maxInternationalTransactionAmount'],
-                                'international_transaction_fee' => $biller['internationalTransactionFee'],
-                                'international_transaction_fee_currency_code' => $biller['internationalTransactionFeeCurrencyCode'],
-                                'international_discount_percentage' => $biller['internationalDiscountPercentage'],
-                            ]
-                        );
+                        if ($country){
+                            ReloadlyUtility::updateOrCreate(['rid' => $biller['id']],
+                                [
+                                    'rid' => $biller['id'],
+                                    'country_id' => $country['id'],
+                                    'name' => $biller['name'],
+                                    'country_code' => $biller['countryCode'],
+                                    'country_name' => $biller['countryName'],
+                                    'type' => $biller['type'],
+                                    'service_type' => $biller['serviceType'],
+                                    'local_amount_supported' => $biller['localAmountSupported'],
+                                    'local_transaction_currency_code' => $biller['localTransactionCurrencyCode'],
+                                    'min_local_transaction_amount' => $biller['minLocalTransactionAmount'],
+                                    'max_local_transaction_amount' => $biller['maxLocalTransactionAmount'],
+                                    'local_transaction_fee' => $biller['localTransactionFee'],
+                                    'local_transaction_fee_currency_code' => $biller['localTransactionFeeCurrencyCode'],
+                                    'fx_rate' => @$biller['fx']['rate'],
+                                    'fx_currency_code' => @$biller['fx']['currencyCode'],
+                                    'local_discount_percentage' => $biller['localDiscountPercentage'],
+                                    'international_amount_supported' => $biller['internationalAmountSupported'],
+                                    'international_transaction_currency_code' => $biller['internationalTransactionCurrencyCode'],
+                                    'min_international_transaction_amount' => $biller['minInternationalTransactionAmount'],
+                                    'max_international_transaction_amount' => $biller['maxInternationalTransactionAmount'],
+                                    'international_transaction_fee' => $biller['internationalTransactionFee'],
+                                    'international_transaction_fee_currency_code' => $biller['internationalTransactionFeeCurrencyCode'],
+                                    'international_discount_percentage' => $biller['internationalDiscountPercentage'],
+                                ]
+                            );
+                        }
                     }
                 });
                 $this->line(' ');
