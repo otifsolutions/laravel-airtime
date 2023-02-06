@@ -28,7 +28,8 @@ class CreateReloadlyCountriesTable extends Migration {
                 ->on('airtime_currencies');
 
             $table->string('currency_name');
-            $table->string('currency_symbol');
+            $table->string('currency_code')->nullable();
+            $table->string('currency_symbol')->nullable();
             $table->string('flag');
             $table->json('calling_codes');
             $table->timestamps();

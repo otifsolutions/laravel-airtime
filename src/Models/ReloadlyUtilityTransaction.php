@@ -23,4 +23,8 @@ class ReloadlyUtilityTransaction extends Model
     public function utility_biller(){
         return $this->belongsTo(ReloadlyUtility::class,'utility_id');
     }
+
+    public function getFxRateAttribute(){
+        return @$this['utility_biller']['fx_rate'] ?? 1;
+    }
 }
