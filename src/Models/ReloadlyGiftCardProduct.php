@@ -36,7 +36,11 @@ class ReloadlyGiftCardProduct extends Model
                 $amounts[$key] = round($amounts[$key],2);
             }
         }
-    
+
         return $amounts;
+    }
+
+    public function transactions(){
+        return $this->hasMany(ReloadlyGiftCardTransaction::class,'product_id');
     }
 }

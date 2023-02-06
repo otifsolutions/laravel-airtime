@@ -14,4 +14,8 @@ class ReloadlyUtility extends Model
     public function country(){
         return $this->belongsTo(ReloadlyCountry::class,'country_id');
     }
+
+    public function transactions(){
+        return $this->hasMany(ReloadlyUtilityTransaction::class,'utility_id');
+    }
 }
