@@ -348,7 +348,7 @@ class SyncReloadly extends Command {
                             }
                         }
                         if ($country){
-                            ReloadlyGiftCardProduct::updateOrCreate(
+                            ReloadlyGiftCardProduct::withTrashed()->updateOrCreate(
                                 ['rid' => $product['productId']],
                                 [
                                     'rid' => $product['productId'],
@@ -371,6 +371,7 @@ class SyncReloadly extends Command {
                                     'brand' => $product['brand'],
                                     'country' => $product['country'],
                                     'redeem_instruction' => $product['redeemInstruction'],
+                                    'deleted_at' => NULL
                                 ]
                             );
                         }
@@ -418,7 +419,7 @@ class SyncReloadly extends Command {
                                 ]);
                         }
                         if ($country){
-                            ReloadlyUtility::updateOrCreate(['rid' => $biller['id']],
+                            ReloadlyUtility::withTrashed()->updateOrCreate(['rid' => $biller['id']],
                                 [
                                     'rid' => $biller['id'],
                                     'country_id' => $country['id'],
@@ -443,6 +444,7 @@ class SyncReloadly extends Command {
                                     'international_transaction_fee' => $biller['internationalTransactionFee'],
                                     'international_transaction_fee_currency_code' => $biller['internationalTransactionFeeCurrencyCode'],
                                     'international_discount_percentage' => $biller['internationalDiscountPercentage'],
+                                    'deleted_at' => NULL
                                 ]
                             );
                         }
