@@ -3,7 +3,10 @@
 namespace OTIFSolutions\LaravelAirtime\Helpers;
 
 use OTIFSolutions\CurlHandler\Curl;
-use OTIFSolutions\LaravelAirtime\Models\{ReloadlyOperator, ReloadlyTransaction, ReloadlyUtilityTransaction};
+use OTIFSolutions\LaravelAirtime\Models\{ReloadlyGiftCardTransaction,
+    ReloadlyOperator,
+    ReloadlyTransaction,
+    ReloadlyUtilityTransaction};
 
 /**
  * Class Reloadly
@@ -268,6 +271,29 @@ class Reloadly {
                     'senderName' => $senderName,
                     'recipientEmail' => $email
                 ])->execute();
+            }
+
+            public function getReloadlyGiftTransaction(ReloadlyGiftCardTransaction $transaction)
+            {
+                if (isset($transaction['transaction_id'])) {
+                    $response = Curl::Make()->GET->url($this->getGiftCardApiUrl() . "/reports/transactions/" . $transaction['transaction_id'])->header([
+                        "Content-Type:application/json",
+                        "Authorization: Bearer " . $this->gift_token
+                    ])->execute();
+                    if (isset($response['status'])) {
+                        if($response['status'] === 'SUCCESSFUL') {
+                            $transaction['transaction_id'] = $response['transactionId'];
+                            $transaction['status'] = 'SUCCESS';
+                        }else if($response['status'] === 'PENDING') {
+                            $transaction['transaction_id'] = $response['transactionId'];
+                            $transaction['status'] = 'PROCESSING';
+                        }
+                    } else {
+                        $transaction['status'] = 'FAIL';
+                    }
+                    $transaction['response'] = $response;
+                    $transaction->save();
+                }
             }
 
             public function getReloadlyUtilities($page=1){

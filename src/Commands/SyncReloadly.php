@@ -38,6 +38,7 @@ class SyncReloadly extends Command {
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_18_000006_create_reloadly_transactions_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000006_create_reloadly_gift_card_products_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000007_create_reloadly_gift_card_transactions_table.php');
+        Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2023_05_03_084523_add_processing_status_to_reloadly_gift_card_transactions_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000008_create_reloadly_utilities_table.php');
         Artisan::call('migrate --path=vendor/otifsolutions/laravel-airtime/src/Database/migrations/2022_07_29_000008_create_reloadly_utility_transactions_table.php');
         $this->line('++++++++++++++++++++++++++++++++++++++++++++++');

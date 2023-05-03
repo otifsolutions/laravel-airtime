@@ -38,6 +38,10 @@ class ReloadlyGiftCardTransaction extends Model
         return $this->belongsTo(ReloadlyGiftCardProduct::class,'product_id');
     }
 
+    public function product_details(){
+        return $this->belongsTo(ReloadlyGiftCardProduct::class,'product_id');
+    }
+
     public function sendTransaction(){
         $credentials = [
             'key' => Setting::get('reloadly_api_key'),
@@ -53,9 +57,14 @@ class ReloadlyGiftCardTransaction extends Model
             $response = $reloadly->orderReloadlyGiftProducts($this['product']['rid'], $this['product']['country']['isoName'], 1,
                 $this['recipient_amount'], $this['reference'], $this['user']['name'], $this['email']);
 
-            if ((isset($response['status'])) && ($response['status'] === 'SUCCESSFUL')) {
-                $this['transaction_id'] = $response['transactionId'];
-                $this['status'] = 'SUCCESS';
+            if (isset($response['status'])) {
+                if($response['status'] === 'SUCCESSFUL') {
+                    $this['transaction_id'] = $response['transactionId'];
+                    $this['status'] = 'SUCCESS';
+                }else if($response['status'] === 'PENDING') {
+                    $this['transaction_id'] = $response['transactionId'];
+                    $this['status'] = 'PROCESSING';
+                }
             } else {
                 $this['status'] = 'FAIL';
             }
