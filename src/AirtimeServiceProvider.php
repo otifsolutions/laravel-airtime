@@ -16,16 +16,14 @@ class AirtimeServiceProvider extends ServiceProvider {
 
         $this->loadMigrationsFrom(__DIR__ . '/Database/migrations/2022_07_18_000001_create_airtime_currencies_table.php');
 
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                SyncValueTopup::class,
-                SyncValueTopupStatus::class,
-                SyncReloadly::class,
-                SyncDingConnect::class,
-                SyncDTone::class,
-                SyncReloadlyUtilityTransaction::class
-            ]);
-        }
+        $this->commands([
+            SyncValueTopup::class,
+            SyncValueTopupStatus::class,
+            SyncReloadly::class,
+            SyncDingConnect::class,
+            SyncDTone::class,
+            SyncReloadlyUtilityTransaction::class
+        ]);
 
     }
 }
