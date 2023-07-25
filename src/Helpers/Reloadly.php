@@ -296,6 +296,16 @@ class Reloadly {
                 }
             }
 
+            public function getReloadlyGiftRedeemCode(ReloadlyGiftCardTransaction $transaction)
+            {
+                if (isset($transaction['transaction_id'])) {
+                    return Curl::Make()->GET->url($this->getGiftCardApiUrl() . "/orders/transactions/" . $transaction['transaction_id'].'/cards')->header([
+                        "Content-Type:application/json",
+                        "Authorization: Bearer " . $this->gift_token
+                    ])->execute();
+                }
+            }
+
             public function getReloadlyUtilities($page=1){
                 return Curl::Make()->GET->url($this->getUtilityApiUrl() ."/billers?page=$page&size=200")->header([
                     "Content-Type:application/json",
